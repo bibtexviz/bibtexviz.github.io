@@ -1,0 +1,21 @@
+body {
+  font-family: sans-serif;
+  background: #f9f9f9;
+  margin: 0;
+  padding: 0;
+}
+
+.pub-square text {
+  font-size: 12px;
+  pointer-events: none;
+}
+
+.pub-square {
+  cursor: pointer;
+  transition: transform 0.2s;
+  transform-origin: center;
+}
+
+.pub-square:hover {
+  filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.5));
+}
