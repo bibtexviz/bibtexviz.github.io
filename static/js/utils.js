@@ -1,38 +1,40 @@
 /**
- * Procesa una cadena de texto para devolverla tal cual si es corta, 
- * o encontrar/crear un acrónimo si es larga. El acrónimo creado
- * no excederá el límite de caracteres N.
+ * Processes a text string to return it as is if it is short,
+ * or to find/create an acronym if it is long. The created acronym
+ * will not exceed the character limit N.
  *
- * @param {string} text La cadena de texto a procesar.
- * @param {number} N El número máximo de caracteres.
- * @returns {string} La cadena original o un acrónimo (posiblemente truncado).
+ * @param {string} text The text string to be processed.
+ * @param {number} N The maximum number of characters.
+ * @returns {string} The original string or an acronym (possibly truncated).
  */
 function getAcronymOrTruncate(text, N) {
-    // 1. Manejar casos de entrada no válidos o vacíos.
+    // 1. Handle invalid or empty input cases.
     if (typeof text !== 'string' || !text) {
         return '';
     }
 
-    // 2. Devolver la cadena tal cual si su longitud es menor o igual a N.
+    // 2. Return the string as is if its length is less than or equal to N.
     if (text.length <= N) {
         return text;
     }
 
-    // 3. Buscar un acrónimo usando una expresión regular.
-    const acronymRegex = /[({]([A-Z]+)[})]/g;
+    // 3. Search for an acronym using a regular expression.
+    const acronymRegex = /[({]([a-zA-Z\-]+)[})]/g;
     let match;
     let lastMatch = null;
 
+    // Iterate over all matches to find the last one.
     while ((match = acronymRegex.exec(text)) !== null) {
         lastMatch = match[1];
     }
 
+    // If an acronym was found, return it.
     if (lastMatch) {
         return lastMatch;
     }
 
-    // 4. Si no se encontró un acrónimo, construir uno con las iniciales.
-    // Limpiar la cadena de caracteres especiales para obtener las palabras.
+    // 4. If no acronym was found, build one with the initials.
+    // Clean the string of special characters to get the words.
     const cleanedText = text.replace(/[^a-zA-Z\s]/g, '');
 
     let initialsAcronym = cleanedText
@@ -41,38 +43,170 @@ function getAcronymOrTruncate(text, N) {
         .join('')
         .toUpperCase();
 
-    // Validar que el acrónimo construido no exceda el límite N
+    // Validate that the built acronym does not exceed the limit N
     if (initialsAcronym.length > N) {
-        // ** Lógica modificada para truncar el acrónimo y quedarte con las últimas N letras **
+        // ** Modified logic to truncate the acronym and keep the last N characters **
         return initialsAcronym.slice(-N);
     }
 
     return initialsAcronym;
 }
 
-// --- Ejemplos de uso ---
+/**
+ * Formats a DOI string to ensure it is a complete URL.
+ * If the string is already a URL, it returns it unchanged.
+ * Otherwise, it prepends "https://doi.org/".
+ *
+ * @param {string} doiString The string which can be a DOI or a complete URL.
+ * @returns {string} The complete URL for the DOI.
+ */
+function formatDoiUrl(doiString) {
+    // Handle invalid or empty input cases
+    if (typeof doiString !== 'string' || !doiString) {
+        return '';
+    }
+    
+    // Check if the string already starts with a URL prefix
+    // Both HTTPS and HTTP are checked just in case
+    if (doiString.startsWith('https://') || doiString.startsWith('http://')) {
+        return doiString;
+    }
+    
+    // If it's not a complete URL, add the standard DOI prefix
+    return `https://doi.org/${doiString}`;
+}
 
-// Ejemplo 1: La cadena es corta, se devuelve tal cual.
-const shortText = "JSS";
-const result1 = getAcronymOrTruncate(shortText, 5);
-console.log(`Texto corto: "${shortText}" -> "${result1}"`); // Salida: "JSS"
 
-// Ejemplo 2: La cadena es larga y tiene un acrónimo al final.
-const textWithAcronym = "28th ACM International Systems and Software Product Line Conference (SPLC)";
-const result2 = getAcronymOrTruncate(textWithAcronym, 30);
-console.log(`Con acrónimo: "${textWithAcronym}" -> "${result2}"`); // Salida: "SPLC"
+/**
+ * Calculates the Levenshtein distance between two strings.
+ * It's a measure of the similarity of the two strings.
+ * @param {string} a The first string.
+ * @param {string} b The second string.
+ * @returns {number} The Levenshtein distance.
+ */
+function levenshteinDistance(a, b) {
+    const matrix = [];
+    for (let i = 0; i <= b.length; i++) {
+        matrix[i] = [i];
+    }
+    for (let j = 0; j <= a.length; j++) {
+        matrix[0][j] = j;
+    }
+    for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+            const cost = a.charAt(j - 1) === b.charAt(i - 1) ? 0 : 1;
+            matrix[i][j] = Math.min(
+                matrix[i - 1][j] + 1,      // Deletion
+                matrix[i][j - 1] + 1,      // Insertion
+                matrix[i - 1][j - 1] + cost  // Substitution
+            );
+        }
+    }
+    return matrix[b.length][a.length];
+}
 
-// Ejemplo 3: La cadena es larga y NO tiene un acrónimo definido.
-const textWithoutAcronym = "International Conference on Software Engineering and Knowledge Engineering";
-const result3 = getAcronymOrTruncate(textWithoutAcronym, 20);
-console.log(`Sin acrónimo: "${textWithoutAcronym}" -> "${result3}"`); // Salida: "ICSEAKE"
+/**
+ * Cleans and normalizes an author's name for robust comparison.
+ * Converts to lowercase, removes accents, periods, hyphens, and LaTeX characters.
+ * @param {string} name The name to clean.
+ * @returns {string} The normalized name.
+ */
+function normalizeName(name) {
+    if (!name) return '';
+    let cleaned = name.trim();
+    
+    // Removes common LaTeX characters like {\'{e}} or {-}
+    cleaned = cleaned.replace(/\{\\['"`~]\s*\{?(\w)\}\s*\}/g, '$1');
+    cleaned = cleaned.replace(/\{\\['"`~](\w)\}/g, '$1');
+    cleaned = cleaned.replace(/\{-}/g, '');
+    cleaned = cleaned.replace(/\{(\w)\}/g, '$1');
+    
+    // Normalizes accents and special characters (José -> Jose)
+    cleaned = cleaned.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-// Ejemplo 4: La cadena es larga, no tiene acrónimo y el construido se trunca.
-const longTitle = "International Symposium on Formal Methods for Components and Objects";
-const result4 = getAcronymOrTruncate(longTitle, 5); // N = 5
-console.log(`Acrónimo truncado: "${longTitle}" -> "${result4}"`); // Salida: "ISFMC" (de ISFMCO)
+    // Converts to lowercase and removes periods, commas, and hyphens
+    cleaned = cleaned.toLowerCase().replace(/[\.-]/g, '');
 
-// Ejemplo 5: La cadena es larga, no tiene acrónimo y el construido no necesita truncarse.
-const longTitle2 = "Web Engineering";
-const result5 = getAcronymOrTruncate(longTitle2, 5); // N = 5
-console.log(`Acrónimo sin truncar: "${longTitle2}" -> "${result5}"`); // Salida: "WE"
+    // Normalizes multiple spaces to a single space
+    cleaned = cleaned.replace(/\s+/g, ' ').trim();
+    
+    return cleaned;
+}
+
+/**
+ * Finds the position of an author in an author string.
+ * It uses an improved fuzzy search strategy.
+ *
+ * @param {string} authorsString The string with the list of authors.
+ * @param {string} targetName The name of the author to search for.
+ * @returns {string} The position in "X/Y" format.
+ */
+function findAuthorPosition(authorsString, targetName) {
+    // Handle null or empty inputs
+    if (!authorsString) {
+        return '';
+    }
+
+    // Use a regular expression to handle the delimiters " and ", ",", ";"
+    const delimiters = /\s*and\s*|;|,/g;
+    const authors = authorsString
+        .split(delimiters)
+        .map(name => name.trim());
+
+    const totalAuthors = authors.length;
+    if (totalAuthors === 0) {
+        return '';
+    }
+    if (!targetName) {
+        return `${totalAuthors}`;
+    }
+    
+    const normalizedTargetName = normalizeName(targetName);
+    const targetNameWords = normalizedTargetName.split(' ');
+    const targetInitials = targetNameWords.map(word => word.charAt(0)).join('');
+
+    let bestMatchIndex = -1;
+    let maxSimilarity = 0;
+    const minSimilarityThreshold = 0.8;
+
+    // Find the most similar author using a multi-step strategy
+    authors.forEach((author, index) => {
+        const normalizedAuthorName = normalizeName(author);
+        const authorNameWords = normalizedAuthorName.split(' ');
+        const authorInitials = authorNameWords.map(word => word.charAt(0)).join('');
+
+        let similarityScore = 0;
+
+        // 1. Word match (subset/superset)
+        const isSubset = targetNameWords.every(word => authorNameWords.includes(word));
+        const isSuperset = authorNameWords.every(word => targetNameWords.includes(word));
+
+        if (isSubset || isSuperset) {
+            similarityScore = 1.0; // Perfect or strong partial match
+        } else {
+            // 2. Initial match
+            if (authorInitials === targetInitials) {
+                similarityScore = 0.95; // Initial match
+            } else {
+                // 3. Levenshtein fallback for typos
+                const distance = levenshteinDistance(normalizedTargetName, normalizedAuthorName);
+                const maxLength = Math.max(normalizedTargetName.length, normalizedAuthorName.length);
+                similarityScore = 1 - (distance / maxLength);
+            }
+        }
+        
+        if (similarityScore > maxSimilarity) {
+            maxSimilarity = similarityScore;
+            bestMatchIndex = index;
+        }
+    });
+
+    // Return the position if the similarity is above the threshold
+    if (maxSimilarity >= minSimilarityThreshold) {
+        // The position is 1-based, not 0-based
+        return `${bestMatchIndex + 1}/${totalAuthors}`;
+    } else {
+        // If a valid match is not found, return 0
+        return `${totalAuthors}`;
+    }
+}

@@ -92,7 +92,7 @@ function drawChart(publications, chartId) {
         .data(positionedPublications)
         .enter()
         .append("a")
-        .attr("xlink:href", d => d.doi)
+        .attr("xlink:href", d => d.doi || null)
         .attr("target", "_blank");
 
     const squares = group.append("g")

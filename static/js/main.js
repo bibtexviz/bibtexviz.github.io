@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         event.stopPropagation();
         
+        const researcherName = document.getElementById('researcherName').value;
         const bibFile = document.getElementById('bibFile').files[0];
         
         if (form.checkValidity()) {
@@ -31,12 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             type: pub.entryType.toLowerCase(), // Ejemplo: "article" -> "journal"
                             quartile: null, // Deberías extraer esta información si está disponible
                             icore: null,
-                            authorPosition: 'N/A',
+                            authorPosition: findAuthorPosition(pub.entryTags?.author || '', researcherName), // Cambia el nombre según tu caso
                             acronym: getAcronymOrTruncate(pub.entryTags?.journal || pub.entryTags?.booktitle || '', 8), // Usar el título del journal o del libro
                             track: null,
                             awards: pub.entryTags?.awards ? pub.entryTags.awards.split(',').map(a => a.trim()) : [],
                             icons: [],
-                            doi: pub.entryTags?.doi || '',
+                            doi: formatDoiUrl(pub.entryTags?.doi || pub.entryTags?.url || ''),
                             year: parseInt(pub.entryTags?.year),
                             date: pub.entryTags?.month && pub.entryTags?.year ? `${pub.entryTags?.year}-${pub.entryTags?.month}-01` : `${pub.entryTags?.year}-01-01`
                         }));
