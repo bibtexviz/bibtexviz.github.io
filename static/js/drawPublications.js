@@ -149,20 +149,19 @@ function drawChart(publications, chartId) {
         .attr("text-anchor", "start")
         .text(d => d.authorPosition);
 
-    // Etiquetas de año debajo de cada columna
-    const years = [...new Set(positionedPublications.map(p => p.year))].sort();
-
+   // Etiquetas de año debajo de cada columna, incluyendo años sin publicaciones
     svg.selectAll("text.year-label")
-        .data(years)
-        .enter()
-        .append("text")
-        .attr("class", "year-label")
-        .attr("x", (d, i) => xStart + i * columnGap + squareSize / 2)
-        .attr("y", yBase + 30)
-        .attr("text-anchor", "middle")
-        .attr("font-weight", "bold")
-        .attr("font-size", "14px")
-        .text(d => d);
+    .data(groupedByYear)
+    .enter()
+    .append("text")
+    .attr("class", "year-label")
+    .attr("x", (d, i) => xStart + i * columnGap + squareSize / 2)
+    .attr("y", yBase + 30)
+    .attr("text-anchor", "middle")
+    .attr("font-weight", "bold")
+    .attr("font-size", "14px")
+    .text(d => d[0]);  // el año está en la primera posición de la tupla
+
 }
 
 // Ejemplo de datos, ahora en una constante
