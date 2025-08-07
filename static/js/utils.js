@@ -248,3 +248,24 @@ function getMonthNumber(monthString) {
   // Return the value from the map if it exists; otherwise, return null.
   return monthMap[month] || null;
 }
+
+
+function getEntryType(entryType, booktitle, icoreRanking, isWorkshop) {
+  if (entryType === 'article') {
+    return 'journal';
+  } else if (entryType === 'proceedings') {
+    return 'editorship';
+  } else if (['book', 'phdthesis'].includes(entryType)) {
+    return 'book';
+  } else if (booktitle) {
+    if (isWorkshop) {
+      return 'workshop';
+    } else if (icoreRanking?.rank) {
+      return 'indexed_conf';
+    } else {
+      return 'non_indexed_conf';
+    }
+  } else {
+    return 'other';
+  }
+}

@@ -23,24 +23,32 @@ document.addEventListener('DOMContentLoaded', () => {
                         const publicationsJSON = bibtexParse.toJSON(bibtexContent);
                         // Convertir a un formato compatible con D3.js (puedes ajustar esta lógica según necesites)
                         console.log("Datos de publicaciones parseados:", publicationsJSON);
-                        const processedPublications = publicationsJSON.map(pub => ({
-                            // Aquí debes mapear los campos de bibtexParse a tu formato
-                            // Por ejemplo, pub.entryTags.journal o pub.entryTags.year
-                            // Esto es una simplificación, ya que el formato de salida de bibtexParse
-                            // es distinto del array de ejemplo. Deberías adaptar la lógica
-                            // de D3.js para manejarlo, o adaptar los datos aquí.
-                            type: pub.entryType.toLowerCase() === "article" ? 'journal' : 'indexed_conf', // Ejemplo: "article" -> "journal"
-                            quartile: pub.entryTags?.jcr?.trim().toUpperCase() || null, // Deberías extraer esta información si está disponible
-                            icore: pub.entryTags?.booktitle ? getICORERanking(pub.entryTags?.booktitle || '', getAcronymOrTruncate(pub.entryTags?.booktitle || '', 50), parseInt(pub.entryTags?.year))?.rank || null : null,
-                            authorPosition: findAuthorPosition(pub.entryTags?.author || '', researcherName), // Cambia el nombre según tu caso
-                            acronym: getAcronymOrTruncate(pub.entryTags?.journal || pub.entryTags?.booktitle || '', 8), // Usar el título del journal o del libro
-                            track: null,
-                            awards: pub.entryTags?.awards ? pub.entryTags.awards.split(',').map(a => a.trim()) : [],
-                            icons: [],
-                            doi: formatDoiUrl(pub.entryTags?.doi || pub.entryTags?.url || ''),
-                            year: parseInt(pub.entryTags?.year),
-                            date: pub.entryTags?.month && pub.entryTags?.year ? `${pub.entryTags?.year}-${getMonthNumber(pub.entryTags?.month)}-01` : `${pub.entryTags?.year}-01-01`
-                        }));
+                        const processedPublications = publicationsJSON.map(pub => {
+
+                            const booktitle = pub.entryTags?.booktitle || '';
+                            const year = parseInt(pub.entryTags?.year);
+                            const icoreRanking = booktitle ? getICORERanking(booktitle, getAcronymOrTruncate(booktitle, 50), year) : null;
+                            const isWorkshop = booktitle.toLowerCase().includes('workshop') || booktitle.toLowerCase().includes('ws');
+                            const entryType = pub.entryType.toLowerCase();
+                            return {
+                                // Aquí debes mapear los campos de bibtexParse a tu formato
+                                // Por ejemplo, pub.entryTags.journal o pub.entryTags.year
+                                // Esto es una simplificación, ya que el formato de salida de bibtexParse
+                                // es distinto del array de ejemplo. Deberías adaptar la lógica
+                                // de D3.js para manejarlo, o adaptar los datos aquí.
+                                type: getEntryType(entryType, booktitle, icoreRanking, isWorkshop),
+                                quartile: pub.entryTags?.jcr?.trim().toUpperCase() || null, // Deberías extraer esta información si está disponible
+                                icore: icoreRanking?.rank || null,
+                                authorPosition: findAuthorPosition(pub.entryTags?.author || '', researcherName), // Cambia el nombre según tu caso
+                                acronym: getAcronymOrTruncate(pub.entryTags?.journal || pub.entryTags?.booktitle || '', 8), // Usar el título del journal o del libro
+                                track: null,
+                                awards: pub.entryTags?.awards ? pub.entryTags.awards.split(',').map(a => a.trim()) : [],
+                                icons: [],
+                                doi: formatDoiUrl(pub.entryTags?.doi || pub.entryTags?.url || ''),
+                                year: parseInt(year),
+                                date: pub.entryTags?.month && year ? `${year}-${getMonthNumber(pub.entryTags?.month)}-01` : `${year}-01-01`
+                            };
+                        });
 
                         console.log("Datos de publicaciones parseados del archivo .bib:", processedPublications);
                         drawChart(processedPublications, "#chart");

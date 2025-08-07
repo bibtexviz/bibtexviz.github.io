@@ -16,18 +16,24 @@ function drawChart(publications, chartId) {
 
     // Colores por tipo de publicación
     const colorMap = {
-        journal: '#e74c3c',
-        indexed_conf: '#3498db',
+        journal: '#c32b72',
+        indexed_conf: '#196ca3',
         workshop: '#2ecc71',
-        national_conf: '#f1c40f'
+        non_indexed_conf: '#95a5a6',
+        book: '#ffd500',
+        editorship: '#33c3ba',
+        other: '#606b70' // Otros tipos
     };
 
    // Nuevo orden de apilado (de arriba a abajo)
     const typeOrder = {
-        'journal': 0,
-        'indexed_conf': 1,
-        'workshop': 2,
-        'national_conf': 3
+        'book': 0,
+        'journal': 1,
+        'indexed_conf': 2,
+        'workshop': 3,
+        'non_indexed_conf': 4,
+        'editorship': 5,
+        'other': 6 // Los que no tienen tipo van al final
     };
 
     // Orden para quartiles (Q1 arriba, Q4 abajo)
@@ -239,7 +245,7 @@ const examplePublications = [
         date: '2021-07-12'
     },
     {
-        type: 'national_conf',
+        type: 'non_indexed_conf',
         quartile: null,
         icore: null,
         authorPosition: '1/2',
@@ -252,7 +258,7 @@ const examplePublications = [
         date: '2022-07-10'
     },
     {
-        type: 'national_conf',
+        type: 'non_indexed_conf',
         quartile: null,
         icore: null,
         authorPosition: '1/2',
@@ -265,7 +271,7 @@ const examplePublications = [
         date: '2022-07-10'
     },
     {
-        type: 'national_conf',
+        type: 'non_indexed_conf',
         quartile: null,
         icore: null,
         authorPosition: '1/2',
@@ -278,7 +284,7 @@ const examplePublications = [
         date: '2022-07-10'
     },
     {
-        type: 'national_conf',
+        type: 'non_indexed_conf',
         quartile: null,
         icore: null,
         authorPosition: '1/2',
