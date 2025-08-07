@@ -211,4 +211,40 @@ function findAuthorPosition(authorsString, targetName) {
     }
 }
 
+/**
+ * Converts a month string or number into a two-digit month number.
+ * For example: "jan" -> "01", "February" -> "02", "3" -> "03".
+ * * @param {string|number} monthString The month's name, abbreviation, or number.
+ * @returns {string|null} The month number in "MM" format, or null if the input is not recognized.
+ */
+function getMonthNumber(monthString) {
+  // Ensure the input is a string and convert it to lowercase for standardization.
+  const month = String(monthString).toLowerCase();
 
+  // Check if the input is a number (1-12) and format it with a leading zero if needed.
+  if (!isNaN(month) && month.length <= 2) {
+    const monthNum = parseInt(month, 10);
+    if (monthNum >= 1 && monthNum <= 12) {
+      return monthNum.toString().padStart(2, '0');
+    }
+  }
+
+  // A map of month names and abbreviations to their corresponding two-digit numbers.
+  const monthMap = {
+    'jan': '01', 'january': '01',
+    'feb': '02', 'february': '02',
+    'mar': '03', 'march': '03',
+    'apr': '04', 'april': '04',
+    'may': '05',
+    'jun': '06', 'june': '06',
+    'jul': '07', 'july': '07',
+    'aug': '08', 'august': '08',
+    'sep': '09', 'sept': '09', 'september': '09',
+    'oct': '10', 'october': '10',
+    'nov': '11', 'november': '11',
+    'dec': '12', 'december': '12'
+  };
+
+  // Return the value from the map if it exists; otherwise, return null.
+  return monthMap[month] || null;
+}

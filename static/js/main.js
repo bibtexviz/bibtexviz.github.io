@@ -39,12 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             icons: [],
                             doi: formatDoiUrl(pub.entryTags?.doi || pub.entryTags?.url || ''),
                             year: parseInt(pub.entryTags?.year),
-                            date: pub.entryTags?.month && pub.entryTags?.year ? `${pub.entryTags?.year}-${pub.entryTags?.month}-01` : `${pub.entryTags?.year}-01-01`
+                            date: pub.entryTags?.month && pub.entryTags?.year ? `${pub.entryTags?.year}-${getMonthNumber(pub.entryTags?.month)}-01` : `${pub.entryTags?.year}-01-01`
                         }));
 
                         console.log("Datos de publicaciones parseados del archivo .bib:", processedPublications);
                         drawChart(processedPublications, "#chart");
-                        alert('Archivo .bib cargado y gráfico actualizado.');
+                        //alert('Archivo .bib cargado y gráfico actualizado.');
                     } catch (error) {
                         console.error("Error al parsear el archivo .bib:", error);
                         alert('Error al procesar el archivo .bib. Por favor, revisa el formato.');

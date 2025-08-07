@@ -81,10 +81,10 @@ function drawChart(publications, chartId) {
                 if (icoreCmp !== 0) return icoreCmp;
             }
 
-            // 3. Si todo lo anterior es igual, ordenar por fecha (de más antiguo a más reciente)
+            // 3. Si todo lo anterior es igual, ordenar por fecha (de más reciente a más antiguo)
             const dateA = new Date(a.date);
             const dateB = new Date(b.date);
-            return dateA - dateB;
+            return dateB - dateA;
         });
     });
 
