@@ -22,12 +22,30 @@ function drawChart(publications, chartId) {
         national_conf: '#f1c40f'
     };
 
-    // Orden de apilado (de abajo a arriba)
+   // Nuevo orden de apilado (de arriba a abajo)
     const typeOrder = {
-        'national_conf': 0,
-        'workshop': 1,
-        'indexed_conf': 2,
-        'journal': 3
+        'journal': 0,
+        'indexed_conf': 1,
+        'workshop': 2,
+        'national_conf': 3
+    };
+
+    // Orden para quartiles (Q1 arriba, Q4 abajo)
+    const quartileOrder = {
+        'Q1': 0,
+        'Q2': 1,
+        'Q3': 2,
+        'Q4': 3,
+        '-': 4 // Los que no tienen quartil van al final
+    };
+
+    // Orden para i-cores (A* arriba, C abajo)
+    const icoreOrder = {
+        'A*': 0,
+        'A': 1,
+        'B': 2,
+        'C': 3,
+        '-': 4 // Los que no tienen i-core van al final
     };
 
     // Agrupar por año
@@ -46,12 +64,27 @@ function drawChart(publications, chartId) {
     const groupedByYear = allYears.map(year => [year, pubMap.get(year) || []]);
 
 
-    // Ordenar por tipo y fecha
+    // Ordenar por tipo, ranking y fecha
     groupedByYear.forEach(([year, pubs]) => {
         pubs.sort((a, b) => {
+            // 1. Ordenar por tipo de publicación (de mayor a menor prestigio)
             const typeCmp = typeOrder[a.type] - typeOrder[b.type];
             if (typeCmp !== 0) return typeCmp;
-            return new Date(a.date) - new Date(b.date);
+
+            // 2. Si son del mismo tipo, ordenar por quartil o i-core (de mayor a menor prestigio)
+            if (a.type === 'journal') {
+                const quartileCmp = (quartileOrder[a.quartile] ?? quartileOrder['-']) - (quartileOrder[b.quartile] ?? quartileOrder['-']);
+                if (quartileCmp !== 0) return quartileCmp;
+            } else if (['indexed_conf', 'workshop'].includes(a.type)) {
+                // Se ha añadido la lógica para ordenar por icore
+                const icoreCmp = (icoreOrder[a.icore] ?? icoreOrder['-']) - (icoreOrder[b.icore] ?? icoreOrder['-']);
+                if (icoreCmp !== 0) return icoreCmp;
+            }
+
+            // 3. Si todo lo anterior es igual, ordenar por fecha (de más antiguo a más reciente)
+            const dateA = new Date(a.date);
+            const dateB = new Date(b.date);
+            return dateA - dateB;
         });
     });
 

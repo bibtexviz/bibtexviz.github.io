@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             // es distinto del array de ejemplo. Deberías adaptar la lógica
                             // de D3.js para manejarlo, o adaptar los datos aquí.
                             type: pub.entryType.toLowerCase() === "article" ? 'journal' : 'indexed_conf', // Ejemplo: "article" -> "journal"
-                            quartile: pub.entryTags?.ranking || null, // Deberías extraer esta información si está disponible
+                            quartile: pub.entryTags?.jcr?.trim().toUpperCase() || null, // Deberías extraer esta información si está disponible
                             icore: pub.entryTags?.booktitle ? getICORERanking(pub.entryTags?.booktitle || '', getAcronymOrTruncate(pub.entryTags?.booktitle || '', 50), parseInt(pub.entryTags?.year))?.rank || null : null,
                             authorPosition: findAuthorPosition(pub.entryTags?.author || '', researcherName), // Cambia el nombre según tu caso
                             acronym: getAcronymOrTruncate(pub.entryTags?.journal || pub.entryTags?.booktitle || '', 8), // Usar el título del journal o del libro
