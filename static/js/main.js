@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 quartile: pub.entryTags?.jcr?.trim().toUpperCase() || null, // Deberías extraer esta información si está disponible
                                 icore: icoreRanking?.rank || null,
                                 authorPosition: findAuthorPosition(pub.entryTags?.author || '', researcherName), // Cambia el nombre según tu caso
-                                acronym: getAcronymOrTruncate(pub.entryTags?.journal || pub.entryTags?.booktitle || '', 8), // Usar el título del journal o del libro
+                                acronym: entryType === 'book' ? 'Book' : (entryType === 'phdthesis' ? 'PhD Thesis' : getAcronymOrTruncate(pub.entryTags?.journal || pub.entryTags?.booktitle || '', 8)), // Usar el título del journal o del libro
                                 track: null,
                                 awards: pub.entryTags?.awards ? pub.entryTags.awards.split(',').map(a => a.trim()) : [],
                                 icons: [],

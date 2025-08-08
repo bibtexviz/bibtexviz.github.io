@@ -153,6 +153,7 @@ function drawChart(publications, chartId) {
         .attr("y", squareSize / 2 + 5)
         .attr("text-anchor", "middle")
         .attr("font-weight", "bold")
+        .style("font-size", "1.1em") 
         .text(d => {
             if (d.type === 'journal') return d.quartile || '-';
             if (['indexed_conf', 'workshop'].includes(d.type)) return d.icore || '-';
@@ -160,26 +161,53 @@ function drawChart(publications, chartId) {
         });
 
     // Inferior derecha: Acrónimo y track
-    squares.append("text")
-        .attr("x", squareSize - padding)
-        .attr("y", squareSize - padding)
+    const textGroup = squares.append("g")
+        .attr("transform", d => `translate(${squareSize - padding}, ${squareSize - padding})`)
         .attr("text-anchor", "end")
-        .attr("font-style", "italic")
-        .text(d => d.track ? `${d.track}@${d.acronym}` : d.acronym);
+        .attr("font-style", "italic");
+
+    textGroup.each(function(d) {
+        const group = d3.select(this);
+        const acronymText = d.acronym || '';
+        const trackText = d.track ? `${d.track}@` : '';
+        
+        // Si el texto completo es demasiado largo, lo dividimos en dos líneas
+        if ((trackText + acronymText).length > 8 && d.track) {
+            // Línea superior: track
+            group.append("text")
+                .attr("x", 0)
+                .attr("y", -14) // Posición ajustada para la primera línea
+                .text(trackText);
+            
+            // Línea inferior: acrónimo
+            group.append("text")
+                .attr("x", 0)
+                .attr("y", 0) // Posición ajustada para la segunda línea
+                .text(acronymText);
+        } else {
+            // Si no es largo, lo mostramos todo en una sola línea
+            group.append("text")
+                .attr("x", 0)
+                .attr("y", 0)
+                .text(trackText + acronymText);
+        }
+    });
 
     // Superior derecha: Trofeo si best paper
     squares.append("text")
-        .attr("x", squareSize - padding)
-        .attr("y", padding + 10)
+        .attr("x", squareSize - padding + 10)
+        .attr("y", padding + 15)
         .attr("text-anchor", "end")
+        .style("font-size", "1.5em") 
         .text(d => (d.awards && d.awards.length > 0) ? "🏆" : "");
 
     // Superior izquierda: Iconos (colaboraciones, etc.)
     squares.append("text")
-        .attr("x", padding)
-        .attr("y", padding + 10)
+        .attr("x", padding - 10)
+        .attr("y", padding + 15)
         .attr("text-anchor", "start")
-        .text(d => (d.icons || []).map(i => iconMap[i] || '').join(" "));
+        .style("font-size", "1.5em") 
+        .text(d => (d.icons || []).map(i => iconMap[i] || '').join(""));
 
     // Inferior izquierda: Posición del autor
     squares.append("text")
