@@ -126,13 +126,59 @@ function drawChart(publications, chartId) {
             });
         });
 
+        
+    // Etiquetas de eje Y (número de publicaciones)
+    const yScaleLabels = d3.range(1, maxPubsInYear + 1).reverse();
+    svg.selectAll("text.y-axis-label")
+        .data(yScaleLabels)
+        .enter()
+        .append("text")
+        .attr("class", "y-axis-label")
+        .attr("x", xStart - 20)
+        .attr("y", (d, i) => (i * rowGap) + padding)
+        .attr("dy", "0.35em")
+        .attr("text-anchor", "end")
+        .text(d => d);
+
+    // Línea vertical del eje Y
+    svg.append("line")
+        .attr("x1", xStart - 10)
+        .attr("y1", 0)
+        .attr("x2", xStart - 10)
+        .attr("y2", yBase)
+        .attr("stroke", "black")
+        .attr("stroke-width", 1);
+
+        
     // Crear grupos con enlace
     const group = svg.selectAll("a")
         .data(positionedPublications)
         .enter()
-        .append("a")
-        .attr("xlink:href", d => d.doi || null)
-        .attr("target", "_blank");
+        .append("g")
+        .attr("class", "pub-square-group")
+        .on("click", function(event, d) {
+        // Obtenemos una referencia al modal de Bootstrap
+        const myModal = new bootstrap.Modal(document.getElementById('publicationModal'));
+        
+        // Rellenamos el contenido del modal
+        const modalBody = d3.select("#publicationModal .modal-body");
+        modalBody.html(`
+            <p><strong>Tipo:</strong> ${d.type}</p>
+            <p><strong>Authors (${d.authorPosition}):</strong> ${d.authors}</p>
+            <p><strong>Title:</strong> ${d.title}</p>
+            ${d.journal ? `<p><strong>Journal:</strong> ${d.journal}</p>` : ''} 
+            ${d.booktitle ? `<p><strong>Booktitle:</strong> ${d.booktitle}${d.track ? `. ${d.track}` : ''}</p>` : ''}
+            <p><strong>Year:</strong> ${d.month} ${d.year}</p>
+            ${d.quartile ? `<p><strong>JCR:</strong> ${d.quartile}</p>` : ''}
+            ${d.icore ? `<p><strong>ICORE:</strong> ${d.icore}</p>` : ''}
+            <p><strong>Awards:</strong> ${d.awards && d.awards.length > 0 ? d.awards.join(', ') : ''}</p>
+            <p><strong>Iconos:</strong> ${d.icons && d.icons.length > 0 ? d.icons.map(i => iconMap[i]).join('') : 'Ninguno'}</p>
+            <p><strong>DOI:</strong> <a href="${d.doi}" target="_blank">${d.doi || 'N/A'}</a></p>
+        `);
+        
+        // Mostramos el modal
+        myModal.show();
+    });
 
     const squares = group.append("g")
         .attr("class", "pub-square")
