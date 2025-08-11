@@ -116,7 +116,7 @@ function processBibtexFile(bibtexContent, researcherName) {
         type: getEntryType(entryType, booktitle, icoreRanking, isWorkshop),
         authors: getAuthors(pub.entryTags?.author || ''),
         title: pub.entryTags?.title || '',
-        journal: pub.entryTags?.journal || '',
+        journal: normalizeAccents(pub.entryTags?.journal || ''),
         booktitle: booktitle,
         quartile: pub.entryTags?.jcr !== undefined ? (pub.entryTags.jcr.trim() === '' ? '-' : pub.entryTags.jcr.trim().toUpperCase()) : '?',
         icore: icoreRanking?.rank || null,

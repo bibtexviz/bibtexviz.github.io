@@ -9,9 +9,18 @@ function drawChart(publications, chartId) {
 
     // Iconos usados en la esquina superior izquierda
     const iconMap = {
+        bestpaperaward: '🏆',
         collab: '👥',
         industry: '🏢',
-        stay: '🗺️'
+        stay: '🗺️',
+
+    };
+
+    const iconMeaningMap = {
+        bestpaperaward: 'Best paper award',
+        collab: 'External collaboration',
+        industry: 'Industry collaboration',
+        stay: 'International stay result',
     };
 
     // Colores por tipo de publicación
@@ -287,6 +296,8 @@ function drawChart(publications, chartId) {
     .text(d => d[0]);  // el año está en la primera posición de la tupla
 
     // ---------- Leyenda ----------
+    const legendSpacing = 25;
+
     // Datos de la leyenda a partir de colorMap
     const legendData = Object.entries(typesMap);
     const legendColor = Object.entries(colorMap);
@@ -318,6 +329,88 @@ function drawChart(publications, chartId) {
         .text(d => d[1])
         .attr("font-size", "14px")
         .attr("alignment-baseline", "middle");
+
+    legend.append("text")
+        .attr("x", 0)
+        .attr("y", -5) // un poco arriba de los rectángulos para que no se superponga
+        .attr("font-size", "14px")
+        .attr("font-weight", "bold")
+        .style("text-decoration", "underline")
+        .text("Publication types:");
+
+    // Add quartiles and i-cores to the legend
+    legend.append("text")
+        .attr("x", 0)
+        .attr("y", legendData.length * legendSpacing + 30) // justo debajo de la última fila de tipos
+        .attr("font-size", "14px")
+        .attr("font-weight", "bold")
+        .style("text-decoration", "underline")
+        .text("JCR ranking:");
+
+    const quartileStart = legendData.length * legendSpacing + 35; // espacio extra
+    const quartiles = ['Q1, Q2, Q3, Q4', '?: Unknown', '-: No indexed in the JCR'];
+    legend.selectAll("text.quartile")
+        .data(quartiles)
+        .enter()
+        .append("text")
+        .attr("class", "quartile")
+        .attr("x", 0)
+        .attr("y", (d, i) => quartileStart + i * legendSpacing + 15)
+        .attr("font-size", "14px")
+        .text(d => `${d}`);
+
+    // ---- Título I-CORE ----
+    const icoreTitleY = quartileStart + quartiles.length * legendSpacing + 30;
+    legend.append("text")
+        .attr("x", 0)
+        .attr("y", icoreTitleY)
+        .attr("font-size", "14px")
+        .attr("font-weight", "bold")
+        .style("text-decoration", "underline")
+        .text("ICORE ranking:");
+
+    const icoreStart = icoreTitleY + 5;
+    const iCores = [
+        'A*, A, B, C',
+        '-: No indexed'
+    ];
+
+    legend.selectAll("text.icore")
+        .data(iCores)
+        .enter()
+        .append("text")
+        .attr("class", "icore")
+        .attr("x", 0)
+        .attr("y", (d, i) => icoreStart + i * legendSpacing + 15)
+        .attr("font-size", "14px")
+        .text(d => `${d}`);
+
+    // ---- Título Iconos ----
+    const iconTitleY = icoreStart + iCores.length * legendSpacing + 30;
+    legend.append("text")
+        .attr("x", 0)
+        .attr("y", iconTitleY)
+        .attr("font-size", "14px")
+        .attr("font-weight", "bold")
+        .style("text-decoration", "underline")
+        .text("Other info:");
+
+    // Combinar icono y significado en un array de objetos
+    const iconEntries = Object.keys(iconMeaningMap).map(key => ({
+        icon: iconMap[key],
+        meaning: iconMeaningMap[key]
+    }));
+
+    const iconStart = iconTitleY + 5;
+    legend.selectAll("text.icon")
+        .data(iconEntries)
+        .enter()
+        .append("text")
+        .attr("class", "icon")
+        .attr("x", 0)
+        .attr("y", (d, i) => iconStart + i * legendSpacing + 15)
+        .attr("font-size", "14px")
+        .text(d => `${d.icon}: ${d.meaning}`);
 }
 
 // Ejemplo de datos, ahora en una constante
