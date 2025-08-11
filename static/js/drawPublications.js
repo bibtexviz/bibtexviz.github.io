@@ -17,7 +17,7 @@ function drawChart(publications, chartId) {
     // Colores por tipo de publicación
     const colorMap = {
         journal: '#c32b72',
-        indexed_conf: '#196ca3',
+        conference: '#196ca3',
         workshop: '#2ecc71',
         non_indexed_conf: '#95a5a6',
         book: '#ffd500',
@@ -28,7 +28,7 @@ function drawChart(publications, chartId) {
     // types map
     const typesMap = {
         journal: 'Journal',
-        indexed_conf: 'Indexed conference',
+        conference: 'Conference',
         workshop: 'Workshop',
         non_indexed_conf: 'Non-indexed conference',
         book: 'Books and PhD thesis',
@@ -40,7 +40,7 @@ function drawChart(publications, chartId) {
     const typeOrder = {
         'book': 0,
         'journal': 1,
-        'indexed_conf': 2,
+        'conference': 2,
         'workshop': 3,
         'non_indexed_conf': 4,
         'editorship': 5,
@@ -92,7 +92,7 @@ function drawChart(publications, chartId) {
             if (a.type === 'journal') {
                 const quartileCmp = (quartileOrder[a.quartile] ?? quartileOrder['-']) - (quartileOrder[b.quartile] ?? quartileOrder['-']);
                 if (quartileCmp !== 0) return quartileCmp;
-            } else if (['indexed_conf', 'workshop'].includes(a.type)) {
+            } else if (['conference', 'workshop'].includes(a.type)) {
                 // Se ha añadido la lógica para ordenar por icore
                 const icoreCmp = (icoreOrder[a.icore] ?? icoreOrder['-']) - (icoreOrder[b.icore] ?? icoreOrder['-']);
                 if (icoreCmp !== 0) return icoreCmp;
@@ -174,12 +174,12 @@ function drawChart(publications, chartId) {
         // Rellenamos el contenido del modal
         const modalBody = d3.select("#publicationModal .modal-body");
         modalBody.html(`
-            <p><strong>Tipo:</strong> ${d.type}</p>
+            <p><strong>Tipo:</strong> ${typesMap[d.type]}</p>
             <p><strong>Authors (${d.authorPosition}):</strong> ${d.authors}</p>
             <p><strong>Title:</strong> ${d.title}</p>
             ${d.journal ? `<p><strong>Journal:</strong> ${d.journal}</p>` : ''} 
             ${d.booktitle ? `<p><strong>Booktitle:</strong> ${d.booktitle}${d.track ? `. ${d.track}` : ''}</p>` : ''}
-            <p><strong>Year:</strong> ${d.month} ${d.year}</p>
+            <p><strong>Year:</strong> ${d.month ? d.month : ''} ${d.year}</p>
             ${d.quartile ? `<p><strong>JCR:</strong> ${d.quartile}</p>` : ''}
             ${d.icore ? `<p><strong>ICORE:</strong> ${d.icore}</p>` : ''}
             <p><strong>Awards:</strong> ${d.awards && d.awards.length > 0 ? d.awards.join(', ') : ''}</p>
@@ -213,7 +213,7 @@ function drawChart(publications, chartId) {
         .style("font-size", "1.1em") 
         .text(d => {
             if (d.type === 'journal') return d.quartile || '-';
-            if (['indexed_conf', 'workshop'].includes(d.type)) return d.icore || '-';
+            if (['conference', 'workshop'].includes(d.type)) return d.icore || '-';
             return '-';
         });
 
@@ -349,7 +349,7 @@ const examplePublications = [
         date: '2021-07-13'
     },
     {
-        type: 'indexed_conf',
+        type: 'conference',
         quartile: null,
         icore: 'A+',
         authorPosition: '2/5',
@@ -427,7 +427,7 @@ const examplePublications = [
         date: '2024-07-13'
     },
     {
-        type: 'indexed_conf',
+        type: 'conference',
         quartile: null,
         icore: 'A+',
         authorPosition: '2/5',

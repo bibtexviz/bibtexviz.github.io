@@ -106,7 +106,7 @@ function processBibtexFile(bibtexContent, researcherName) {
     console.log("Parsed publication data:", publicationsJSON);
 
     const processedPublications = publicationsJSON.map(pub => {
-      const booktitle = pub.entryTags?.booktitle || '';
+      const booktitle = normalizeAccents(pub.entryTags?.booktitle || '');
       const year = parseInt(pub.entryTags?.year);
       const icoreRanking = booktitle ? getICORERanking(booktitle, getAcronymOrTruncate(booktitle, 50), year) : null;
       const isWorkshop = booktitle.toLowerCase().includes('workshop') || booktitle.toLowerCase().includes('ws');
@@ -118,7 +118,7 @@ function processBibtexFile(bibtexContent, researcherName) {
         title: pub.entryTags?.title || '',
         journal: pub.entryTags?.journal || '',
         booktitle: booktitle,
-        quartile: pub.entryTags?.jcr?.trim().toUpperCase() || null,
+        quartile: pub.entryTags?.jcr !== undefined ? (pub.entryTags.jcr.trim() === '' ? '-' : pub.entryTags.jcr.trim().toUpperCase()) : '?',
         icore: icoreRanking?.rank || null,
         authorPosition: findAuthorPosition(pub.entryTags?.author || '', researcherName),
         acronym: entryType === 'book' ? 'Book' : (entryType === 'phdthesis' ? 'PhD Thesis' : getAcronymOrTruncate(pub.entryTags?.journal || pub.entryTags?.booktitle || '', 8)),

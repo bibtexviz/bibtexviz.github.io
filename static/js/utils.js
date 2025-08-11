@@ -129,6 +129,8 @@ function normalizeName(name) {
 
     // Normalizes multiple spaces to a single space
     cleaned = cleaned.replace(/\s+/g, ' ').trim();
+
+    cleaned = normalizeAccents(cleaned);
     
     return cleaned;
 }
@@ -142,64 +144,88 @@ function normalizeAccents(str) {
     if (!str) {
         return '';
     }
-    
+    let cleaned = str.trim();
+    //cleaned = cleaned.replace(/\\.+?\{/g, ""); 
+    cleaned = cleaned.replaceAll('{', '');
+    cleaned = cleaned.replaceAll('}', '');
     // Un mapa de caracteres especiales a sus equivalentes normales
     const replacements = {
-        "{\\'{a}}": 'á',
-        "{\'{e}}": 'é',
-        "{\\'{i}}": 'í',
-        "{\\'{o}}": 'ó',
-        "{\\'{u}}": 'ú',
-        "{\\'{A}}": 'Á',
-        "{\\'{E}}": 'É',
-        "{\\'{I}}": 'Í',
-        "{\\'{O}}": 'Ó',
-        "{\\'{U}}": 'Ú',
-        '{\\`a}': 'à',
-        '{\\`e}': 'è',
-        '{\\`i}': 'ì',
-        '{\\`o}': 'ò',
-        '{\\`u}': 'ù',
-        '{\\`A}': 'À',
-        '{\\`E}': 'È',
-        '{\\`I}': 'Ì',
-        '{\\`O}': 'Ò',
-        '{\\`U}': 'Ù',
-        '{\\~a}': 'ã',
-        '{\\~e}': 'ẽ',
-        '{\\~i}': 'ĩ',
-        '{\\~o}': 'õ',
-        '{\\~u}': 'ũ',
-        '{\á}': 'á',
-        '{\é}': 'é',
-        '{\í}': 'í',
-        '{\ó}': 'ó',
-        '{\ú}': 'ú',
-        '{\Á}': 'Á',
-        '{\É}': 'É',
-        '{\Í}': 'Í',
-        '{\Ó}': 'Ó',
-        '{\Ú}': 'Ú',
-        '{\ñ}': 'ñ',
-        '{\Ñ}': 'Ñ',
-        '{\ü}': 'ü',
-        '{\Ü}': 'Ü',
-        '{\ç}': 'ç',
-        '{\Ç}': 'Ç'
+        "\\'a": 'á',
+        "\\'e": 'é',
+        "\\'i": 'í',
+        "\\'o": 'ó',
+        "\\'u": 'ú',
+        "\\'A": 'Á',
+        "\\'E": 'É',
+        "\\'I": 'Í',
+        "\\'O": 'Ó',
+        "\\'U": 'Ú',
+        '\\`a': 'à',
+        '\\`e': 'è',
+        '\\`i': 'ì',
+        '\\`o': 'ò',
+        '\\`u': 'ù',
+        '\\`A': 'À',
+        '\\`E': 'È',
+        '\\`I': 'Ì',
+        '\\`O': 'Ò',
+        '\\`U': 'Ù',
+        '\\~a': 'ã',
+        '\\~e': 'ẽ',
+        '\\~i': 'ĩ',
+        '\\~o': 'õ',
+        '\\~u': 'ũ',
+        '\\~A': 'Ã',
+        '\\~E': 'Ẽ',
+        '\\~I': 'Ĩ',
+        '\\~O': 'Õ',
+        '\\~U': 'Ũ',
+        '\\~n': 'ñ',
+        '\\~N': 'Ñ',
+        '\\^a': 'â',
+        '\\^e': 'ê',
+        '\\^i': 'î',
+        '\\^o': 'ô',
+        '\\^u': 'û',
+        '\\^A': 'Â',
+        '\\^E': 'Ê',
+        '\\^I': 'Î',
+        '\\^O': 'Ô',
+        '\\^U': 'Û',
+        '\\ss': 'ß',
+        '\\ae': 'æ',
+        '\\AE': 'Æ',
+        '\\oe': 'œ',
+        '\\OE': 'Œ',
+        '\\l': 'ł',
+        '\\L': 'Ł',
+        '\\á': 'á',
+        '\\é': 'é',
+        '\\í': 'í',
+        '\\ó': 'ó',
+        '\\ú': 'ú',
+        '\\Á': 'Á',
+        '\\É': 'É',
+        '\\Í': 'Í',
+        '\\Ó': 'Ó',
+        '\\Ú': 'Ú',
+        '\\ñ': 'ñ',
+        '\\Ñ': 'Ñ',
+        '\\ü': 'ü',
+        '\\Ü': 'Ü',
+        '\\ç': 'ç',
+        '\\Ç': 'Ç'
         };
 
-    let normalizedStr = str.trim();
     
     // Iteramos sobre el mapa y reemplazamos cada ocurrencia
     for (const specialChar in replacements) {
-        // Creamos una expresión regular para el reemplazo global
-        const regex = new RegExp(specialChar, 'g');
-        normalizedStr = normalizedStr.replace(regex, replacements[specialChar]);
+        cleaned = cleaned.replaceAll(specialChar, replacements[specialChar]);
     }
     
-      // Normalizes multiple spaces to a single space
-    normalizedStr = normalizedStr.replace(/\s+/g, ' ').trim();
-    return normalizedStr;
+    // Normalizes multiple spaces to a single space
+    cleaned = cleaned.replace(/\s+/g, ' ').trim();
+    return cleaned;
 }
 
 /**
@@ -283,10 +309,10 @@ function findAuthorPosition(authorsString, targetName) {
 function getAuthors(authorsString) {
     // Handle null or empty inputs
     if (!authorsString) {
-        return [];
+        return '';
     }
     // Use a regular expression to handle the delimiters " and ", ",", ";"
-    const delimiters = /\s*and\s*|;|,/g;
+    const delimiters = /\s+and\s+|;|,/g;
     return authorsString.split(delimiters).map(name => normalizeAccents(name)).join(', ');
 }
 
@@ -339,12 +365,43 @@ function getEntryType(entryType, booktitle, icoreRanking, isWorkshop) {
   } else if (booktitle) {
     if (isWorkshop) {
       return 'workshop';
-    } else if (icoreRanking?.rank) {
-      return 'indexed_conf';
     } else {
-      return 'non_indexed_conf';
+      return 'conference';
     }
   } else {
     return 'other';
   }
 }
+
+async function detectarIdiomaConAPI(texto) {
+  // Comprueba si la API está disponible
+  if (!("LanguageDetector" in window)) {
+    console.warn("La API LanguageDetector no está disponible en este navegador.");
+    return null;
+  }
+
+  try {
+    const detector = await LanguageDetector.create();
+    const resultados = await detector.detect(texto);
+    
+    if (resultados.length > 0) {
+      // Devuelve el idioma con mayor confianza
+      const mejorResultado = resultados[0];
+      return mejorResultado.detectedLanguage; // Devuelve un código BCP 47 como 'es' o 'en'
+    } else {
+      return 'und'; // Indeterminado
+    }
+  } catch (error) {
+    console.error("Error al usar la API LanguageDetector:", error);
+    return null;
+  }
+}
+
+// Ejemplo de uso
+(async () => {
+  const idioma1 = await detectarIdiomaConAPI("Hola, ¿cómo estás?");
+  console.log(idioma1); // Salida: 'es'
+
+  const idioma2 = await detectarIdiomaConAPI("Hello, how are you?");
+  console.log(idioma2); // Salida: 'en'
+})();
