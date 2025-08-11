@@ -355,8 +355,11 @@ function getMonthNumber(monthString) {
 }
 
 
-function getEntryType(entryType, booktitle, icoreRanking, isWorkshop) {
+function getEntryType(entryType, journal, booktitle, icoreRanking, isWorkshop, publisher) {
   if (entryType === 'article') {
+    if (journal.toLowerCase() === 'corr') {
+        return 'other';
+    }
     return 'journal';
   } else if (entryType === 'proceedings') {
     return 'editorship';
@@ -368,7 +371,9 @@ function getEntryType(entryType, booktitle, icoreRanking, isWorkshop) {
     } else {
       return 'conference';
     }
-  } else {
+} else if (entryType === 'misc' && publisher === 'Zenodo') {
+    return 'dataArtifacts';
+} else {
     return 'other';
   }
 }

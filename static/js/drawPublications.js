@@ -28,7 +28,7 @@ function drawChart(publications, chartId) {
         journal: '#c32b72',
         conference: '#196ca3',
         workshop: '#2ecc71',
-        non_indexed_conf: '#95a5a6',
+        dataArtifacts: '#885522',
         book: '#ffd500',
         editorship: '#33c3ba',
         other: '#606b70' // Otros tipos
@@ -39,7 +39,7 @@ function drawChart(publications, chartId) {
         journal: 'Journal',
         conference: 'Conference',
         workshop: 'Workshop',
-        non_indexed_conf: 'Non-indexed conference',
+        dataArtifacts: 'Data and artifacts',
         book: 'Books and PhD thesis',
         editorship: 'Editorship',
         other: 'Other' // Otros tipos
@@ -51,7 +51,7 @@ function drawChart(publications, chartId) {
         'journal': 1,
         'conference': 2,
         'workshop': 3,
-        'non_indexed_conf': 4,
+        'dataArtifacts': 4,
         'editorship': 5,
         'other': 6 // Los que no tienen tipo van al final
     };
@@ -123,7 +123,7 @@ function drawChart(publications, chartId) {
     const squareSize = 120;
     const rowGap = 130;
     const columnGap = 150;
-    const padding = 10;
+    const padding = 5;
     const xStart = 60;
     // Calcular la altura base automáticamente en función del año con más publicaciones
     const maxPubsInYear = Math.max(...groupedByYear.map(([, pubs]) => pubs.length));
@@ -191,6 +191,7 @@ function drawChart(publications, chartId) {
             <p><strong>Year:</strong> ${d.month ? d.month : ''} ${d.year}</p>
             ${d.quartile ? `<p><strong>JCR:</strong> ${d.quartile}</p>` : ''}
             ${d.icore ? `<p><strong>ICORE:</strong> ${d.icore}</p>` : ''}
+            ${d.publisher ? `<p><strong>Publisher:</strong> ${d.publisher}<p>` : ''}
             <p><strong>Awards:</strong> ${d.awards && d.awards.length > 0 ? d.awards.join(', ') : ''}</p>
             <p><strong>Iconos:</strong> ${d.icons && d.icons.length > 0 ? d.icons.map(i => iconMap[i]).join('') : 'Ninguno'}</p>
             <p><strong>DOI:</strong> <a href="${d.doi}" target="_blank">${d.doi || 'N/A'}</a></p>
@@ -413,7 +414,7 @@ function drawChart(publications, chartId) {
         .text(d => `${d.icon}: ${d.meaning}`);
 }
 
-// Ejemplo de datos, ahora en una constante
+/* // Ejemplo de datos, ahora en una constante
 const examplePublications = [
     {
         type: 'journal',
@@ -532,7 +533,7 @@ const examplePublications = [
         year: 2024,
         date: '2024-07-12'
     },
-];
+]; */
 
 // Llamada inicial para dibujar el gráfico con los datos de ejemplo
-drawChart(examplePublications, "#chart");
+//drawChart(examplePublications, "#chart");

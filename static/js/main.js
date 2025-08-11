@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const chart = document.getElementById('chart');
 
     // Dibuja el gráfico inicial con los datos de ejemplo
-    drawChart(examplePublications, "#chart");
+    //drawChart(examplePublications, "#chart");
 
     // Manejar el envío del formulario
     form.addEventListener('submit', async(event) => {
@@ -111,24 +111,28 @@ function processBibtexFile(bibtexContent, researcherName) {
       const icoreRanking = booktitle ? getICORERanking(booktitle, getAcronymOrTruncate(booktitle, 50), year) : null;
       const isWorkshop = booktitle.toLowerCase().includes('workshop') || booktitle.toLowerCase().includes('ws');
       const entryType = pub.entryType.toLowerCase();
-
+      const journal = normalizeAccents(pub.entryTags?.journal || '');
+      const publisher = pub.entryTags?.publisher || '';
+      const publicationType = getEntryType(entryType, journal, booktitle, icoreRanking, isWorkshop, publisher);
+      
       return {
-        type: getEntryType(entryType, booktitle, icoreRanking, isWorkshop),
+        type: publicationType,
         authors: getAuthors(pub.entryTags?.author || ''),
         title: pub.entryTags?.title || '',
-        journal: normalizeAccents(pub.entryTags?.journal || ''),
+        journal: journal,
         booktitle: booktitle,
         quartile: pub.entryTags?.jcr !== undefined ? (pub.entryTags.jcr.trim() === '' ? '-' : pub.entryTags.jcr.trim().toUpperCase()) : '?',
         icore: icoreRanking?.rank || null,
         authorPosition: findAuthorPosition(pub.entryTags?.author || '', researcherName),
-        acronym: entryType === 'book' ? 'Book' : (entryType === 'phdthesis' ? 'PhD Thesis' : getAcronymOrTruncate(pub.entryTags?.journal || pub.entryTags?.booktitle || '', 8)),
+        acronym: entryType === 'book' ? 'Book' : (entryType === 'phdthesis' ? 'PhD Thesis' : (publicationType === 'dataArtifacts' ? publisher : getAcronymOrTruncate(journal || booktitle || '', 20))),
         track: null,
         awards: pub.entryTags?.awards ? pub.entryTags.awards.split(',').map(a => a.trim()) : [],
         icons: [],
         doi: formatDoiUrl(pub.entryTags?.doi || pub.entryTags?.url || ''),
         year: year,
         month: pub.entryTags?.month?.charAt(0).toUpperCase() + pub.entryTags?.month?.slice(1) || null,
-        date: pub.entryTags?.month && year ? `${year}-${getMonthNumber(pub.entryTags?.month)}-01` : `${year}-01-01`
+        date: pub.entryTags?.month && year ? `${year}-${getMonthNumber(pub.entryTags?.month)}-01` : `${year}-01-01`,
+        publisher: publisher || null,
       };
     });
 
