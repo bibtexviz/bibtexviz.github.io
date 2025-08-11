@@ -134,6 +134,75 @@ function normalizeName(name) {
 }
 
 /**
+ * Normaliza una cadena, convirtiendo caracteres especiales (ej. de formato LaTeX) a sus equivalentes Unicode.
+ * @param {string} str La cadena a normalizar.
+ * @returns {string} La cadena con los caracteres normalizados.
+ */
+function normalizeAccents(str) {
+    if (!str) {
+        return '';
+    }
+    
+    // Un mapa de caracteres especiales a sus equivalentes normales
+    const replacements = {
+        "{\\'{a}}": 'á',
+        "{\'{e}}": 'é',
+        "{\\'{i}}": 'í',
+        "{\\'{o}}": 'ó',
+        "{\\'{u}}": 'ú',
+        "{\\'{A}}": 'Á',
+        "{\\'{E}}": 'É',
+        "{\\'{I}}": 'Í',
+        "{\\'{O}}": 'Ó',
+        "{\\'{U}}": 'Ú',
+        '{\\`a}': 'à',
+        '{\\`e}': 'è',
+        '{\\`i}': 'ì',
+        '{\\`o}': 'ò',
+        '{\\`u}': 'ù',
+        '{\\`A}': 'À',
+        '{\\`E}': 'È',
+        '{\\`I}': 'Ì',
+        '{\\`O}': 'Ò',
+        '{\\`U}': 'Ù',
+        '{\\~a}': 'ã',
+        '{\\~e}': 'ẽ',
+        '{\\~i}': 'ĩ',
+        '{\\~o}': 'õ',
+        '{\\~u}': 'ũ',
+        '{\á}': 'á',
+        '{\é}': 'é',
+        '{\í}': 'í',
+        '{\ó}': 'ó',
+        '{\ú}': 'ú',
+        '{\Á}': 'Á',
+        '{\É}': 'É',
+        '{\Í}': 'Í',
+        '{\Ó}': 'Ó',
+        '{\Ú}': 'Ú',
+        '{\ñ}': 'ñ',
+        '{\Ñ}': 'Ñ',
+        '{\ü}': 'ü',
+        '{\Ü}': 'Ü',
+        '{\ç}': 'ç',
+        '{\Ç}': 'Ç'
+        };
+
+    let normalizedStr = str.trim();
+    
+    // Iteramos sobre el mapa y reemplazamos cada ocurrencia
+    for (const specialChar in replacements) {
+        // Creamos una expresión regular para el reemplazo global
+        const regex = new RegExp(specialChar, 'g');
+        normalizedStr = normalizedStr.replace(regex, replacements[specialChar]);
+    }
+    
+      // Normalizes multiple spaces to a single space
+    normalizedStr = normalizedStr.replace(/\s+/g, ' ').trim();
+    return normalizedStr;
+}
+
+/**
  * Finds the position of an author in an author string.
  * It uses an improved fuzzy search strategy.
  *
@@ -209,6 +278,16 @@ function findAuthorPosition(authorsString, targetName) {
         // If a valid match is not found, return 0
         return `${totalAuthors}`;
     }
+}
+
+function getAuthors(authorsString) {
+    // Handle null or empty inputs
+    if (!authorsString) {
+        return [];
+    }
+    // Use a regular expression to handle the delimiters " and ", ",", ";"
+    const delimiters = /\s*and\s*|;|,/g;
+    return authorsString.split(delimiters).map(name => normalizeAccents(name)).join(', ');
 }
 
 /**

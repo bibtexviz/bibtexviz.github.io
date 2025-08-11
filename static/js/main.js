@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     drawChart(examplePublications, "#chart");
 
     // Manejar el envío del formulario
-    form.addEventListener('submit', (event) => {
+    form.addEventListener('submit', async(event) => {
         event.preventDefault();
         event.stopPropagation();
         
@@ -18,51 +18,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const bibtexContent = e.target.result;
-                    try {
-                        // Usar bibtexParse para convertir el contenido a un array JSON
-                        const publicationsJSON = bibtexParse.toJSON(bibtexContent);
-                        // Convertir a un formato compatible con D3.js (puedes ajustar esta lógica según necesites)
-                        console.log("Datos de publicaciones parseados:", publicationsJSON);
-                        const processedPublications = publicationsJSON.map(pub => {
-
-                            const booktitle = pub.entryTags?.booktitle || '';
-                            const year = parseInt(pub.entryTags?.year);
-                            const icoreRanking = booktitle ? getICORERanking(booktitle, getAcronymOrTruncate(booktitle, 50), year) : null;
-                            const isWorkshop = booktitle.toLowerCase().includes('workshop') || booktitle.toLowerCase().includes('ws');
-                            const entryType = pub.entryType.toLowerCase();
-                            return {
-                                // Aquí debes mapear los campos de bibtexParse a tu formato
-                                // Por ejemplo, pub.entryTags.journal o pub.entryTags.year
-                                // Esto es una simplificación, ya que el formato de salida de bibtexParse
-                                // es distinto del array de ejemplo. Deberías adaptar la lógica
-                                // de D3.js para manejarlo, o adaptar los datos aquí.
-                                type: getEntryType(entryType, booktitle, icoreRanking, isWorkshop),
-                                quartile: pub.entryTags?.jcr?.trim().toUpperCase() || null, // Deberías extraer esta información si está disponible
-                                icore: icoreRanking?.rank || null,
-                                authorPosition: findAuthorPosition(pub.entryTags?.author || '', researcherName), // Cambia el nombre según tu caso
-                                acronym: entryType === 'book' ? 'Book' : (entryType === 'phdthesis' ? 'PhD Thesis' : getAcronymOrTruncate(pub.entryTags?.journal || pub.entryTags?.booktitle || '', 8)), // Usar el título del journal o del libro
-                                track: null,
-                                awards: pub.entryTags?.awards ? pub.entryTags.awards.split(',').map(a => a.trim()) : [],
-                                icons: [],
-                                doi: formatDoiUrl(pub.entryTags?.doi || pub.entryTags?.url || ''),
-                                year: parseInt(year),
-                                date: pub.entryTags?.month && year ? `${year}-${getMonthNumber(pub.entryTags?.month)}-01` : `${year}-01-01`
-                            };
-                        });
-
-                        console.log("Datos de publicaciones parseados del archivo .bib:", processedPublications);
+                    const processedPublications = processBibtexFile(bibtexContent, researcherName);
+        
+                    // If the processing was successful, draw the chart
+                    if (processedPublications.length > 0) {
+                        console.log("Parsed publication data from .bib file:", processedPublications);
                         drawChart(processedPublications, "#chart");
                         //alert('Archivo .bib cargado y gráfico actualizado.');
-                    } catch (error) {
-                        console.error("Error al parsear el archivo .bib:", error);
-                        alert('Error al procesar el archivo .bib. Por favor, revisa el formato.');
                     }
                 };
                 reader.readAsText(bibFile);
             } else {
-                // Si no se carga un archivo, se usa el dataset de ejemplo
-                drawChart(examplePublications, "#chart");
-                alert('No se cargó ningún archivo. Mostrando datos de ejemplo.');
+                // If the file is not provided, search the author dblp
+                const bibtexContent = await getAuthorBibtex(researcherName);
+                console.log("Fetched BibTeX content:", bibtexContent);
+                const processedPublications = processBibtexFile(bibtexContent, researcherName);
+                if (processedPublications.length > 0) {
+                    console.log("Parsed publication data from .bib file:", processedPublications);
+                    drawChart(processedPublications, "#chart");
+                    //alert('Archivo .bib cargado y gráfico actualizado.');
+                }
             }
         } else {
             form.classList.add('was-validated');
@@ -114,3 +89,54 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('La función de descarga PDF requiere una biblioteca adicional. Por favor, implementa la lógica usando jsPDF o similar.');
     });
 });
+
+
+/**
+ * Processes the BibTeX content from a file and returns an array of processed publications.
+ * @param {string} bibtexContent - The content of the .bib file as a string.
+ * @param {string} researcherName - The name of the researcher to find their author position.
+ * @returns {Array<Object>} An array of publication objects ready for D3.js, or an empty array if an error occurs.
+ */
+function processBibtexFile(bibtexContent, researcherName) {
+  try {
+    // Use bibtexParse to convert the content to a JSON array
+    const publicationsJSON = bibtexParse.toJSON(bibtexContent);
+    
+    // Convert to a D3.js compatible format (this logic can be adjusted as needed)
+    console.log("Parsed publication data:", publicationsJSON);
+
+    const processedPublications = publicationsJSON.map(pub => {
+      const booktitle = pub.entryTags?.booktitle || '';
+      const year = parseInt(pub.entryTags?.year);
+      const icoreRanking = booktitle ? getICORERanking(booktitle, getAcronymOrTruncate(booktitle, 50), year) : null;
+      const isWorkshop = booktitle.toLowerCase().includes('workshop') || booktitle.toLowerCase().includes('ws');
+      const entryType = pub.entryType.toLowerCase();
+
+      return {
+        type: getEntryType(entryType, booktitle, icoreRanking, isWorkshop),
+        authors: getAuthors(pub.entryTags?.author || ''),
+        title: pub.entryTags?.title || '',
+        journal: pub.entryTags?.journal || '',
+        booktitle: booktitle,
+        quartile: pub.entryTags?.jcr?.trim().toUpperCase() || null,
+        icore: icoreRanking?.rank || null,
+        authorPosition: findAuthorPosition(pub.entryTags?.author || '', researcherName),
+        acronym: entryType === 'book' ? 'Book' : (entryType === 'phdthesis' ? 'PhD Thesis' : getAcronymOrTruncate(pub.entryTags?.journal || pub.entryTags?.booktitle || '', 8)),
+        track: null,
+        awards: pub.entryTags?.awards ? pub.entryTags.awards.split(',').map(a => a.trim()) : [],
+        icons: [],
+        doi: formatDoiUrl(pub.entryTags?.doi || pub.entryTags?.url || ''),
+        year: year,
+        month: pub.entryTags?.month?.charAt(0).toUpperCase() + pub.entryTags?.month?.slice(1) || null,
+        date: pub.entryTags?.month && year ? `${year}-${getMonthNumber(pub.entryTags?.month)}-01` : `${year}-01-01`
+      };
+    });
+
+    return processedPublications;
+
+  } catch (error) {
+    console.error("Error parsing the .bib file:", error);
+    alert('Error processing the .bib file. Please check the format.');
+    return [];
+  }
+}
