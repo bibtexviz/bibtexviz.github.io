@@ -25,6 +25,17 @@ function drawChart(publications, chartId) {
         other: '#606b70' // Otros tipos
     };
 
+    // types map
+    const typesMap = {
+        journal: 'Journal',
+        indexed_conf: 'Indexed conference',
+        workshop: 'Workshop',
+        non_indexed_conf: 'Non-indexed conference',
+        book: 'Books and PhD thesis',
+        editorship: 'Editorship',
+        other: 'Other' // Otros tipos
+    };
+
    // Nuevo orden de apilado (de arriba a abajo)
     const typeOrder = {
         'book': 0,
@@ -275,6 +286,38 @@ function drawChart(publications, chartId) {
     .attr("font-size", "14px")
     .text(d => d[0]);  // el año está en la primera posición de la tupla
 
+    // ---------- Leyenda ----------
+    // Datos de la leyenda a partir de colorMap
+    const legendData = Object.entries(typesMap);
+    const legendColor = Object.entries(colorMap);
+
+    // Posición inicial de la leyenda (a la derecha del gráfico)
+    const legendX = xStart + groupedByYear.length * columnGap + 50;
+    const legendY = 50;
+
+    const legend = svg.append("g")
+        .attr("class", "legend")
+        .attr("transform", `translate(${legendX}, ${legendY})`);
+
+    legend.selectAll("rect")
+        .data(legendColor)
+        .enter()
+        .append("rect")
+        .attr("x", 0)
+        .attr("y", (d, i) => i * 25)
+        .attr("width", 18)
+        .attr("height", 18)
+        .attr("fill", d => d[1]);
+
+    legend.selectAll("text")
+        .data(legendData)
+        .enter()
+        .append("text")
+        .attr("x", 25)
+        .attr("y", (d, i) => i * 25 + 14)
+        .text(d => d[1])
+        .attr("font-size", "14px")
+        .attr("alignment-baseline", "middle");
 }
 
 // Ejemplo de datos, ahora en una constante
