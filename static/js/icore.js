@@ -36,16 +36,15 @@ function getICORERanking(conferenceName, acronym, year) {
             rank: match[4], // assuming this is the rank column (Australasian A/B/C)
         };
         if (result.rank === 'Unranked') {
-            return null;
+            return {edition: `CORE${ed}`, rank: '-'};
         }
-      return result;
+      return {edition: `CORE${ed}`, rank: '-'};
     }
   }
-  return null; // no match found
+  return {edition: `CORE${year}`, rank: '-'}; // no match found
 }
 
 (async () => {
   await loadCoreRankings(editions);
   console.log('Core rankings loaded');
-  console.log(getICORERanking("28th {ACM} International Systems and Software Product Line Conference ({SPLC})", "SPLC", 2022));
 })();

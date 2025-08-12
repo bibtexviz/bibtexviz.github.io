@@ -114,25 +114,28 @@ function processBibtexFile(bibtexContent, researcherName) {
       const journal = normalizeAccents(pub.entryTags?.journal || '');
       const publisher = pub.entryTags?.publisher || '';
       const publicationType = getEntryType(entryType, journal, booktitle, icoreRanking, isWorkshop, publisher);
-      
+    
       return {
         type: publicationType,
         authors: getAuthors(pub.entryTags?.author || ''),
         title: pub.entryTags?.title || '',
         journal: journal,
         booktitle: booktitle,
-        quartile: pub.entryTags?.jcr !== undefined ? (pub.entryTags.jcr.trim() === '' ? '-' : pub.entryTags.jcr.trim().toUpperCase()) : '?',
+        quartile: getJCR(pub.entryTags?.jcr || '', journal),
         icore: icoreRanking?.rank || null,
         authorPosition: findAuthorPosition(pub.entryTags?.author || '', researcherName),
         acronym: entryType === 'book' ? 'Book' : (entryType === 'phdthesis' ? 'PhD Thesis' : (publicationType === 'dataArtifacts' ? publisher : getAcronymOrTruncate(journal || booktitle || '', 20))),
-        track: null,
+        track: pub.entryTags?.track || '',
         awards: pub.entryTags?.awards ? pub.entryTags.awards.split(',').map(a => a.trim()) : [],
         icons: [],
         doi: formatDoiUrl(pub.entryTags?.doi || pub.entryTags?.url || ''),
         year: year,
         month: pub.entryTags?.month?.charAt(0).toUpperCase() + pub.entryTags?.month?.slice(1) || null,
         date: pub.entryTags?.month && year ? `${year}-${getMonthNumber(pub.entryTags?.month)}-01` : `${year}-01-01`,
-        publisher: publisher || null,
+        publisher: normalizeAccents(publisher) || null,
+        abstract: pub.entryTags?.abstract || '',
+        keywords: pub.entryTags?.keywords ? pub.entryTags.keywords.split(',').map(k => k.trim()).join(', ') : '',
+        address: pub.entryTags?.address || '',
       };
     });
 

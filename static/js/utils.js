@@ -61,6 +61,7 @@ function getAcronymOrTruncate(text, N) {
  * @returns {string} The complete URL for the DOI.
  */
 function formatDoiUrl(doiString) {
+    doiString = doiString.trim();
     // Handle invalid or empty input cases
     if (typeof doiString !== 'string' || !doiString) {
         return '';
@@ -371,42 +372,23 @@ function getEntryType(entryType, journal, booktitle, icoreRanking, isWorkshop, p
     } else {
       return 'conference';
     }
-} else if (entryType === 'misc' && publisher === 'Zenodo') {
+  } else if (entryType === 'misc' && publisher === 'Zenodo') {
     return 'dataArtifacts';
-} else {
+  } else {
     return 'other';
   }
 }
 
-async function detectarIdiomaConAPI(texto) {
-  // Comprueba si la API está disponible
-  if (!("LanguageDetector" in window)) {
-    console.warn("La API LanguageDetector no está disponible en este navegador.");
-    return null;
-  }
-
-  try {
-    const detector = await LanguageDetector.create();
-    const resultados = await detector.detect(texto);
-    
-    if (resultados.length > 0) {
-      // Devuelve el idioma con mayor confianza
-      const mejorResultado = resultados[0];
-      return mejorResultado.detectedLanguage; // Devuelve un código BCP 47 como 'es' o 'en'
+function getJCR(jcr, journal) {
+  if (journal && jcr !== undefined) {
+    if (jcr.trim() === '') {
+        return '-';
     } else {
-      return 'und'; // Indeterminado
+        return jcr.trim().toUpperCase();
     }
-  } catch (error) {
-    console.error("Error al usar la API LanguageDetector:", error);
-    return null;
+  } else if (journal) {
+      return '?';
+  } else {
+    return '';
   }
 }
-
-// Ejemplo de uso
-(async () => {
-  const idioma1 = await detectarIdiomaConAPI("Hola, ¿cómo estás?");
-  console.log(idioma1); // Salida: 'es'
-
-  const idioma2 = await detectarIdiomaConAPI("Hello, how are you?");
-  console.log(idioma2); // Salida: 'en'
-})();

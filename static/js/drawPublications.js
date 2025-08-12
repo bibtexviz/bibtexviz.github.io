@@ -181,20 +181,25 @@ function drawChart(publications, chartId) {
         const myModal = new bootstrap.Modal(document.getElementById('publicationModal'));
         
         // Rellenamos el contenido del modal
+        const urlValue = d.doi || d.url;
+        const linkText = urlValue || '-';
         const modalBody = d3.select("#publicationModal .modal-body");
         modalBody.html(`
             <p><strong>Tipo:</strong> ${typesMap[d.type]}</p>
             <p><strong>Authors (${d.authorPosition}):</strong> ${d.authors}</p>
             <p><strong>Title:</strong> ${d.title}</p>
             ${d.journal ? `<p><strong>Journal:</strong> ${d.journal}</p>` : ''} 
-            ${d.booktitle ? `<p><strong>Booktitle:</strong> ${d.booktitle}${d.track ? `. ${d.track}` : ''}</p>` : ''}
+            ${d.booktitle ? `<p><strong>Conference:</strong> ${d.booktitle}</p>` : ''}
             <p><strong>Year:</strong> ${d.month ? d.month : ''} ${d.year}</p>
+            ${d.address ? `<p><strong>Address:</strong> ${d.address}</p>` : ''}
             ${d.quartile ? `<p><strong>JCR:</strong> ${d.quartile}</p>` : ''}
-            ${d.icore ? `<p><strong>ICORE:</strong> ${d.icore}</p>` : ''}
+            ${d.icore ? `<p><strong>ICORE:</strong> ${d.icore === '-' ? 'No indexed' : d.icore}</p>` : ''}
             ${d.publisher ? `<p><strong>Publisher:</strong> ${d.publisher}<p>` : ''}
-            <p><strong>Awards:</strong> ${d.awards && d.awards.length > 0 ? d.awards.join(', ') : ''}</p>
+            ${d.awards && d.awards.length > 0 ? `<p><strong>Awards:</strong> ${d.awards.join(', ')}</p>` : ''}
             <p><strong>Iconos:</strong> ${d.icons && d.icons.length > 0 ? d.icons.map(i => iconMap[i]).join('') : 'Ninguno'}</p>
-            <p><strong>DOI:</strong> <a href="${d.doi}" target="_blank">${d.doi || 'N/A'}</a></p>
+            <p><strong>DOI/Handle/URL:</strong> <a href="${urlValue}" target="_blank" rel="noopener noreferrer">${linkText}</a></p>
+            ${d.abstract ? `<p><strong>Abstract:</strong> ${d.abstract}</p>` : ''}
+            ${d.keywords ? `<p><strong>Keywords:</strong> ${d.keywords}</p>` : ''}
         `);
         
         // Mostramos el modal
