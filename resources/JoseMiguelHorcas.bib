@@ -1,5 +1,5 @@
 @article{RomeroOrganvidez2024_DataVisualizationSPL,
-  author       = {David Romero{-}Organvidez and José Miguel Horcas and José A. Galindo and David Benavides},
+  author       = {David Romero-Organvidez and José Miguel Horcas and José A. Galindo and David Benavides},
   title        = {Data visualization guidance using a software product line approach},
   journal      = {J. Syst. Softw.},
   volume       = {213},
@@ -11,62 +11,74 @@
   biburl       = {https://dblp.org/rec/journals/jss/RomeroOrganvidezHGB24.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org},
   month        = {jul},
-  jcr 	   = {Q1}
+  jcr 	       = {Q1 (23/128) Computer Science, Software Engineering. Impact factor: 4.1},
+  abstract     = {Data visualization aims to convey quantitative and qualitative information effectively by determining which techniques and visualizations are most appropriate for different situations and why. Various software solutions can produce numerous visualizations of the same data set. However, data visualization encompasses a wide range of visual configurations that depend on factors such as the type of data being displayed, the different displays (e.g., scatter plots, line graphs, and pie charts), the visual components used to represent the data (e.g., lines, dots, and bars), and the specific visual attributes of those components (e.g., color, shape, size, and length). A similar problem arises when designing data tables, where the dimensionality of the data and its complexity influence the choice of the most appropriate structure (e.g., unidirectional, bidirectional). Often, this broad spectrum of configurations requires a visualization expert who knows which techniques are best for which type of data source and what is to be conveyed. Typically, researchers and developers lack knowledge of data visualization best practices and must learn the design principles that enable effective communication and the technical details of the specific software tool they use to generate visualizations. This paper proposes a software product line approach to model and realize the variability of the visualization design process, using feature models to encode knowledge about design best practices in graphs and charts. Our approach involves solving visualization design variability through a stepwise configuration process and evaluating the proposal for a specific software visualization tool. Our solution facilitates effective communication of quantitative results by helping researchers and developers select and generate the most effective visualizations for each case. This approach opens up new opportunities for research at the intersection of data visualization and variability.},
+  keywords     = {Effective communication, Graphs, Tables, Software product line, Variability, Visualization},
+  note         = {external collaboration},
 }
 
 @InProceedings{FernandezAmoros2024_PragmaticRandomSamplingLinuxKernel,
-  author    = {David Fernández{-}Amorós and Ruben Heradio and José Miguel Horcas and José A. Galindo and David Benavides and Lidia Fuentes},
-  booktitle = {28th {ACM} International Systems and Software Product Line Conference ({SPLC})},
-  title     = {Pragmatic Random Sampling of the {Linux Kernel}: Enhancing the Randomness and Correctness of the conf Tool},
-  year      = {2024},
-  address   = {Dommeldange, Luxembourg},
-  month     = sep,
-  pages     = {24--35},
-  publisher = {{ACM}},
-  volume    = {A},
-  bibsource = {dblp computer science bibliography, https://dblp.org},
-  biburl    = {https://dblp.org/rec/conf/splc/Fernandez-Amoros24.bib},
-  doi       = {10.1145/3646548.3672586},
-  timestamp = {Wed, 14 Aug 2024 08:59:20 +0200},
-  url       = {https://doi.org/10.1145/3646548.3672586},
-  jcr 	= {Q1}
+  author       = {David Fernández-Amorós and Ruben Heradio and José Miguel Horcas and José A. Galindo and David Benavides and Lidia Fuentes},
+  booktitle    = {28th {ACM} International Systems and Software Product Line Conference ({SPLC})},
+  title        = {Pragmatic Random Sampling of the {Linux Kernel}: Enhancing the Randomness and Correctness of the conf Tool},
+  year         = {2024},
+  address      = {Dommeldange, Luxembourg},
+  month        = sep,
+  pages        = {24--35},
+  publisher    = {{ACM}},
+  volume       = {A},
+  bibsource    = {dblp computer science bibliography, https://dblp.org},
+  biburl       = {https://dblp.org/rec/conf/splc/Fernandez-Amoros24.bib},
+  doi          = {10.1145/3646548.3672586},
+  timestamp    = {Wed, 14 Aug 2024 08:59:20 +0200},
+  url          = {https://doi.org/10.1145/3646548.3672586},
+  abstract     = {The configuration space of some systems is so large that it cannot be computed. This is the case with the Linux Kernel, which provides almost 19,000 configurable options described across more than 1,600 files in the Kconfig language. As a result, many analyses of the Kernel rely on sampling its configuration space (e.g., debugging compilation errors, predicting configuration performance, finding the configuration that optimizes specific performance metrics, etc.). The Kernel can be sampled pragmatically, with its built-in tool conf, or idealistically, translating the Kconfig files into logic formulas. The pros of the idealistic approach are that it provides statistical guarantees for the sampled configurations, but the cons are that it sets out many challenging problems that have not been solved yet, such as scalability issues. This paper introduces a new version of conf called randconfig+, which incorporates a series of improvements that increase the randomness and correctness of pragmatic sampling and also help validate the Boolean translation required for the idealistic approach. randconfig+ has been tested on 20,000 configurations generated for 10 different Kernel versions from 2003 to the present day. The experimental results show that randconfig+ is compatible with all tested Kernel versions, guarantees the correctness of the generated configurations, and increases conf’s randomness for numeric and string options.},
+  keywords     = {random sampling, configurable systems, variability modeling, software product lines, Kconfig, SAT, randconfig},
+  note         = {external collaboration},
 }
 
 @InProceedings{Galindo2024_OpenScienceTutorial,
-  author    = {José A. Galindo and David Romero{-}Organvidez and Megha Bhushan and José Miguel Horcas Aguilera and David Benavides},
-  booktitle = {28th {ACM} International Systems and Software Product Line Conference ({SPLC})},
-  title     = {{Open Science} principles in software product lines: The case of the {UVL} ecosystem},
-  year      = {2024},
-  address   = {Dommeldange, Luxembourg},
-  month     = sep,
-  pages     = {223},
-  publisher = {{ACM}},
-  volume    = {A},
-  bibsource = {dblp computer science bibliography, https://dblp.org},
-  biburl    = {https://dblp.org/rec/conf/splc/GalindoRBA024.bib},
-  doi       = {10.1145/3646548.3674550},
-  timestamp = {Tue, 13 Aug 2024 01:00:00 +0200},
-  url       = {https://doi.org/10.1145/3646548.3674550},
+  author       = {José A. Galindo and David Romero-Organvidez and Megha Bhushan and José Miguel Horcas Aguilera and David Benavides},
+  booktitle    = {28th {ACM} International Systems and Software Product Line Conference ({SPLC})},
+  title        = {{Open Science} principles in software product lines: The case of the {UVL} ecosystem},
+  year         = {2024},
+  address      = {Dommeldange, Luxembourg},
+  month        = sep,
+  pages        = {223},
+  publisher    = {{ACM}},
+  volume       = {A},
+  bibsource    = {dblp computer science bibliography, https://dblp.org},
+  biburl       = {https://dblp.org/rec/conf/splc/GalindoRBA024.bib},
+  doi          = {10.1145/3646548.3674550},
+  timestamp    = {Tue, 13 Aug 2024 01:00:00 +0200},
+  url          = {https://doi.org/10.1145/3646548.3674550},
+  abstract     = {Open science is a movement aimed at making scientific research, data, and dissemination accessible. In this tutorial, we will explore how to adapt this research philosophy to the context of the software product line community. To achieve this, we present a tooling ecosystem created with open science in mind. Concretely, we will rely on uvlhub for dataset sharing, flamapy to enrich and extract the metrics, and the Fact-Label tool to visualize the data at a glance. Participants will gain hands-on experience with each tool and learn how these tools can be integrated into their research workflows.},
+  keywords     = {Open science, configurable systems, variability modeling},
+  note         = {external collaboration},
+  track        = {Tutorial}
 }
 
 @inproceedings{RomeroOrganvidez2024_DataTransformationVariability,
-  author       = {David Romero{-}Organvidez and David Benavides and José Miguel Horcas and Mar{\'{\i}}a Teresa Gómez{-}López},
+  author       = {David Romero-Organvidez and David Benavides and José Miguel Horcas and María Teresa Gómez-López},
   title        = {Variability in data transformation: towards data migration product lines},
   booktitle    = {18th International Working Conference on Variability Modelling of Software-Intensive Systems ({VaMoS})},
   pages        = {83--92},
   publisher    = {{ACM}},
   year         = {2024},
-  address   = {Bern, Switzerland},
-  month     = {Feb},
+  address      = {Bern, Switzerland},
+  month        = {Feb},
   url          = {https://doi.org/10.1145/3634713.3634724},
   doi          = {10.1145/3634713.3634724},
   timestamp    = {Fri, 26 Jan 2024 00:00:00 +0100},
   biburl       = {https://dblp.org/rec/conf/vamos/Romero-Organvidez24.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  bibsource    = {dblp computer science bibliography, https://dblp.org},
+  abstract     = {Software evolution often requires data management and more concretely data migration. Data migration follows an ETL process: extracting (E) data from a source, transforming (T) the data depending on migration needs, and loading (L) the data in a target data storage. Data migration projects are recognised to be complex and challenging to manage, which can lead to resource loss and planning delays. Among the reasons for data migration project failure is the lack of systematic artifact reuse (e.g., transformation script) in the data migration process. Every new data migration project is often developed from scratch. Software product line (SPL) engineering has been applied in many different domains to systematically reuse artifacts (e.g., code platforms, test cases) in software development processes and there are many positive experiences when applying SPL to reduce cost and time. In this paper, we present an approach using SPL techniques for data migration projects, concretely, in the data transformation stage. Our solution facilitates the automated creation of scripts that can be reused in different data migration projects. The feasibility of the proposal is validated in the domain of web information systems modernization. The validation shows how various migration scripts can be created to transform data between different content management systems. With this work, new opportunities are opened for studying the synergies of SPL and data migration. To the best of our knowledge, this is the first proposal that uses a complete stack of SPL that materializes the reuse of artifacts for data migration.},
+  keywords     = {data migration, data transformation, SPL, feature model},
+  note         = {external collaboration}
 }
 
 @article{Horcas2023_MCTS,
-  author       = {José Miguel Horcas and José A. Galindo and Ruben Heradio and David Fernández{-}Amorós and David Benavides},
+  author       = {José Miguel Horcas and José A. Galindo and Ruben Heradio and David Fernández-Amorós and David Benavides},
   title        = {A Monte Carlo tree search conceptual framework for feature model analyses},
   journal      = {J. Syst. Softw.},
   volume       = {195},
@@ -78,7 +90,10 @@
   biburl       = {https://dblp.org/rec/journals/jss/HorcasGHFB23.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org},
   month        = {jan},
-  jcr 	   = {Q1}
+  jcr 	       = {Q1 (29/132) Computer Science, Software Engineering. Impact factor: 3.7},
+  abstract     = {Challenging domains of the future such as Smart Cities, Cloud Computing, or Industry 4.0 expose highly variable systems with colossal configuration spaces. The automated analysis of those systems’ variability has often relied on SAT solving and constraint programming. However, many of the analyses have to deal with the uncertainty introduced by the fact that undertaking an exhaustive exploration of the whole configuration space is usually intractable. In addition, not all analyses need to deal with the configuration space of the feature models, but with different search spaces where analyses are performed over the structure of the feature models, the constraints, or the implementation artifacts, instead of configurations. This paper proposes a conceptual framework that tackles various of those analyses using Monte Carlo tree search methods, which have proven to succeed in vast search spaces (e.g., game theory, scheduling tasks, security, program synthesis, etc.). Our general framework is formally described, and its flexibility to cope with a diversity of analysis problems is discussed. We provide a Python implementation of the framework that shows the feasibility of our proposal, identifying up to 11 lessons learned, and open challenges about the usage of the Monte Carlo methods in the software product line context. With this contribution, we envision that different problems can be addressed using Monte Carlo simulations and that our framework can be used to advance the state-of-the-art one step forward.},
+  keywords     = {Automated analysis, Configurable systems, Feature models, Monte Carlo tree search, Software product lines, Variability},
+  note         = {external collaboration}
 }
 
 @article{Horcas2023_ModularMetamodelRefactoringsSPLInteroperability,
@@ -94,7 +109,9 @@
   biburl       = {https://dblp.org/rec/journals/jss/HorcasPF23.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org},
   month        = {mar},
-  jcr 	   = {Q1}
+  jcr 	       = {Q1 (29/132) Computer Science, Software Engineering. Impact factor: 3.7},
+  abstract     = {Emergent application domains, such as cyber–physical systems, edge computing or industry 4.0. present a high variability in software and hardware infrastructures. However, no single variability modeling language supports all language extensions required by these application domains (i.e., attributes, group cardinalities, clonables, complex constraints). This limitation is an open challenge that should be tackled by the software engineering field, and specifically by the software product line (SPL) community. A possible solution could be to define a completely new language, but this has a high cost in terms of adoption time and development of new tools. A more viable alternative is the definition of refactoring and specialization rules that allow interoperability between existing variability languages. However, with this approach, these rules cannot be reused across languages because each language uses a different set of modeling concepts and a different concrete syntax. Our approach relies on a modular and extensible metamodel that defines a common abstract syntax for existing variability modeling extensions. We map existing feature modeling languages in the SPL community to our common abstract syntax. Using our abstract syntax, we define refactoring rules at the language construct level that help to achieve interoperability between variability modeling languages.},
+  keywords     = {Variability modeling language, Modular metamodel, Model refactoring, Model specialization, Interoperability, Edge computing},
 }
 
 @article{Horcas2023_EmpiricalAnalysisSPLTools,
@@ -111,11 +128,13 @@
   biburl       = {https://dblp.org/rec/journals/sosym/HorcasPF23.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org},
   month        = {feb},
-  jcr 	   = {Q3}
+  jcr 	       = {Q3 (68/131) Computer Science, Software Engineering. Impact factor: 2.0},
+  abstract     = {For the last ten years, software product line (SPL) tool developers have been facing the implementation of different variability requirements and the support of SPL engineering activities demanded by emergent domains. Despite systematic literature reviews identifying the main characteristics of existing tools and the SPL activities they support, these reviews do not always help to understand if such tools provide what complex variability projects demand. This paper presents an empirical research in which we evaluate the degree of maturity of existing SPL tools focusing on their support of variability modeling characteristics and SPL engineering activities required by current application domains. We first identify the characteristics and activities that are essential for the development of SPLs by analyzing a selected sample of case studies chosen from application domains with high variability. Second, we conduct an exploratory study to analyze whether the existing tools support those characteristics and activities. We conclude that, with the current tool support, it is possible to develop a basic SPL approach. But we have also found out that these tools present several limitations when dealing with complex variability requirements demanded by emergent application domains, such as non-Boolean features or large configuration spaces. Additionally, we identify the necessity for an integrated approach with appropriate tool support to completely cover all the activities and phases of SPL engineering. To mitigate this problem, we propose different road map using the existing tools to partially or entirely support SPL engineering activities, from variability modeling to product derivation.},
+  keywords     = {Empirical analysis, Case studies analysis, Software product lines, State of the art, Tool support, Tooling roadmap, Variability modeling},
 }
 
 @article{Horcas2023_CPCOs,
-  author       = {José Miguel Horcas and Daniel Str{\"{u}}ber and Alexandru Burdusel and Jabier Martinez and Steffen Zschaler},
+  author       = {José Miguel Horcas and Daniel Strüber and Alexandru Burdusel and Jabier Martinez and Steffen Zschaler},
   title        = {We're Not Gonna Break It! Consistency-Preserving Operators for Efficient Product Line Configuration},
   journal      = {{IEEE} Trans. Software Eng.},
   volume       = {49},
@@ -128,58 +147,70 @@
   biburl       = {https://dblp.org/rec/journals/tse/HorcasSBMZ23.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org},
   month        = {mar},
-    jcr 	   = {}
+  jcr 	       = {Q1 (9/131) Computer Science, Software Engineering. Impact factor: 6.5},
+  abstract     = {When configuring a software product line, finding a good trade-off between multiple orthogonal quality concerns is a challenging multi-objective optimisation problem. State-of-the-art solutions based on search-based techniques create invalid configurations in intermediate steps, requiring additional repair actions that reduce the efficiency of the search. In this work, we introduce consistency-preserving configuration operators (CPCOs)—genetic operators that maintain valid configurations throughout the entire search. CPCOs bundle coherent sets of changes: the activation or deactivation of a particular feature together with other (de)activations that are needed to preserve validity. In our evaluation, our instantiation of the IBEA algorithm with CPCOs outperforms two state-of-the-art tools for optimal product line configuration in terms of both speed and solution quality. The improvements are especially pronounced in large product lines with thousands of features.},
+  keywords     = {Software product lines, feature model configuration, search-based software engineering},
+  note         = {external collaboration, international stay result}
 }
 
 @InProceedings{Galindo2023_Flama,
-  author    = {José A. Galindo and José Miguel Horcas and Alexander Felfernig and David Fernández{-}Amorós and David Benavides},
-  booktitle = {27th {ACM} International Systems and Software Product Line Conference ({SPLC})},
-  title     = {{FLAMA:} {A} collaborative effort to build a new framework for the automated analysis of feature models},
-  year      = {2023},
-  address   = {Tokyo, Japan},
-  month     = {aug},
-  pages     = {16--19},
-  publisher = {{ACM}},
-  volume    = {B},
-  bibsource = {dblp computer science bibliography, https://dblp.org},
-  biburl    = {https://dblp.org/rec/conf/splc/GalindoHFF023.bib},
-  doi       = {10.1145/3579028.3609008},
-  timestamp = {Sat, 09 Sep 2023 00:04:38 +0200},
-  url       = {https://doi.org/10.1145/3579028.3609008},
+  author       = {José A. Galindo and José Miguel Horcas and Alexander Felfernig and David Fernández-Amorós and David Benavides},
+  booktitle    = {27th {ACM} International Systems and Software Product Line Conference ({SPLC})},
+  title        = {{FLAMA:} {A} collaborative effort to build a new framework for the automated analysis of feature models},
+  year         = {2023},
+  address      = {Tokyo, Japan},
+  month        = {aug},
+  pages        = {16--19},
+  publisher    = {{ACM}},
+  volume       = {B},
+  bibsource    = {dblp computer science bibliography, https://dblp.org},
+  biburl       = {https://dblp.org/rec/conf/splc/GalindoHFF023.bib},
+  doi          = {10.1145/3579028.3609008},
+  timestamp    = {Sat, 09 Sep 2023 00:04:38 +0200},
+  url          = {https://doi.org/10.1145/3579028.3609008},
+  track        = {Tool},
+  abstract     = {Nowadays, feature models are the de facto standard when representing commonalities and variability, with modern examples spanning up to 7000 features. Manual analysis of such models is challenging and error-prone due to sheer size. To help in this task, automated analysis of feature models (AAFM) has emerged over the past three decades. However, the diversity of these tools and their supported languages presents a significant challenge that motivated the MOD-EVAR community to initiate a project for a new tool that supports the UVL language. Despite the rise of machine learning and data science, along with robust Python-based libraries, most AAFM tools have been implemented in Java, creating a collaboration gap. This paper introduces Flama, an innovative framework that automates the analysis of variability models. It focuses on UVL model analysis and aims for easy integration and extensibility to bridge this gap and foster better community and cross-community collaboration.},
+  note         = {external collaboration}
 }
 
 @inproceedings{Burgueno2023_UncertaintySubjectiveLogic,
-  author       = {Lola Burgue{\~{n}}o and José Miguel Horcas and J{\"{o}}rg Kienzle},
+  author       = {Lola Burgueño and José Miguel Horcas and Jörg Kienzle},
   title        = {Development and Evolution of Software Product Lines Driven by Stakeholder Beliefs},
   booktitle    = {27th {ACM} International Systems and Software Product Line Conference ({SPLC})},
   pages        = {34--40},
   publisher    = {{ACM}},
-  volume    = {A},
+  volume       = {A},
   year         = {2023},
-  address   = {Tokyo, Japan},
-  month     = aug,
+  address      = {Tokyo, Japan},
+  month        = aug,
   url          = {https://doi.org/10.1145/3579027.3608975},
   doi          = {10.1145/3579027.3608975},
   timestamp    = {Thu, 31 Aug 2023 01:00:00 +0200},
   biburl       = {https://dblp.org/rec/conf/splc/BurguenoHK23.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  bibsource    = {dblp computer science bibliography, https://dblp.org},
+  track        = {short},
+  abstract     = {The planning, realization, and release of a Software Product Line (SPL) are driven by features. Therefore, many high-level decisions about the evolution of an SPL are made at the feature level. However, a feature can involve many stakeholders with different expertise, and taking their opinions into account to make the right decisions is not trivial. In this paper, we propose using belief uncertainty in conjunction with feature models to assist in the evolution of SPLs by explicitly quantifying opinions. We outline three evolution scenarios in which subjective logic can be used to represent the opinions of stakeholders and explain in detail how to use subjective logic to make decisions in the context of the next release problem. We illustrate our ideas with a Smartwatch SPL. Finally, we discuss different ways of combining the opinions of stakeholders depending on the situation, the goals and the risks that can be assumed.},
+  keywords     = {Decision making support, feature model, software product line, subjective logic, uncertainty},
+  note         = {external collaboration}
 }
 
 @inproceedings{Horcas2023_ConstraintsElimination,
-  author       = {José Miguel Horcas and Joaqu{\'{\i}}n Ballesteros and Mónica Pinto and Lidia Fuentes},
+  author       = {José Miguel Horcas and Joaquín Ballesteros and Mónica Pinto and Lidia Fuentes},
   title        = {Elimination of constraints for parallel analysis of feature models},
   booktitle    = {27th {ACM} International Systems and Software Product Line Conference ({SPLC})},
   pages        = {99--110},
   publisher    = {{ACM}},
-    volume    = {A},
+  volume       = {A},
   year         = {2023},
-    address   = {Tokyo, Japan},
-  month     = aug,
+  address      = {Tokyo, Japan},
+  month        = aug,
   url          = {https://doi.org/10.1145/3579027.3608981},
   doi          = {10.1145/3579027.3608981},
   timestamp    = {Thu, 31 Aug 2023 01:00:00 +0200},
   biburl       = {https://dblp.org/rec/conf/splc/HorcasBPF23.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  bibsource    = {dblp computer science bibliography, https://dblp.org},
+  abstract     = {Cross-tree constraints give feature models maximal expressive power since any interdependency between features can be captured through arbitrary propositional logic formulas. However, the existence of these constraints increases the complexity of reasoning about feature models, both for using SAT solvers or compiling the model to a binary decision diagram for efficient analyses. Although some works have tried to refactor constraints to eliminate them, they deal only with simple constraints (i.e., requires and excludes) or require the introduction of an additional set of features, increasing the complexity of the resulting feature model. This paper presents an approach that eliminates all the cross-tree constraints present in regular boolean feature models, including arbitrary constraints, in propositional logic formulas. Our approach for removing constraints consists of splitting the semantics of feature models into orthogonal disjoint feature subtrees, which are then analyzed in parallel to alleviate the exponential blow-up in memory of the resulting feature tree.},
+  keywords     = {Automated analysis, constraint, feature model, feature tree, parallelization, software product line}
 }
 
 @article{Horcas2022_CombiningMultipleGranularity,
@@ -190,12 +221,15 @@
   pages        = {106910},
   year         = {2022},
   url          = {https://doi.org/10.1016/j.infsof.2022.106910},
-  doi          = {10.1016/J.INFSOF.2022.106910},
+  doi          = {10.1016/j.infsof.2022.106910},
   timestamp    = {Tue, 16 Aug 2022 01:00:00 +0200},
   biburl       = {https://dblp.org/rec/journals/infsof/HorcasCFL22.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org},
   month        = {aug},
-    jcr 	   = {Q2}
+  jcr 	       = {Q2 (30/108) Computer Science, Software Engineering. Impact factor: 3.9},
+  abstract     = {Context: Web engineering involves managing a high diversity of artifacts implemented in different languages and with different levels of granularity. Technological companies usually implement variable artifacts of Software Product Lines (SPLs) using annotations, being reluctant to adopt hybrid, often complex, approaches combining composition and annotations despite their benefits. Objective: This paper proposes a combined approach to support fine and coarse-grained variability for web artifacts. The proposal allows web developers to continue using annotations to handle fine-grained variability for those artifacts whose variability is very difficult to implement with a composition-based approach, but obtaining the advantages of the composition-based approach for the coarse-grained variable artifacts. Methods: A combined approach based on feature modeling that integrates annotations into a generic composition-based approach. We propose the definition of compositional and annotative variation points with custom-defined semantics, which is resolved by a scaffolding-based derivation engine. The approach is evaluated on a real-world web-based SPL by applying a set of variability metrics, as well as discussing its quality criteria in comparison with annotations, compositional, and combined existing approaches. Results: Our approach effectively handles both fine and coarse-grained variability. The mapping between the feature model and the web artifacts promotes the traceability of the features and the uniformity of the variation points regardless of the granularity of the web artifacts. Conclusions: Using well-known techniques of SPLs from an architectural point of view, such as feature modeling, can improve the design and maintenance of variable web artifacts without the need of introducing complex approaches for implementing the underlying variability.},
+  keywords     = {Annotations, Composition, Feature models, SPL, Variability, Web engineering},
+  note         = {external collaboration},
 }
 
 @inproceedings{Horcas2022_FMFactLabel,
@@ -204,22 +238,23 @@
   booktitle    = {26th {ACM} International Systems and Software Product Line Conference ({SPLC})},
   pages        = {42--45},
   publisher    = {{ACM}},
-   volume    = {B},
+  volume       = {B},
   year         = {2022},
-   address   = {Graz, Austria},
-  month     = sep,
+  address      = {Graz, Austria},
+  month        = sep,
   url          = {https://doi.org/10.1145/3503229.3547025},
   doi          = {10.1145/3503229.3547025},
   timestamp    = {Tue, 21 Mar 2023 00:00:00 +0100},
   biburl       = {https://dblp.org/rec/conf/splc/HorcasGPF022.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  bibsource    = {dblp computer science bibliography, https://dblp.org},
+  track        = {Tool},
+  abstract     = {Recognizing specific characteristics of feature models (FM) can be challenging due to the different nature and domains of the models. There are several metrics to characterize FMs. However, there is no standard way to visualize and identify the properties that make an FM unique and distinguishable. We propose FM Fact Label as a tool to visualize an FM characterization based on its metadata, structural measures, and analytical metrics. Although existing tools can provide a visualization of the FM and report some metrics, the feature diagram of large-scale FMs becomes ineffective to take an overall shape of the FM properties. Moreover, the reported metrics are often embedded in the tool user interface, preventing further analysis. FM Fact Label is a standalone web-based tool that provides a configurable and interactive visualization of FM characterizations that can be exported to several formats. Our contribution becomes important because the Universal Variability Language (UVL) is starting to gain attraction in the software product line community as a unified textual language to specify FMs and share knowledge. With this contribution, we help to advance the UVL ecosystem one step forward while providing a common representation for the results of existing analysis tools.},
+  keywords     = {characterization, feature model, metrics, variability, visualization},
+  note         = {external collaboration},
 }
 
 @article{Horcas2025_FMFactLabel,
-  author       = {José Miguel Horcas and
-                  José A. Galindo and
-                  Lidia Fuentes and
-                  David Benavides},
+  author       = {José Miguel Horcas and José A. Galindo and Lidia Fuentes and David Benavides},
   title        = {{FM} fact label},
   journal      = {Sci. Comput. Program.},
   volume       = {240},
@@ -231,7 +266,10 @@
   biburl       = {https://dblp.org/rec/journals/scp/HorcasGFB25.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org},
   month        = {feb},
-    jcr 	   = {Q3}
+  jcr 	       = {Q3 (87/128) Computer Science, Software Engineering. Impact factor: 1.4},
+  abstract     = {FM Fact Label is a tool for visualizing the characterizations of feature models based on their metadata, structural measures, and analytical metrics. Although there are various metrics available to characterize feature models, there is no standard method to visualize and identify unique properties of feature models. Unlike existing tools, FM Fact Label provides a standalone web-based platform for configurable and interactive visualization, enabling export to various formats. This contribution is significant because it supports the Universal Variability Language (UVL) and enhances the UVL ecosystem by offering a common representation of the results of existing analysis tools.},
+  keywords     = {Characterization, Feature model, Metrics, Software product line, Variability, Visualization},
+  note         = {external collaboration}
 }
 
 @inproceedings{Martinez2022_Acapulco,
@@ -240,102 +278,116 @@
   booktitle    = {26th {ACM} International Systems and Software Product Line Conference ({SPLC})},
   pages        = {50--53},
   publisher    = {{ACM}},
-  volume    = {B},
+  volume       = {B},
   year         = {2022},
-  address   = {Graz, Austria},
-  month     = sep,
+  address      = {Graz, Austria},
+  month        = sep,
   url          = {https://doi.org/10.1145/3503229.3547067},
   doi          = {10.1145/3503229.3547067},
   timestamp    = {Sun, 12 Nov 2023 00:00:00 +0100},
   biburl       = {https://dblp.org/rec/conf/splc/Martinez0HBZ22.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  bibsource    = {dblp computer science bibliography, https://dblp.org},
+  track        = {Tool},
+  abstract     = {Configuring feature-oriented variability-rich systems is complex because of the large number of features and, potentially, the lack of visibility of the implications on quality attributes when selecting certain features. We present Acapulco as an alternative to the existing tools for automating the configuration process with a focus on mono- and multi-criteria optimization. The soundness of the tool has been proven in a previous publication comparing it to SATIBEA and MODAGAME. The main advantage was obtained through consistency-preserving configuration operators (CPCOs) that guarantee the validity of the configurations during the IBEA genetic algorithm evolution process. We present a new version of Acapulco built on top of FeatureIDE, extensible through the easy integration of objective functions, providing pre-defined reusable objectives, and being able to handle complex feature model constraints.},
+  keywords     = {Variability management, software product lines, genetic algorithms},
+  note         = {external collaboration, international stay result}
 }
 
 @inproceedings{Horcas2022_DataVisualizationVariability,
   author       = {José Miguel Horcas and José A. Galindo and David Benavides},
   title        = {Variability in data visualization: a software product line approach},
-   booktitle    = {26th {ACM} International Systems and Software Product Line Conference ({SPLC})},
+  booktitle    = {26th {ACM} International Systems and Software Product Line Conference ({SPLC})},
   pages        = {55--66},
   publisher    = {{ACM}},
-   volume    = {A},
+  volume       = {A},
   year         = {2022},
-    address   = {Graz, Austria},
-  month     = sep,
+  address      = {Graz, Austria},
+  month        = sep,
   url          = {https://doi.org/10.1145/3546932.3546993},
   doi          = {10.1145/3546932.3546993},
   timestamp    = {Mon, 26 Jun 2023 20:46:40 +0200},
   biburl       = {https://dblp.org/rec/conf/splc/HorcasG022.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  bibsource    = {dblp computer science bibliography, https://dblp.org},
+  abstract     = {Data visualization aims to effectively communicate quantitative information by understanding which techniques and displays work better for different circumstances and why. There are a variety of software solutions capable of generating a multitude of different visualizations of the same dataset. However, data visualization exposes a large space of visual configurations depending on the type of data to be visualized, the different displays (e.g., scatter plots, line graphs, pie charts), the visual components to encode the data (e.g., lines, dots, bars), or the specific visual attributes of those components (e.g., color, shape, size, length). Researchers and developers are not usually aware about best practices in data visualization, and they are required to learn about both the design practices that make communication effective and the low level details of the specific software tool used to generate the visualization. This paper proposes a software product line approach to model and materialize the variability of the visualization design process, guided by feature models. We encode the visualization knowledge regarding the best design practices, resolve the variability following a step-wise configuration approach, and then evaluate our proposal for a specific software visualization tool. Our solution helps researchers and developers communicate their quantitative results effectively by assisting them in the selection and generation of the visualizations that work best for each case. We open a new window of research where data visualization and variability meet each other.},
+  keywords     = {effective communication, feature model, graph, quantitative data, software product line, variability, visualization}
 }
 
 @inproceedings{RomeroOrganvidez2022_VariabilityDataMigrationTool,
   author       = {David Romero and José A. Galindo and José Miguel Horcas and David Benavides},
   title        = {Variability-aware data migration tool},
-  booktitle    = {1st International Workshop on Technical Debt for Variability-intensive Systems ({TD4ViS}) @ {SPLC}},
+  booktitle    = {1st International Workshop on Technical Debt for Variability-intensive Systems ({TD4ViS} @ {SPLC})},
   pages        = {78--81},
   publisher    = {{ACM}},
-    volume    = {B},
+  volume       = {B},
   year         = {2022},
-    address   = {Graz, Austria},
-  month     = sep,
+  address      = {Graz, Austria},
+  month        = sep,
   url          = {https://doi.org/10.1145/3503229.3547062},
   doi          = {10.1145/3503229.3547062},
   timestamp    = {Fri, 12 Apr 2024 01:00:00 +0200},
   biburl       = {https://dblp.org/rec/conf/splc/RomeroGH022.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  bibsource    = {dblp computer science bibliography, https://dblp.org},
+  abstract     = {Relational databases are widely present in the development of software applications. A typical implementation can be seen in content management systems found on most websites. However, the migration of database structure and content between different management systems is not trivial, and the manual creation of scripts makes it difficult to reuse them in other scenarios. This paper presents a tool for database migration by modeling what we call a migration product line. This tool allows to obtain different configurations resulting in final products in a semi-automatic way, i.e., products according to software requirements, considering the variability between any two relational databases. To study the feasibility of our proposal, we have implemented a proof of concept that performs the migration between two databases.},
+  keywords     = {databases, migrations, model transformations, product lines, variability}
 }
 
 @InProceedings{Horcas2021_MontecarloSimulations,
-  author    = {José Miguel Horcas and A. Germán Márquez and José A. Galindo and David Benavides},
-  booktitle = {23rd International Configuration Workshop ({ConfWS})},
-  title     = {Monte Carlo Simulations for Variability Analyses in Highly Configurable Systems},
-  year      = {2021},
-  address   = {Vienna, Austria},
-  month     = sep,
-  pages     = {37--44},
-  publisher = {CEUR-WS.org},
-  series    = {{CEUR} Workshop Proceedings},
-  volume    = {2945},
-  bibsource = {dblp computer science bibliography, https://dblp.org},
-  biburl    = {https://dblp.org/rec/conf/confws/AguileraMG021.bib},
-  awards   = {Best Paper Award},
-  timestamp = {Fri, 10 Mar 2023 16:22:15 +0100},
-  url       = {https://ceur-ws.org/Vol-2945/32-JMHA-ConfWS21_paper_19.pdf},
+  author       = {José Miguel Horcas and A. Germán Márquez and José A. Galindo and David Benavides},
+  booktitle    = {23rd International Configuration Workshop ({ConfWS})},
+  title        = {Monte Carlo Simulations for Variability Analyses in Highly Configurable Systems},
+  year         = {2021},
+  address      = {Vienna, Austria},
+  month        = sep,
+  pages        = {37--44},
+  publisher    = {CEUR-WS.org},
+  series       = {{CEUR} Workshop Proceedings},
+  volume       = {2945},
+  bibsource    = {dblp computer science bibliography, https://dblp.org},
+  biburl       = {https://dblp.org/rec/conf/confws/AguileraMG021.bib},
+  awards       = {Best Paper Award},
+  timestamp    = {Fri, 10 Mar 2023 16:22:15 +0100},
+  url          = {https://ceur-ws.org/Vol-2945/32-JMHA-ConfWS21_paper_19.pdf},
+  abstract     = {Highly configurable systems expose numerous variation points to be configured by the stakeholders. Deciding which variant to select for a given variation point is hard to know a priori because each variant affects the configuration properties (e.g., performance, efficiency, fault tolerance) differently, and evaluating all configurations is practically infeasible. This paper introduces an approach based on Monte Carlo simulations to analyze the influence ofeach feature selection when configuring a variability model. We split the whole configuration space into step-wise decisions driven by the variation points that a user normally needs to face/decide during the configuration process. Monte Carlo simulations approximate the influence of each feature variant evaluating as few configurations aspossible. Our solution complements existing sampling techniques to analyze colossal configuration spaces improving the understanding of the influence of each feature selection. It can be part of a decision-making tool to assist the user by means of recommendation systems and interactive configuration processes.}
 }
 
 @inproceedings{RomeroOrganvidez2021_FMRepo,
   author       = {David Romero and José A. Galindo and José Miguel Horcas and David Benavides},
   title        = {A first prototype of a new repository for feature model exchange and knowledge sharing},
-  booktitle    = {4th International Workshop on Languages for Modelling Variability ({MODEVAR}) @ {SPLC}},
+  booktitle    = {4th International Workshop on Languages for Modelling Variability ({MODEVAR} @ {SPLC})},
   pages        = {80--85},
   publisher    = {{ACM}},
-    volume    = {B},
+  volume       = {B},
   year         = {2021},
-   address   = {Leicester, United Kindom},
-  month     = sep,
+  address      = {Leicester, United Kindom},
+  month        = sep,
   url          = {https://doi.org/10.1145/3461002.3473949},
   doi          = {10.1145/3461002.3473949},
   timestamp    = {Fri, 12 Apr 2024 01:00:00 +0200},
   biburl       = {https://dblp.org/rec/conf/splc/RomeroGHB21.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  bibsource    = {dblp computer science bibliography, https://dblp.org},
+  abstract     = {Feature models are the "de facto" standard for variability modelling and are used in both academia and industry. The MODEVAR initiative tries to establish a common textual feature modelling language that can be used by different communities and can allow information sharing. Feature model related researches use different models for different purposes such as analysis, sampling, testing, debugging, teaching, etc. Those models are shared in private repositories and there is a risk that all that knowledge is spread across different platforms which hinder collaboration and knowledge reuse. In this paper, we propose a first working version of a new feature model repository that allows to centralise the knowledge generated in the community together with advanced capabilities such as DOI generation, an API, analysis reports, among others. Our solution is a front end interface that uses the popular open science repository Zenodo as an end point to materialise the storage of all the information. Zenodo is enhanced with characteristics that facilitate the management of the models. The idea of our repository is to provide existing but also new features that are not present in other repositories (e.g., SPLOT). We propose to populate our repository with all the existing models of many sources including SPLOT.},
+  keywords     = {feature model repository, characteristics, variability, requirements},
 }
 
 @InProceedings{Horcas2021_MCTS,
-  author    = {José Miguel Horcas and José A. Galindo and Ruben Heradio and David Fernández{-}Amorós and David Benavides},
-  booktitle = {25th {ACM} International Systems and Software Product Line Conference ({SPLC})},
-  title     = {Monte Carlo tree search for feature model analyses: a general framework for decision-making},
-  year      = {2021},
-  address   = {Leicester, United Kindom},
-  month     = sep,
-  pages     = {190--201},
-  publisher = {{ACM}},
-  volume    = {A},
-  bibsource = {dblp computer science bibliography, https://dblp.org},
-  biburl    = {https://dblp.org/rec/conf/splc/HorcasGHF021.bib},
-  awards   = {Best Paper Award},
-  doi       = {10.1145/3461001.3471146},
-  timestamp = {Tue, 21 Mar 2023 00:00:00 +0100},
-  url       = {https://doi.org/10.1145/3461001.3471146},
+  author       = {José Miguel Horcas and José A. Galindo and Ruben Heradio and David Fernández-Amorós and David Benavides},
+  booktitle    = {25th {ACM} International Systems and Software Product Line Conference ({SPLC})},
+  title        = {Monte Carlo tree search for feature model analyses: a general framework for decision-making},
+  year         = {2021},
+  address      = {Leicester, United Kindom (virtual)},
+  month        = sep,
+  pages        = {190--201},
+  publisher    = {{ACM}},
+  volume       = {A},
+  bibsource    = {dblp computer science bibliography, https://dblp.org},
+  biburl       = {https://dblp.org/rec/conf/splc/HorcasGHF021.bib},
+  awards       = {Best Paper Award},
+  doi          = {10.1145/3461001.3471146},
+  timestamp    = {Tue, 21 Mar 2023 00:00:00 +0100},
+  url          = {https://doi.org/10.1145/3461001.3471146},
+  abstract     = {The colossal solution spaces of most configurable systems make intractable their exhaustive exploration. Accordingly, relevant analyses remain open research problems. There exist analyses alternatives such as SAT solving or constraint programming. However, none of them have explored simulation-based methods. Monte Carlo-based decision making is a simulation-based method for dealing with colossal solution spaces using randomness. This paper proposes a conceptual framework that tackles various of those analyses using Monte Carlo methods, which have proven to succeed in vast search spaces (e.g., game theory). Our general framework is described formally, and its flexibility to cope with a diversity of analysis problems is discussed (e.g., finding defective configurations, feature model reverse engineering or getting optimal performance configurations). Additionally, we present a Python implementation of the framework that shows the feasibility of our proposal. With this contribution, we envision that different problems can be addressed using Monte Carlo simulations and that our framework can be used to advance the state of the art a step forward.},
+  keywords     = {configurable systems, variability modeling, feature models, Monte Carlo tree search, software product lines},
+  note         = {external collaboration}
 }
 
 @article{Canete2020_AndroidAdaptationEngines,
@@ -350,7 +402,9 @@
   biburl       = {https://dblp.org/rec/journals/infsof/CaneteHAF20.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org},
   month        = {feb},
-  jcr		   = {Q2}
+  jcr		       = {Q2 (31/108) Computer Science, Software Engineering. Impact factor: 2.730},
+  abstract     = {Context The energy consumption of mobile devices is increasing due to the improvement in their components (e.g., better processors, larger screens). Although the hardware consumes the energy, the software is responsible for managing hardware resources such as the camera software and its functionality, and therefore, affects the energy consumption. Energy consumption not only depends on the installed code, but also on the execution context (environment, devices status) and how the user interacts with the application. Objective In order to reduce the energy consumption based on user behavior, it is necessary to dynamically adapt the application. However, the adaptation mechanism also consumes a certain amount of energy in itself, which may lead to an important increase in the energy expenditure of the application in comparison with the benefits of the adaptation. Therefore, this footprint must be measured and compared with the benefit obtained. Method In this paper, we (1) determine the benefits, in terms of energy consumption, of dynamically adapting mobile applications, based on user behavior; and (2) advocate the most energy-efficient adaptation mechanism. We provide four different implementations of a proposed adaptation model and measure their energy consumption. Results The proposed adaptation engines do not increase the energy consumption when compared to the benefits of the adaptation, which can reduce the energy consumption by up to 20%. Conclusion The adaptation engines proposed in this paper can decrease the energy consumption of the mobile devices based on user behavior. The overhead introduced by the adaptation engines is negligible in comparison with the benefits obtained by the adaptation.},
+  keywords     = {Android, Dynamic adaptation, Energy efficiency, Mobile application, User behavior}
 }
 
 @inproceedings{Horcas2020_AbstractSyntaxFMConstructs,
@@ -359,15 +413,18 @@
   booktitle    = {24th {ACM} International Systems and Software Product Line Conference ({SPLC})},
   pages        = {10:1--10:7},
   publisher    = {{ACM}},
-     volume    = {A},
+  volume       = {A},
   year         = {2020},
-     address   = {Montreal, Quebec, Canada},
-  month     = oct,
+  address      = {Montreal, Quebec, Canada},
+  month        = oct,
   url          = {https://doi.org/10.1145/3382025.3414959},
   doi          = {10.1145/3382025.3414959},
   timestamp    = {Tue, 21 Mar 2023 00:00:00 +0100},
   biburl       = {https://dblp.org/rec/conf/splc/HorcasPF20.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  bibsource    = {dblp computer science bibliography, https://dblp.org},
+  abstract     = {Since the definition of feature models in 1990, a large number of language constructs have emerged. Each language construct usually comes with its own abstract and concrete syntax, its semantics, and even its complete language dialect and tool support. Nowadays, there is a consensus in the Software Product Line community about a need for defining a common variability modeling language. But the fact of the matter is that it is very complex to achieve a good compromise between how expressive the language should be and the effort of developing practical tools for a language with all possible language constructs. In this paper, we propose an extensible model-driven engineering approach for defining the abstract syntax of feature modeling language constructs that could be tailored to different needs and domains. We formalize our approach as a set of modular and reusable metamodels that allows practitioners to decide which subset of language constructs to use through: (1) generating a new variability language; and (2) managing feature models with different level of expressiveness. We provide an instantiation and implementation of our approach.},
+  keywords     = {Abstract syntax, feature modeling, language construct, language level, metamodeling, model-driven engineering, SPL},
+  track        = {short}
 }
 
 @article{Horcas2019_EneryEfficiencyCPSs,
@@ -383,7 +440,9 @@
   biburl       = {https://dblp.org/rec/journals/adhoc/HorcasPF19.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org},
   month        = {jan},
-    jcr 	   = {Q1}
+  jcr 	       = {Q1 (39/156) Computer Science, Information Systems. Impact factor: 3.643},
+  abstract     = {Software systems have a strong impact on the energy consumption of the hardware they use. This is especially important for cyber-physical systems where power consumption strongly influences the battery life. For this reason, software developers should be more aware of the energy consumed by their systems. Moreover, software systems should be developed to adapt their behavior to minimize the energy consumed during their execution. This can be done by monitoring the usage context of the system and having runtime support to react to those changes that impact the energy footprint negatively. Although both the hardware and the software parts of cyber-physical systems can be adapted to reduce its energy consumption, this paper focuses on software adaptation. Concretely, the paper illustrates how to address the problem of developing context-aware energy-efficient applications using a Green Eco-Assistant that makes use of advanced software engineering methods, such as Dynamic Software Product Lines and Separation of Concerns. The main steps of our approach are illustrated by applying them to a cyber-physical system case study.},
+  keywords     = {Energy efficient cyber-physical systems, software sustainability, self-adaptive greenability, Dynamic Software Product Lines}
 }
 
 @article{Ayala2019_GoalDrivenSPLEvolvingMASs,
@@ -398,7 +457,9 @@
   biburl       = {https://dblp.org/rec/journals/kbs/AyalaAHF19.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org},
   month        = {nov},
-    jcr 	   = {Q1}
+  jcr 	       = {Q1 (15/137) Computer Science, Artificial Intelligence. Impact factor: 5.921},
+  abstract     = {Multi-agent systems have proved to be a suitable technology for developing self-adaptive Internet of Things (IoT) systems, able to make the most appropriate decisions to address unexpected situations. This leads to new opportunities to use multi-agent technologies to develop all kinds of cyber–physical systems, which usually encompass a high diversity of devices (e.g., new home appliances). The heterogeneity of devices and the high diversity of the available technology, demand the explicit modeling of all kinds of variability for ultra-large systems. However, multi-agent systems lack mechanisms to effectively deal with the different degrees of variability present in these kinds of systems. Software Product Line (SPL) technologies, including variability models, have been successfully applied to different domains to explicitly model variability in hardware, system requirements or user-intended goals. In addition, current market trends are unpredictable, imposing novel technologies, new requirements and goals that must be incorporated immediately into the running systems without damaging them. In this paper, we combine goal-driven and SPL approaches to develop and drive the evolution of multi-agent systems in the context of cyber–physical systems. We propose an SPL process and an evolution process that define a set of models (iStar 2.0 for goals and CVL models for variability) and algorithms to automatically propagate changes to agents running in multiple heterogeneous devices, each of them with a different configuration. We illustrate the proposal in the context of a home energy management system. Finally, we have tested the scalability and performance of the proposal using randomly generated models. The results show that with our approach it is possible to manage huge iStar models of 10000 elements in seconds.},
+  keywords     = {Software product line, Evolution, Internet of Things, MAS-PL, Goal models, GORE}
 }
 
 @inproceedings{Horcas2019_SPLEPracticalExperience,
@@ -407,15 +468,17 @@
   booktitle    = {23rd International Systems and Software Product Line Conference ({SPLC})},
   pages        = {25:1--25:13},
   publisher    = {{ACM}},
-       volume    = {A},
+  volume       = {A},
   year         = {2019},
-  address   = {Paris, France},
-  month     = sep,
+  address      = {Paris, France},
+  month        = sep,
   url          = {https://doi.org/10.1145/3336294.3336304},
   doi          = {10.1145/3336294.3336304},
   timestamp    = {Mon, 05 Feb 2024 00:00:00 +0100},
   biburl       = {https://dblp.org/rec/conf/splc/HorcasPF19.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  bibsource    = {dblp computer science bibliography, https://dblp.org},
+  abstract     = {The lack of mature tool support is one of the main reasons that make the industry to be reluctant to adopt Software Product Line (SPL) approaches. A number of systematic literature reviews exist that identify the main characteristics offered by existing tools and the SPL phases in which they can be applied. However, these reviews do not really help to understand if those tools are offering what is really needed to apply SPLs to complex projects. These studies are mainly based on information extracted from the tool documentation or published papers. In this paper, we follow a different approach, in which we firstly identify those characteristics that are currently essential for the development of an SPL, and secondly analyze whether the tools provide or not support for those characteristics. We focus on those tools that satisfy certain selection criteria (e.g., they can be downloaded and are ready to be used). The paper presents a state of practice with the availability and usability of the existing tools for SPL, and defines different roadmaps that allow carrying out a complete SPL process with the existing tool support.},
+  keywords     = {SPL in practice, state of practice, tool support, tooling roadmap}
 }
 
 @article{Horcas2018_VariabilityModelsEfficientFQAs,
@@ -431,7 +494,9 @@
   biburl       = {https://dblp.org/rec/journals/infsof/HorcasPF18.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org},
   month        = {mar},
-    jcr 	   = {Q1}
+  jcr 	       = {Q1 (17/107) Computer Science, Software Engineering. Impact factor: 2.921},
+  abstract     = {Context: Quality attributes play a critical role in the architecture elicitation phase. Software Sustainability and energy efficiency is becoming a critical quality attribute that can be used as a selection criteria to choose from among different design or implementation alternatives. Energy efficiency usually competes with other non-functional requirements, like for instance, performance. Objective: This paper presents a process that helps developers to automatically generate optimum configurations of functional quality attributes in terms of energy efficiency and performance. Functional quality attributes refer to the behavioral properties that need to be incorporated inside a software architecture to fulfill a particular quality attribute (e.g., encryption and authentication for the security quality attribute, logging for the usability quality attribute). Method: Quality attributes are characterized to identify their design and implementation variants and how the different configurations influence both energy efficiency and performance. A usage model for each characterized quality attribute is defined. The variability of quality attributes, as well as the energy efficiency and performance experiment results, are represented as a constraint satisfaction problem with the goal of formally reasoning about it. Then, a configuration of the selected functional quality attributes is automatically generated, which is optimum with respect to a selected objective function. Results: Software developers can improve the energy efficiency and/or performance of their applications by using our approach to perform a richer analysis of the energy consumption and performance of different alternatives for functional quality attributes. We show quantitative values of the benefits of using our approach and discuss the threats to validity. Conclusions: The process presented in this paper will help software developers to build more energy efficient software, whilst also being aware of how their decisions affect other quality attributes, such as performance.},
+  keywords     = {Energy efficiency, Energy consumption, Quality attributes, Performance, Sustainability, Software product line, Variability}
 }
 
 @article{Horcas2018_AutonomousVehicles,
@@ -447,26 +512,31 @@
   biburl       = {https://dblp.org/rec/journals/smr/HorcasMBPFC18.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org},
   month        = {apr},
-    jcr 	   = {Q3}
+  jcr 	       = {Q3 (62/107) Computer Science, Software Engineering. Impact factor: 1.305},
+  abstract     = {Human drivers naturally adapt their behaviour depending on the traffic conditions, such as the current weather and road type. Autonomous vehicles need to do the same, in a way that is both safe and efficient in traffic composed of both conventional and autonomous vehicles. In this paper, we demonstrate the applicability of a reconfigurable vehicle controller agent for autonomous vehicles that adapts the parameters of a used car-following model at runtime, so as to maintain a high degree of traffic quality (efficiency and safety) under different weather conditions. We follow a dynamic software product line approach to model the variability of the car-following model parameters, context changes and traffic quality, and generate specific configurations for each particular context. Under realistic conditions, autonomous vehicles have only a very local knowledge of other vehicles' variables. We investigate a distributed model predictive controller agent for autonomous vehicles to estimate their behavioural parameters at runtime, based on their available knowledge of the system. We show that autonomous vehicles with the proposed reconfigurable controller agent lead to behaviour similar to that achieved by human drivers, depending on the context.},
+  keywords     = {autonomousvehicles, car-following model, dynamic software product line, reconfiguration, traffic quality},
+  note         = {external collaboration, international stay result}
 }
 
 @InProceedings{Ayala2018_MDEvolutionABHome,
-  author    = {Inmaculada Ayala and Mercedes Amor and José Miguel Horcas and Lidia Fuentes},
-  booktitle = {17th International Conference on New Trends in Intelligent Software Methodologies, Tools and Techniques ({SoMeT})},
-  title     = {Model Driven Evolution of an Agent-Based Home Energy Management System},
-  year      = {2018},
-  address   = {Granada, Spain},
-  month     = sep,
-  pages     = {17--30},
-  publisher = {{IOS} Press},
-  series    = {Frontiers in Artificial Intelligence and Applications},
-  volume    = {303},
-  bibsource = {dblp computer science bibliography, https://dblp.org},
-  biburl    = {https://dblp.org/rec/conf/somet/AyalaAHF18.bib},
-  awards   = {Best Paper Award},
-  doi       = {10.3233/978-1-61499-900-3-17},
-  timestamp = {Tue, 21 Mar 2023 00:00:00 +0100},
-  url       = {https://doi.org/10.3233/978-1-61499-900-3-17},
+  author       = {Inmaculada Ayala and Mercedes Amor and José Miguel Horcas and Lidia Fuentes},
+  booktitle    = {17th International Conference on New Trends in Intelligent Software Methodologies, Tools and Techniques ({SoMeT})},
+  title        = {Model Driven Evolution of an Agent-Based Home Energy Management System},
+  year         = {2018},
+  address      = {Granada, Spain},
+  month        = sep,
+  pages        = {17--30},
+  publisher    = {{IOS} Press},
+  series       = {Frontiers in Artificial Intelligence and Applications},
+  volume       = {303},
+  bibsource    = {dblp computer science bibliography, https://dblp.org},
+  biburl       = {https://dblp.org/rec/conf/somet/AyalaAHF18.bib},
+  awards       = {Best Paper Award},
+  doi          = {10.3233/978-1-61499-900-3-17},
+  timestamp    = {Tue, 21 Mar 2023 00:00:00 +0100},
+  url          = {https://doi.org/10.3233/978-1-61499-900-3-17},
+  abstract     = {Advanced smart home appliances and new models of energy tariffs imposed by energy providers pose new challenges in the automation of home energy management. Users need some assistant tool that helps them to make complex decisions with different goals, depending on the current situation. Multi-agent systems have proved to be a suitable technology to develop self-management systems, able to take the most adequate decision under different context-dependent situations, like the home energy management. The heterogeneity of home appliances and also the changes in the energy policies of providers introduce the necessity of explicitly modeling this variability. But, multi-agent systems lack of mechanisms to effectively deal with the different degrees of variability required by these kinds of systems. Software Product Line technologies, including variability models, has been successfully applied to different domains to explicitly model any kind of variability. We have defined a software product line development process that performs a model driven generation of agents embedded in heterogeneous smart objects with different degrees of self-management. However, once deployed, the home energy assistant system has to be able to evolve to self-adapt its decision making or devices to new requirements. So, in this paper we propose a model driven mechanism to automatically manage the evolution of multi-agent systems distributed among several devices.},
+  keywords     = {Software Product Line, Self-adaptation, Internet of Things, MAS-PL}
 }
 
 @inproceedings{Horcas2018_CVLMultilanguageAnnotationsWeb,
@@ -477,13 +547,17 @@
   publisher    = {{ACM}},
   volume       = {1},
   year         = {2018},
-  address   = {Gothenburg, Sweden},
-  month     = sep,
+  address      = {Gothenburg, Sweden},
+  month        = sep,
   url          = {https://doi.org/10.1145/3233027.3233049},
   doi          = {10.1145/3233027.3233049},
   timestamp    = {Tue, 21 Mar 2023 00:00:00 +0100},
   biburl       = {https://dblp.org/rec/conf/splc/HorcasCFL18.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  bibsource    = {dblp computer science bibliography, https://dblp.org},
+  abstract     = {Web applications development involves managing a high diversity of files and resources like code, pages or style sheets, implemented in different languages. To deal with the automatic generation of custom-made configurations of web applications, industry usually adopts annotation-based approaches even though the majority of studies encourage the use of composition-based approaches to implement Software Product Lines. Recent work tries to combine both approaches to get the complementary benefits. However, technological companies are reticent to adopt new development paradigms such as feature-oriented programming or aspect-oriented programming. Moreover, it is extremely difficult, or even impossible, to apply these programming models to web applications, mainly because of their multilingual nature, since their development involves multiple types of source code (Java, Groovy, JavaScript), templates (HTML, Markdown, XML), style sheet files (CSS and its variants, such as SCSS), and other files (JSON, YML, shell scripts). We propose to use the Common Variability Language as a composition-based approach and integrate annotations to manage fine grained variability of a Software Product Line for web applications. In this paper, we (i) show that existing composition and annotation-based approaches, including some well-known combinations, are not appropriate to model and implement the variability of web applications; and (ii) present a combined approach that effectively integrates annotations into a composition-based approach for web applications. We implement our approach and show its applicability with an industrial real-world system.},
+  keywords     = {Automation, annotations, composition, CVL, SPL, variability, web engineering},
+  note         = {external collaboration, industry collaboration},
+  track        = {Industrial}
 }
 
 @inproceedings{Horcas2017_HADASApproach,
@@ -501,7 +575,8 @@
   biburl       = {https://dblp.org/rec/conf/dasc/HorcasPFG17.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org},
   abstract     = {Software systems have a strong impact on the energy consumption of the hardware they use. For this reason, software developers should be more aware of the energy consumed by their systems. Moreover, software systems should be developed to be able to adapt their behavior to minimize the energy consumed during their execution. This paper illustrates how to address the problem of developing self-adaptive energy-efficient applications using the HADAS approach. HADAS makes use of advanced software engineering methods, such as Dynamic Software Product Lines and Aspect-Oriented Software Development. The main steps of the HADAS approach, both during the design of the application and also at runtime are illustrated by applying them to a running case study.},
-  keywords     = {energy-efficient applications, self-adaptation, HADAS, Dynamic Software Product Lines, Aspect-Oriented Software Development}
+  keywords     = {energy-efficient applications, self-adaptation, HADAS, Dynamic Software Product Lines, Aspect-Oriented Software Development},
+  note         = {external collaboration}
 }
 
 @InProceedings{Horcas2017_vEXgine,
@@ -558,7 +633,7 @@
   biburl       = {https://dblp.org/rec/journals/compsec/HorcasPFMO16.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org},
   month        = {may},
-  jcr 	       = {Q2},
+  jcr 	       = {Q2 (37/146) Computer Science, Information Systems. Impact factor: 2.849},
   abstract     = {Security policies are enforced through the deployment of certain security functionalities within the applications. When the security policies dynamically change, the associated security functionalities currently deployed within the applications must be adapted at runtime in order to enforce the new security policies. INTER-TRUST is a framework for the specification, negotiation, deployment and dynamic adaptation of interoperable security policies, in the context of pervasive systems where devices are constantly exchanging critical information through the network. The dynamic adaptation of the security policies at runtime is addressed using Aspect-Oriented Programming (AOP) that allows enforcing security requirements by dynamically weaving security aspects into the applications. However, a mechanism to guarantee the correct adaptation of the functionality that enforces the changing security policies is needed. In this paper, we present an approach based on the combination of monitoring and detection techniques in order to maintain the correlation between the security policies and the associated functionality deployed using AOP, allowing the INTER-TRUST framework to automatically react when needed.},
   keywords     = {Aspect-oriented programming, Dynamic deployment, Monitoring, Security framework, Security policies},
   note         = {external collaboration, industry collaboration}
@@ -577,7 +652,7 @@
   biburl       = {https://dblp.org/rec/journals/jss/HorcasPF16.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org},
   month        = {feb},
-  jcr 	       = {Q1},
+  jcr 	       = {Q1 (22/106) Computer Science, Software Engineering. Impact factor: 2.444},
   abstract     = {Some quality attributes can be modelled using software components, and are normally known as Functional Quality Attributes (FQAs). Applications may require different FQAs, and each FQA (e.g., security) can be composed of many concerns (e.g., access control or authentication). They normally have dependencies between them and crosscut the system architecture. The goal of the work presented here is to provide the means for software architects to focus only on application functionality, without having to worry about FQAs. The idea is to model FQAs separately from application functionality following a Software Product Line (SPL) approach. By combining SPL and aspect-oriented mechanisms, we will define a generic process to model and automatically inject FQAs into the application without breaking the base architecture. We will provide and compare two implementations of our generic approach using different variability and architecture description languages: (i) feature models and an aspect-oriented architecture description language; and (ii) the Common Variability Language (CVL) and a MOF-compliant language (e.g., UML). We also discuss the benefits and limitations of our approach. Modelling FQAs separately from the base application has many advantages (e.g., reusability, less coupled components, high cohesive architectures).},
   keywords     = {Quality attributes, Software product lines, Weaving}
 }
@@ -704,7 +779,7 @@
   biburl       = {https://dblp.org/rec/journals/sensors/PintoGFAHA15.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org},
   month        = {mar},
-  jcr          = {Q1},
+  jcr          = {Q1 (12/56) Instruments & Instrumentation. Impact factor: 2.033},
   abstract     = {Providing security and privacy to wireless sensor nodes (WSNs) is very challenging, due to the heterogeneity of sensor nodes and their limited capabilities in terms of energy, processing power and memory. The applications for these systems run in a myriad of sensors with different low-level programming abstractions, limited capabilities and different routing protocols. This means that applications for WSNs need mechanisms for self-adaptation and for self-protection based on the dynamic adaptation of the algorithms used to provide security. Dynamic software product lines (DSPLs) allow managing both variability and dynamic software adaptation, so they can be considered a key technology in successfully developing self-protected WSN applications. In this paper, we propose a self-protection solution for WSNs based on the combination of the INTER-TRUST security framework (a solution for the dynamic negotiation and deployment of security policies) and the FamiWare middleware (a DSPL approach to automatically configure and reconfigure instances of a middleware for WSNs). We evaluate our approach using a case study from the intelligent transportation system domain. },
   keywords     = {FamiWare, INTER-TRUST, self-protection, self-adaptation, security frameworks, dynamic software product lines},
 }
@@ -832,8 +907,8 @@
   pages        = {185--188},
   publisher    = {{IEEE} Computer Society},
   year         = {2013},
-  address   = {Santander, Spain},
-  month     = sep,
+  address      = {Santander, Spain},
+  month        = sep,
   url          = {https://doi.org/10.1109/SEAA.2013.20},
   doi          = {10.1109/SEAA.2013.20},
   timestamp    = {Fri, 24 Mar 2023 00:00:00 +0100},
@@ -849,42 +924,40 @@
   title        = {Modeling of Quality Attributes using an Aspect-Oriented Software-Product Line approach},
   booktitle    = {7th European Conference on Software Architecture ({ECSA}), {Doctoral Symposium: PhD Students Worshop}},
   year         = {2013},
-  address   = {Montpellier, France},
-  month     = jul,
+  address      = {Montpellier, France},
+  month        = jul,
   url          = {https://info-web.lirmm.fr/ecoop13/images/ds/4-paper-jose%20miguel%20horcas%20aguilera.pdf},
   track        = {PhD Symposium},
   abstract     = {Modeling Functional Quality Attributes (FQAs) and the relationships between them is a complex task for several reasons. In order to cope with that complexity, our research focuses on defining an aspect-oriented software product line approach that: (1) models the commonalities and variabilities of FQAs from the early stages of the development process using a software product line approach, (2) weaves the FQA configurations with the core functionality of applications in an aspectoriented fashion, (3) specifies the FQAs in a generic way, making it possible to use our approach with any MOF-compliant modeling language, and (4) adapts the FQA configurations at runtime according to changes in the application execution environment.},
-  keywords  = {functional quality attributes, variability, SPL, AOSD, MDD, dynamic reconfiguration},
+  keywords     = {functional quality attributes, variability, SPL, AOSD, MDD, dynamic reconfiguration},
 }
 
 @article{Horcas2025_BeliefUncertainty,
-  author       = {José Miguel Horcas and
-                  Lola Burgueño and
-                  Jörg Kienzle},
-  title        = {Leveraging belief uncertainty for informed decision making in software
-                  product line evolution},
+  author       = {José Miguel Horcas and Lola Burgueño and Jörg Kienzle},
+  title        = {Leveraging belief uncertainty for informed decision making in software product line evolution},
   journal      = {J. Syst. Softw.},
   volume       = {219},
   pages        = {112235},
   year         = {2025},
+  month        = {jan},
   url          = {https://doi.org/10.1016/j.jss.2024.112235},
   doi          = {10.1016/J.JSS.2024.112235},
   timestamp    = {Mon, 09 Dec 2024 22:47:38 +0100},
   biburl       = {https://dblp.org/rec/journals/jss/HorcasBK25.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org},
-  month		   = {jan},
-    jcr 	   = {Q1}
+  month		     = {jan},
+  jcr 	       = {Q1 (23/128) Computer Science, Software Engineering. Impact factor: 4.1},
+  abstract     = {Software Product Lines (SPL) are not static software artifacts, but they evolve over time. The planning, realization, and release of a SPL requires many high-level decisions involving many different stakeholders with different expertise. Taking their opinions into account to make the right decisions is not trivial. Currently there are no mechanisms to assist stakeholders in the decision making process in an informed manner. In this paper, we propose the use of belief uncertainty in conjunction with feature models to assist in the evolution of SPLs by explicitly quantifying opinions and their associated uncertainty. We present a novel approach in which subjective logic is used to represent the opinions of stakeholders in three evolution scenarios, namely feature model evolution, next release problem and variability reduction. We apply our approach to the evolution of the Xiaomi MiBand SmartWatch SPL over the time period from July 2014 to October 2023. We present an implementation of our approach and evaluate its scalability.},
+  keywords     = {Decision making support, Feature model, Software product line, Belief uncertainty, Subjective logic, Evolution, Next release problem, Variability reduction},
+  note         = {external collaboration}
 }
 
 @article{RomeroOrganvidez2024_UVLHub,
-  author       = {David Romero{-}Organvidez and
-                  José A. Galindo and
-                  Chico Sundermann and
-                  José Miguel Horcas and
-                  David Benavides},
+  author       = {David Romero-Organvidez and José A. Galindo and Chico Sundermann and José Miguel Horcas and David Benavides},
   title        = {UVLHub: {A} feature model data repository using {UVL} and open science principles},
   journal      = {J. Syst. Softw.},
   volume       = {216},
+  month        = {oct},
   pages        = {112150},
   year         = {2024},
   url          = {https://doi.org/10.1016/j.jss.2024.112150},
@@ -892,17 +965,16 @@
   timestamp    = {Mon, 09 Dec 2024 22:47:38 +0100},
   biburl       = {https://dblp.org/rec/journals/jss/RomeroOrganvidezGSHB24.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org},
-    jcr 	   = {Q1}
+  jcr 	       = {Q1 (23/128) Computer Science, Software Engineering. Impact factor: 4.1},
+  abstract     = {Feature models are the de facto standard for modelling variabilities and commonalities in features and relationships in software product lines. They are the base artefacts in many engineering activities, such as product configuration, derivation, or testing. Concrete models in different domains exist; however, many are in private or sparse repositories or belong to discontinued projects. The dispersion of knowledge of feature models hinders the study and reuse of these artefacts in different studies. The Universal Variability Language (UVL) is a community effort textual feature model language that promotes a common way of serializing feature models independently of concrete tools. Open science principles promote transparency, accessibility, and collaboration in scientific research. Although some attempts exist to promote feature model sharing, the existing solutions lack open science principles by design. In addition, existing and public feature models are described using formats not always supported by current tools. This paper presents , a repository of feature models in UVL format. provides a front end that facilitates the search, upload, storage, and management of feature model datasets, improving the capabilities of discontinued proposals. Furthermore, the tool communicates with Zenodo – one of the most well-known open science repositories – providing a permanent save of datasets and following open science principles. includes existing datasets and is readily available to include new data and functionalities in the future. It is maintained by three active universities in variability modelling.},
+  keywords     = {Feature models, Software product line, Variability, Dataset, UVL},
+  note         = {external collaboration}
 }
 
 @inproceedings{Horcas2025_KubernetesFM,
-  author       = {José Miguel Horcas and
-                  Mercedes Amor Pinilla and
-                  Lidia Fuentes},
-  title        = {The Kubernetes variability model: Synthesizing variability from the
-                  K8s {API} Documentation: {A} case study},
-  booktitle    = {19th International Working Conference on Variability
-                  Modelling of Software-Intensive Systems ({VaMoS})},
+  author       = {José Miguel Horcas and Mercedes Amor Pinilla and Lidia Fuentes},
+  title        = {The Kubernetes variability model: Synthesizing variability from the K8s {API} Documentation: {A} case study},
+  booktitle    = {19th International Working Conference on Variability Modelling of Software-Intensive Systems ({VaMoS})},
   address      = {Rennes, France},
   month        = {Feb},
   pages        = {58--67},
@@ -912,21 +984,57 @@
   doi          = {10.1145/3715340.3715440},
   timestamp    = {Fri, 30 May 2025 11:26:47 +0200},
   biburl       = {https://dblp.org/rec/conf/vamos/HorcasPF25.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  bibsource    = {dblp computer science bibliography, https://dblp.org},
+  abstract     = {Kubernetes is widely adopted across the Cloud, Edge and IoT Continuum to orchestrate containerized applications efficiently, from centralized clouds to edge devices and IoT endpoints. Managing configuration variability in platforms like Kubernetes remains challenging due to a wide range of options that, while documented, are often implicit in configuration files. This complexity limits the use of many features, with most configurations employing only a subset of available options, forcing developers to study extensive manuals to understand configurable parameters and their variants. This paper presents a synthesized variability model for Kubernetes, derived directly from its official documentation rather than from existing configurations. The resulting feature model captures the configuration space and its constraints, enabling the automatic generation of tailored, consistent configurations that reduce manual effort and ensure compatibility across platform versions. We validate the model against over 250,000 real-world configurations to confirm its effectiveness.},
+  keywords     = {Configuration, documentation, Kubernetes, feature model, variability synthesis, manifest files, YAML},
 }
 
 @article{Horcas2020_EvolutionCVLModels,
-  author={Horcas, José Miguel and Pinto, Mónica},
-  journal={IEEE Latin America Transactions}, 
-  title={Automatic Evolution of Eco-Efficient Software Architectures with CVL Models}, 
-  year={2020},
-  volume={18},
-  number={07},
-  pages={1238-1246},
-  keywords={Software;Cloud computing;Computer architecture;Biological system modeling;Energy consumption;Adaptation models;Silicon compounds;Cardinality;Energy Efficiency;Evolution;Product Line Architecture;Variability;CVL},
-  doi={10.1109/TLA.2020.9099765},
-  jcr={Q4},
-  month={jul}
-  }
+  author       = {Horcas, José Miguel and Pinto, Mónica},
+  journal      = {IEEE Latin America Trans.}, 
+  title        = {Automatic Evolution of Eco-Efficient Software Architectures with CVL Models}, 
+  year         = {2020},
+  volume       = {18},
+  number       = {07},
+  pages        = {1238-1246},
+  keywords     = {Software;Cloud computing;Computer architecture;Biological system modeling;Energy consumption;Adaptation models;Silicon compounds;Cardinality;Energy Efficiency;Evolution;Product Line Architecture;Variability;CVL},
+  doi          = {10.1109/TLA.2020.9099765},
+  jcr          = {Q4 (152/161) Computer Science, Information Systems. Impact factor: 0.729},
+  month        = {jul},
+  abstract     = {Resource sharing and mass storage in server farms provided by cloud platforms save huge amounts of energy. However, optimizing energy consumption at the server room is not enough, being desirable to perform energy optimization of cloud services at the application level. In cloud computing a tailored configuration of services is deployed for each client (tenant), requiring different energy consumption optimizations. Indeed, energy consumption of cloud services depends on several factors determined by the context and usage of the applications. So, to evolve a cloud application to new requirements of energy efficiency implies to perform custom-made adaptations for each tenant. Thus, managing the evolution of a multi-tenant application with hundreds of tenants and thousands of different valid architectural configurations can become intractable if performed manually. This paper proposes a product line architecture approach that: (1) uses cardinality-based variability models to model each tenant as a clonable feature, and (2) automatizes the process of evolving the multi-tenant application architecture when the energy requirements change. The implemented process is efficient for a high number of tenants in a reasonable time.},
+  keywords     = {Cardinality, Energy Efficiency, Evolution, Product Line Architecture, Variability, CVL}
+}
 
-@Comment{jabref-meta: databaseType:bibtex;}
+@article{Horcas2025_FMSans,
+  author       = {José Miguel Horcas and Joaquín Ballesteros and Mónica Pinto and Lidia Fuentes},
+  title        = {FMSans: An efficient approach for constraints removal and parallel analysis of feature models},
+  journal      = {J. Syst. Softw.},
+  volume       = {227},
+  pages        = {112434},
+  year         = {2025},
+  month        = {sep},
+  url          = {https://doi.org/10.1016/j.jss.2025.112434},
+  doi          = {10.1016/j.jss.2025.112434},
+  timestamp    = {Sat, 31 May 2025 23:16:43 +0200},
+  biburl       = {https://dblp.org/rec/journals/jss/HorcasBPF25.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org},
+  jcr          = {Q1 (23/128) Computer Science, Software Engineering. Impact factor: 4.1},
+  abstract     = {Cross-tree constraints help to compact feature models by using arbitrary propositional logic formulas, which efficiently capture interdependencies between features. However, the existence of these constraints increases the complexity of reasoning about feature models, whether we use SAT solvers or compile the model to a binary decision diagram for efficient analyses. Although some works have tried to refactor constraints to eliminate them, they deal only with simple constraints (i.e., requires and excludes) or require introducing an additional set of features, increasing the size and complexity of the resulting feature model. This paper presents an approach that eliminates all the cross-tree constraints in regular boolean feature models, including arbitrary constraints in propositional logic formulas. Our approach for removing constraints consists of splitting the semantics of feature models into orthogonal disjoint feature subtrees, which are then analyzed in parallel to alleviate the exponential blow-up in memory of the resulting feature tree. We propose a codification of the constraints and define and analyze different heuristics for constraints ordering to reduce the complexity of identifying the valid disjoint subtrees when removing constraints.},
+  keywords     = {Automated analysis, Constraint, Feature model, Feature tree, Parallelization, Software product line}
+}
+
+@article{FernandezAmoros2025_RandconfigPlus,
+  author       = {David Fernandez-Amoros and Rubén Heradio and José Miguel Horcas and José A. Galindo and David Benavides and Lidia Fuentes},
+  title        = {Pragmatic random sampling of Kconfig-based systems: A unified approach},
+  journal      = {J. Syst. Softw.},
+  volume       = {230},
+  pages        = {112577},
+  year         = {2025},
+  month        = {dec},
+  url          = {https://doi.org/10.1016/j.jss.2025.112577},
+  doi          = {10.1016/j.jss.2025.112577},
+  jcr          = {Q1 (23/128) Computer Science, Software Engineering. Impact factor: 4.1},
+  abstract     = {The configuration space of some systems is so large that it cannot be computed. This is the case with the Linux Kernel, which provides more than 18,000 configurable options described across almost 1,700 files in the Kconfig language. As a result, many analyses of these systems rely on sampling their configuration space (e.g., debugging compilation errors, predicting configuration performance, finding the configuration that optimizes specific performance metrics, among others.). The Kernel and other Kconfig-based systems can be sampled pragmatically, using their built-in tool conf to get a sample directly from the Kconfig specification that is approximately random, or idealistically, generating a genuine random sample by first translating the Kconfig files into logic formulas, then using a logic engine to compute the probability that each option value has to appear in a configuration, and finally utilizing these probabilities to generate an authentically random sample. The pros of the idealistic approach are that it ensures the sample is representative of the population, but the cons are that it sets out many challenging problems that have not been solved yet (fundamentally, how to obtain a valid translation into Boolean that covers all the Kconfig language, and how to compute the option value probabilities for very large formulas). This paper introduces a new version of conf called randconfig , which incorporates a series of improvements that increase the randomness and correctness of pragmatic sampling and also help validate the Boolean translation required for the idealistic approach. randconfig has been tested on ten versions of the Linux Kernel and twenty additional Kconfig systems. Its compatibility significantly enhances the current landscape, where some systems use a customized conf variant that is maintained independently, while others do not support sampling at all. randconfig not only offers universal sampling for all Kconfig systems but also simplifies its evolutive maintenance as a single tool rather than an unorganized collection of conf variants.},
+  keywords     = {Random sampling, Configurable systems, Variability modeling, Software product lines, Kconfig, SAT, Randconfig},
+  note         = {external collaboration}
+}

@@ -13,13 +13,14 @@ function getAcronymOrTruncate(text, N) {
         return '';
     }
 
+    text = text.trim();
     // 2. Return the string as is if its length is less than or equal to N.
     if (text.length <= N) {
         return text;
     }
 
     // 3. Search for an acronym using a regular expression.
-    const acronymRegex = /[({]([a-zA-Z\- ]+)[})]/g;
+    const acronymRegex = /[({]([0-9a-zA-Z\- @\s]+)[})]/g;
     let match;
     let lastMatch = null;
 
@@ -379,12 +380,12 @@ function getEntryType(entryType, journal, booktitle, icoreRanking, isWorkshop, p
   }
 }
 
-function getJCR(jcr, journal) {
+function getQuartile(jcr, journal) {
   if (journal && jcr !== undefined) {
     if (jcr.trim() === '') {
         return '-';
     } else {
-        return jcr.trim().toUpperCase();
+        return jcr.trim().slice(0, 2).toUpperCase();
     }
   } else if (journal) {
       return '?';

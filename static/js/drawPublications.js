@@ -192,7 +192,7 @@ function drawChart(publications, chartId) {
             ${d.volume ? `<p><strong>Volume:</strong> ${d.volume}</p>` : ''}
             <p><strong>Year:</strong> ${d.month ? d.month : ''} ${d.year}</p>
             ${d.address ? `<p><strong>Address:</strong> ${d.address}</p>` : ''}
-            ${d.quartile ? `<p><strong>JCR:</strong> ${d.quartile}</p>` : ''}
+            ${d.jcr ? `<p><strong>JCR:</strong> ${d.jcr}</p>` : ''}
             ${d.icore ? `<p><strong>ICORE:</strong> ${d.icore === '-' ? 'No indexed' : d.icore}</p>` : ''}
             ${d.calification ? `<p><strong>Calification:</strong> ${d.calification}</p>` : ''}
             ${d.publisher ? `<p><strong>Publisher:</strong> ${d.publisher}<p>` : ''}
