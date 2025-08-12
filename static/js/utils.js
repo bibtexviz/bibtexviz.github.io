@@ -19,7 +19,7 @@ function getAcronymOrTruncate(text, N) {
     }
 
     // 3. Search for an acronym using a regular expression.
-    const acronymRegex = /[({]([a-zA-Z\-]+)[})]/g;
+    const acronymRegex = /[({]([a-zA-Z\- ]+)[})]/g;
     let match;
     let lastMatch = null;
 

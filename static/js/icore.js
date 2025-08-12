@@ -38,10 +38,10 @@ function getICORERanking(conferenceName, acronym, year) {
         if (result.rank === 'Unranked') {
             return {edition: `CORE${ed}`, rank: '-'};
         }
-      return {edition: `CORE${ed}`, rank: '-'};
+      return result;
     }
   }
-  return {edition: `CORE${year}`, rank: '-'}; // no match found
+  return {edition: `CORE${year}`, rank: '-'};; // no match found
 }
 
 (async () => {

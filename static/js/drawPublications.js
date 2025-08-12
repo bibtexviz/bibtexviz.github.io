@@ -123,7 +123,7 @@ function drawChart(publications, chartId) {
     const squareSize = 120;
     const rowGap = 130;
     const columnGap = 150;
-    const padding = 5;
+    const padding = 10;
     const xStart = 60;
     // Calcular la altura base automáticamente en función del año con más publicaciones
     const maxPubsInYear = Math.max(...groupedByYear.map(([, pubs]) => pubs.length));
@@ -185,7 +185,7 @@ function drawChart(publications, chartId) {
         const linkText = urlValue || '-';
         const modalBody = d3.select("#publicationModal .modal-body");
         modalBody.html(`
-            <p><strong>Tipo:</strong> ${typesMap[d.type]}</p>
+            <p><strong>Type:</strong> ${typesMap[d.type]}</p>
             <p><strong>Authors (${d.authorPosition}):</strong> ${d.authors}</p>
             <p><strong>Title:</strong> ${d.title}</p>
             ${d.journal ? `<p><strong>Journal:</strong> ${d.journal}</p>` : ''} 
@@ -234,7 +234,7 @@ function drawChart(publications, chartId) {
 
     // Inferior derecha: Acrónimo y track
     const textGroup = squares.append("g")
-        .attr("transform", d => `translate(${squareSize - padding}, ${squareSize - padding})`)
+        .attr("transform", d => `translate(${squareSize - padding + 5}, ${squareSize - padding + 5})`)
         .attr("text-anchor", "end")
         .attr("font-style", "italic");
 
@@ -244,7 +244,7 @@ function drawChart(publications, chartId) {
         const trackText = d.track ? `${d.track}@` : '';
         
         // Si el texto completo es demasiado largo, lo dividimos en dos líneas
-        if ((trackText + acronymText).length > 8) {
+        if ((trackText + acronymText).length > 12) {
             if (d.track) {
                 // Línea superior: track
                 group.append("text")
@@ -297,8 +297,8 @@ function drawChart(publications, chartId) {
 
     // Inferior izquierda: Posición del autor
     squares.append("text")
-        .attr("x", padding)
-        .attr("y", squareSize - padding)
+        .attr("x", padding -5)
+        .attr("y", squareSize - padding + 5)
         .attr("text-anchor", "start")
         .text(d => d.authorPosition);
 
