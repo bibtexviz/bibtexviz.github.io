@@ -235,17 +235,31 @@ function drawChart(publications, chartId) {
 
     textGroup.each(function(d) {
         const group = d3.select(this);
-        const acronymText = d.acronym || '';
+        let acronymText = d.acronym || '';
         const trackText = d.track ? `${d.track}@` : '';
         
         // Si el texto completo es demasiado largo, lo dividimos en dos líneas
-        if ((trackText + acronymText).length > 8 && d.track) {
-            // Línea superior: track
-            group.append("text")
-                .attr("x", 0)
-                .attr("y", -14) // Posición ajustada para la primera línea
-                .text(trackText);
-            
+        if ((trackText + acronymText).length > 8) {
+            if (d.track) {
+                // Línea superior: track
+                group.append("text")
+                    .attr("x", 0)
+                    .attr("y", -14) // Posición ajustada para la primera línea
+                    .text(trackText);
+            } else {
+                const words = acronymText.split(' ');
+                if (words.length > 1) {
+                    const splitWords = splitWordsIntoHalves(words);
+                    // Línea superior: track
+                    group.append("text")
+                        .attr("x", 0)
+                        .attr("y", -14) // Posición ajustada para la primera línea
+                        .text(splitWords[0]);
+                    acronymText = splitWords[1];
+                } else {
+                    acronymText = words[0];
+                }
+            }
             // Línea inferior: acrónimo
             group.append("text")
                 .attr("x", 0)
@@ -537,3 +551,22 @@ const examplePublications = [
 
 // Llamada inicial para dibujar el gráfico con los datos de ejemplo
 //drawChart(examplePublications, "#chart");
+
+
+/**
+ * Splits an array of words into two halves and joins them with a space.
+ * The first half gets the extra word if the total is odd.
+ * @param {string[]} words - An array of words.
+ * @returns {string[]} An array with two strings: the first and second halves.
+ */
+function splitWordsIntoHalves(words) {
+  if (words.length <= 1) {
+    return words.length === 1 ? [words[0], ""] : ["", ""];
+  }
+
+  const halfwayPoint = Math.ceil(words.length / 2);
+  const firstHalf = words.slice(0, halfwayPoint).join(' ');
+  const secondHalf = words.slice(halfwayPoint).join(' ');
+
+  return [firstHalf, secondHalf];
+}
