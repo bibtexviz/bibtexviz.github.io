@@ -243,7 +243,7 @@ function drawChart(publications, chartId) {
     textGroup.each(function(d) {
         const group = d3.select(this);
         let acronymText = d.acronym || '';
-        const trackText = d.track ? `${d.track}@` : '';
+        const trackText = d.track ? `${d.track} @` : '';
         
         // Si el texto completo es demasiado largo, lo dividimos en dos líneas
         if ((trackText + acronymText).length > 12) {
