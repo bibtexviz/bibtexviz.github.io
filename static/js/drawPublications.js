@@ -9,18 +9,17 @@ function drawChart(publications, chartId) {
 
     // Iconos usados en la esquina superior izquierda
     const iconMap = {
-        bestpaperaward: '🏆',
-        collab: '👥',
-        industry: '🏢',
-        stay: '🗺️',
-
+        'best paper award': '🏆',
+        'external collaboration': '👥',
+        'industry collaboration': '🏢',
+        'international stay result': '🗺️',
     };
 
     const iconMeaningMap = {
-        bestpaperaward: 'Best paper award',
-        collab: 'External collaboration',
-        industry: 'Industry collaboration',
-        stay: 'International stay result',
+        'best paper award': 'Best paper award',
+        'external collaboration': 'External collaboration',
+        'industry collaboration': 'Industry collaboration',
+        'international stay result': 'International stay result',
     };
 
     // Colores por tipo de publicación
@@ -190,13 +189,15 @@ function drawChart(publications, chartId) {
             <p><strong>Title:</strong> ${d.title}</p>
             ${d.journal ? `<p><strong>Journal:</strong> ${d.journal}</p>` : ''} 
             ${d.booktitle ? `<p><strong>Conference:</strong> ${d.booktitle}</p>` : ''}
+            ${d.volume ? `<p><strong>Volume:</strong> ${d.volume}</p>` : ''}
             <p><strong>Year:</strong> ${d.month ? d.month : ''} ${d.year}</p>
             ${d.address ? `<p><strong>Address:</strong> ${d.address}</p>` : ''}
             ${d.quartile ? `<p><strong>JCR:</strong> ${d.quartile}</p>` : ''}
             ${d.icore ? `<p><strong>ICORE:</strong> ${d.icore === '-' ? 'No indexed' : d.icore}</p>` : ''}
+            ${d.calification ? `<p><strong>Calification:</strong> ${d.calification}</p>` : ''}
             ${d.publisher ? `<p><strong>Publisher:</strong> ${d.publisher}<p>` : ''}
-            ${d.awards && d.awards.length > 0 ? `<p><strong>Awards:</strong> ${d.awards.join(', ')}</p>` : ''}
-            <p><strong>Iconos:</strong> ${d.icons && d.icons.length > 0 ? d.icons.map(i => iconMap[i]).join('') : 'Ninguno'}</p>
+            ${d.awards && d.awards.length > 0 ? `<p><strong>Awards:</strong> ${d.awards.map(i => `🏆 ${i}`).join(', ')}</p>` : ''}
+            ${d.notes ? `<p><strong>Notes:</strong> ${d.notes.split(',').map(i => `${iconMeaningMap[i.trim().toLowerCase()]} ${iconMap[i.trim().toLowerCase()]}` || '').join(", ")}</p>` : ''}
             <p><strong>DOI/Handle/URL:</strong> <a href="${urlValue}" target="_blank" rel="noopener noreferrer">${linkText}</a></p>
             ${d.abstract ? `<p><strong>Abstract:</strong> ${d.abstract}</p>` : ''}
             ${d.keywords ? `<p><strong>Keywords:</strong> ${d.keywords}</p>` : ''}
@@ -229,6 +230,7 @@ function drawChart(publications, chartId) {
         .text(d => {
             if (d.type === 'journal') return d.quartile || '-';
             if (['conference', 'workshop'].includes(d.type)) return d.icore || '-';
+            if (d.calification) return d.calification || '-';
             return '-';
         });
 
@@ -285,7 +287,7 @@ function drawChart(publications, chartId) {
         .attr("y", padding + 15)
         .attr("text-anchor", "end")
         .style("font-size", "1.5em") 
-        .text(d => (d.awards && d.awards.length > 0) ? "🏆" : "");
+        .text(d => (d.awards && d.awards.length > 0) ? d.awards.map(() => "🏆").join('') : "");
 
     // Superior izquierda: Iconos (colaboraciones, etc.)
     squares.append("text")
@@ -293,7 +295,9 @@ function drawChart(publications, chartId) {
         .attr("y", padding + 15)
         .attr("text-anchor", "start")
         .style("font-size", "1.5em") 
-        .text(d => (d.icons || []).map(i => iconMap[i] || '').join(""));
+        .text(d => d.notes === '' ? ''  : (d.notes.split(',') || [])
+                                            .map(i => `${iconMap[i.trim().toLowerCase()]}` || '')
+                                            .join(""));
 
     // Inferior izquierda: Posición del autor
     squares.append("text")
@@ -557,21 +561,3 @@ const examplePublications = [
 // Llamada inicial para dibujar el gráfico con los datos de ejemplo
 //drawChart(examplePublications, "#chart");
 
-
-/**
- * Splits an array of words into two halves and joins them with a space.
- * The first half gets the extra word if the total is odd.
- * @param {string[]} words - An array of words.
- * @returns {string[]} An array with two strings: the first and second halves.
- */
-function splitWordsIntoHalves(words) {
-  if (words.length <= 1) {
-    return words.length === 1 ? [words[0], ""] : ["", ""];
-  }
-
-  const halfwayPoint = Math.ceil(words.length / 2);
-  const firstHalf = words.slice(0, halfwayPoint).join(' ');
-  const secondHalf = words.slice(halfwayPoint).join(' ');
-
-  return [firstHalf, secondHalf];
-}

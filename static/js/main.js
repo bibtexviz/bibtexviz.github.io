@@ -118,16 +118,16 @@ function processBibtexFile(bibtexContent, researcherName) {
       return {
         type: publicationType,
         authors: getAuthors(pub.entryTags?.author || ''),
-        title: pub.entryTags?.title || '',
+        title: normalizeAccents(pub.entryTags?.title) || '',
         journal: journal,
         booktitle: booktitle,
         quartile: getJCR(pub.entryTags?.jcr || '', journal),
         icore: icoreRanking?.rank || null,
         authorPosition: findAuthorPosition(pub.entryTags?.author || '', researcherName),
         acronym: entryType === 'book' ? 'Book' : (entryType === 'phdthesis' ? 'PhD Thesis' : (publicationType === 'dataArtifacts' ? publisher : getAcronymOrTruncate(journal || booktitle || '', 20))),
-        track: pub.entryTags?.track || '',
+        track: capitalizeFirstLetter(pub.entryTags?.track) || '',
         awards: pub.entryTags?.awards ? pub.entryTags.awards.split(',').map(a => a.trim()) : [],
-        icons: [],
+        notes: pub.entryTags?.note || '',
         doi: formatDoiUrl(pub.entryTags?.doi || pub.entryTags?.url || ''),
         year: year,
         month: pub.entryTags?.month?.charAt(0).toUpperCase() + pub.entryTags?.month?.slice(1) || null,
@@ -136,6 +136,8 @@ function processBibtexFile(bibtexContent, researcherName) {
         abstract: pub.entryTags?.abstract || '',
         keywords: pub.entryTags?.keywords ? pub.entryTags.keywords.split(',').map(k => k.trim()).join(', ') : '',
         address: pub.entryTags?.address || '',
+        volume: pub.entryTags?.volume || '',
+        calification: pub.entryTags?.calification || '',
       };
     });
 

@@ -392,3 +392,43 @@ function getJCR(jcr, journal) {
     return '';
   }
 }
+
+/**
+ * Splits an array of words into two halves and joins them with a space.
+ * The first half gets the extra word if the total is odd.
+ * @param {string[]} words - An array of words.
+ * @returns {string[]} An array with two strings: the first and second halves.
+ */
+function splitWordsIntoHalves(words) {
+  if (words.length <= 1) {
+    return words.length === 1 ? [words[0], ""] : ["", ""];
+  }
+
+  const halfwayPoint = Math.ceil(words.length / 2);
+  const firstHalf = words.slice(0, halfwayPoint).join(' ');
+  const secondHalf = words.slice(halfwayPoint).join(' ');
+
+  return [firstHalf, secondHalf];
+}
+
+/**
+ * Capitaliza solo la primera letra de una frase.
+ * @param {string} sentence - La frase que quieres capitalizar.
+ * @returns {string} La frase con solo la primera letra en mayúscula.
+ */
+function capitalizeFirstLetter(sentence) {
+  if (typeof sentence !== 'string' || sentence.length === 0) {
+    return ''; // Maneja entradas no válidas o vacías
+  }
+  
+  // 1. Convierte toda la frase a minúsculas para un formato consistente
+  const lowerCaseSentence = sentence.toLowerCase();
+
+  // 2. Obtiene el primer carácter y lo convierte a mayúscula
+  const firstLetter = lowerCaseSentence.charAt(0).toUpperCase();
+
+  // 3. Obtiene el resto de la frase y lo une con la primera letra
+  const restOfSentence = lowerCaseSentence.slice(1);
+  
+  return firstLetter + restOfSentence;
+}
