@@ -24,13 +24,12 @@ const setupSaveButton = (buttonId, chartSelector, serializeFunction, extension) 
 
 //setupSaveButton('#savePNG', '#FMFactLabelChart', rasterize, '.png');
 
+
 const setupPDFSaveButton = (buttonId, chartSelector) => {
     d3.select(buttonId).on('click', async function(event) {
         event.preventDefault();
         let chart = d3.select(chartSelector);
-        chart.selectAll("#collapseIcon").attr("visibility", "hidden");
         const svgElement = chart.node();
-        const originalHeight = adjustSVGSize(svgElement);
 
         try {
             const bbox = svgElement.getBBox(); // Obtén el tamaño del SVG

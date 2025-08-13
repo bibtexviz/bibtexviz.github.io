@@ -289,24 +289,29 @@ function drawChart(publications, chartId) {
     });
 
     // Superior derecha: Trofeo si best paper
-    squares.append("text")
-        .attr("x", squareSize - padding + 10)
-        .attr("y", padding + 15)
-        .attr("text-anchor", "end")
-        .style("font-size", "24px")
-        .style("font-family", "Helvetica, Arial, sans-serif") 
-        .text(d => (d.awards && d.awards.length > 0) ? d.awards.map(() => "🏆").join('') : "");
+    squares.selectAll(".trophy")
+        .data(d => d.awards ? d.awards : [])
+        .join("image")
+        .attr("class", "trophy")
+        .attr("x", (award, i) => squareSize - padding -25 - i * 26) // separa cada trofeo 26px
+        .attr("y", padding - 10)
+        .attr("width", 36)
+        .attr("height", 36)
+        .attr("href", () => emojiToDataURL("🏆"));
 
     // Superior izquierda: Iconos (colaboraciones, etc.)
-    squares.append("text")
-        .attr("x", padding - 10)
-        .attr("y", padding + 15)
-        .attr("text-anchor", "start")
-        .style("font-size", "24px") 
-        .style("font-family", "Helvetica, Arial, sans-serif")
-        .text(d => d.notes === '' ? ''  : (d.notes.split(',') || [])
-                                            .map(i => `${iconMap[i.trim().toLowerCase()]}` || '')
-                                            .join(""));
+    squares.selectAll(".note-icon")
+        .data(d => d.notes ? d.notes.split(',').map(i => i.trim().toLowerCase()) : [])
+        .join("image")
+        .attr("class", "note-icon")
+        .attr("x", (note, i) => padding - 10 + i * 30) // ajusta separación horizontal
+        .attr("y", padding - 10)
+        .attr("width", 36)
+        .attr("height", 36)
+        .attr("href", note => {
+            const emoji = iconMap[note] || '';
+            return emoji ? emojiToDataURL(emoji) : '';
+        });
 
     // Inferior izquierda: Posición del autor
     squares.append("text")
@@ -444,17 +449,30 @@ function drawChart(publications, chartId) {
     }));
 
     const iconStart = iconTitleY + 5;
-    legend.selectAll("text.icon")
+
+    const legendItems = legend.selectAll("g.icon-item")
         .data(iconEntries)
         .enter()
-        .append("text")
-        .attr("class", "icon")
+        .append("g")
+        .attr("class", "icon-item")
+        .attr("transform", (d, i) => `translate(0, ${iconStart + i * legendSpacing})`);
+
+    // Añadimos la imagen del icono
+    legendItems.append("image")
         .attr("x", 0)
-        .attr("y", (d, i) => iconStart + i * legendSpacing + 15)
+        .attr("y", 0)
+        .attr("width", 16)   // tamaño del icono
+        .attr("height", 16)
+        .attr("href", d => emojiToDataURL(d.icon));  // aquí tu función de emoji a DataURL
+
+    // Añadimos el texto al lado del icono
+    legendItems.append("text")
+        .attr("x", 20)  // separa el texto del icono
+        .attr("y", 12)  // centra verticalmente respecto al icono
         .attr("font-size", "14px")
         .style("font-family", "Helvetica, Arial, sans-serif")
-        .text(d => `${d.icon}: ${d.meaning}`);
-    
+        .text(d => d.meaning);
+        
     // Aplicar estilos como atributos inline para que se incrusten en el SVG de cara a exportarlo a SVG y PDF
     svg.selectAll('.pub-square text')
         .attr('font-size', '12px')
@@ -464,4 +482,15 @@ function drawChart(publications, chartId) {
         .attr('cursor', 'pointer')
         .attr('transform-origin', 'center')
         .attr('style', 'transition: transform 0.2s;');
+}
+
+
+function emojiToDataURL(emoji) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 64;
+    canvas.height = 64;
+    const ctx = canvas.getContext("2d");
+    ctx.font = "48px 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji'";
+    ctx.fillText(emoji, 0, 48);
+    return canvas.toDataURL(); // Devuelve un PNG base64
 }
