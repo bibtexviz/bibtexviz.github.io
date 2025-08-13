@@ -155,7 +155,7 @@ function drawChart(publications, chartId) {
         .attr("class", "y-axis-label")
         .attr("x", xStart - 20)
         .attr("y", (d, i) => (i * rowGap) + padding)
-        .attr("dy", "0.35em")
+        .attr("dy", "14px")
         .attr("text-anchor", "end")
         .text(d => d);
 
@@ -226,7 +226,7 @@ function drawChart(publications, chartId) {
         .attr("y", squareSize / 2 + 5)
         .attr("text-anchor", "middle")
         .attr("font-weight", "bold")
-        .style("font-size", "1.1em") 
+        .style("font-size", "20px") 
         .text(d => {
             if (d.type === 'journal') return d.quartile || '-';
             if (['conference', 'workshop'].includes(d.type)) return d.icore || '-';
@@ -286,7 +286,7 @@ function drawChart(publications, chartId) {
         .attr("x", squareSize - padding + 10)
         .attr("y", padding + 15)
         .attr("text-anchor", "end")
-        .style("font-size", "1.5em") 
+        .style("font-size", "24px") 
         .text(d => (d.awards && d.awards.length > 0) ? d.awards.map(() => "🏆").join('') : "");
 
     // Superior izquierda: Iconos (colaboraciones, etc.)
@@ -294,7 +294,7 @@ function drawChart(publications, chartId) {
         .attr("x", padding - 10)
         .attr("y", padding + 15)
         .attr("text-anchor", "start")
-        .style("font-size", "1.5em") 
+        .style("font-size", "24px") 
         .text(d => d.notes === '' ? ''  : (d.notes.split(',') || [])
                                             .map(i => `${iconMap[i.trim().toLowerCase()]}` || '')
                                             .join(""));
