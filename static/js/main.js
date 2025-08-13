@@ -82,12 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
         */
     });
     
-    // Lógica para descargar el PDF (requiere una biblioteca como jsPDF)
-    document.getElementById('downloadPdf').addEventListener('click', (e) => {
-        e.preventDefault();
-        // Implementación de la descarga PDF
-        alert('La función de descarga PDF requiere una biblioteca adicional. Por favor, implementa la lógica usando jsPDF o similar.');
-    });
+   
 });
 
 
@@ -150,3 +145,4 @@ function processBibtexFile(bibtexContent, researcherName) {
     return [];
   }
 }
+

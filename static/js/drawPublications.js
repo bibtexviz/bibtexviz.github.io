@@ -118,40 +118,6 @@ function drawChart(publications, chartId) {
     
     // Limpiar el contenido anterior del SVG
     svg.html('');
-    
-    // Incrustar los estilos dentro del propio SVG para su correcta exportación
-    const IMPORTS = ['https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@900',
-                     'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css'];
-    const svgNode = svg.node();
-    const style = `
-        body {
-            font-family: Arial, Helvetica, sans-serif;;
-            background: #f9f9f9;
-            margin: 0;
-            padding: 0;
-        }
-
-        .pub-square text {
-            font-size: 12px;
-            pointer-events: none;
-        }
-
-        .pub-square {
-            cursor: pointer;
-            transition: transform 0.2s;
-            transform-origin: center;
-        }
-
-        .pub-square:hover {
-            filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.5));
-        }
-    `;
-
-    const defs = d3.select(svgNode)
-        .append("defs")
-        .append("style")
-        .attr("type", "text/css")
-        .text(style);
 
     // Dibujar los cuadrados
     const squareSize = 120;
@@ -489,4 +455,13 @@ function drawChart(publications, chartId) {
         .style("font-family", "Helvetica, Arial, sans-serif")
         .text(d => `${d.icon}: ${d.meaning}`);
     
+    // Aplicar estilos como atributos inline para que se incrusten en el SVG de cara a exportarlo a SVG y PDF
+    svg.selectAll('.pub-square text')
+        .attr('font-size', '12px')
+        .attr('pointer-events', 'none');
+
+    svg.selectAll('.pub-square')
+        .attr('cursor', 'pointer')
+        .attr('transform-origin', 'center')
+        .attr('style', 'transition: transform 0.2s;');
 }
