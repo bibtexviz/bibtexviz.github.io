@@ -110,17 +110,19 @@ function processBibtexFile(bibtexContent, researcherName) {
       const publisher = pub.entryTags?.publisher || '';
       const isNational = pub.entryTags?.scope === 'national' || '';
       const publicationType = getEntryType(entryType, journal, booktitle, isNational, isWorkshop, publisher);
-    
+      const authors = getAuthors(pub.entryTags?.author || '');
+
+      console.log("Autor for publication:", authors);
       return {
         type: publicationType,
-        authors: getAuthors(pub.entryTags?.author || ''),
+        authors: authors,
         title: normalizeAccents(pub.entryTags?.title) || '',
         journal: journal,
         booktitle: booktitle,
         quartile: getQuartile(pub.entryTags?.jcr !== undefined ? pub.entryTags?.jcr : '?'),
         jcr: pub.entryTags?.jcr || '',
         icore: icoreRanking?.rank || null,
-        authorPosition: findAuthorPosition(pub.entryTags?.author || '', researcherName),
+        authorPosition: findAuthorPosition(authors, researcherName),
         acronym: entryType === 'book' ? 'Book' : (entryType === 'phdthesis' ? 'PhD Thesis' : (publicationType === 'dataArtifacts' ? publisher : getAcronymOrTruncate(journal || booktitle || '', 25))),
         track: capitalizeFirstLetter(pub.entryTags?.track) || '',
         awards: pub.entryTags?.awards ? pub.entryTags.awards.split(',').map(a => a.trim()) : [],

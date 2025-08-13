@@ -245,10 +245,7 @@ function findAuthorPosition(authorsString, targetName) {
     }
 
     // Use a regular expression to handle the delimiters " and ", ",", ";"
-    const delimiters = /\s*and\s*|;|,/g;
-    const authors = authorsString
-        .split(delimiters)
-        .map(name => name.trim());
+    authors = authorsString.split(', ')
 
     const totalAuthors = authors.length;
     if (totalAuthors === 0) {
