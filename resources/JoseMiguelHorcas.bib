@@ -1038,3 +1038,222 @@
   keywords     = {Random sampling, Configurable systems, Variability modeling, Software product lines, Kconfig, SAT, Randconfig},
   note         = {external collaboration}
 }
+
+@inproceedings{Horcas2016_JISBD_EvolucionCVL,
+  editor       = {SISTEDES},
+  publisher    = {SISTEDES},
+  title        = {Evolución arquitectónica de servicios basada en modelos CVL con cardinalidad},
+  author       = {José Miguel Horcas and Mónica Pinto and Lidia Fuentes},
+  url          = {https://hdl.handle.net/11705/JISBD/2016/003},
+  booktitle    = {XXI Jornadas de Ingeniería del Software y Bases de Datos ({JISBD})},
+  year         = {2016},
+  month        = {sep},
+  address      = {Salamanca, Spain},
+  abstract     = {La computación en la nube se está convirtiendo en un mecanismo predominante para desplegar fácilmente aplicaciones con requisitos especiales, tales como el almacenamiento masivo compartido, o el equilibrado de carga. Esta funcionalidad se proporciona normalmente como servicios por las plataformas en la nube. Un desarrollador puede mejorar tanto el despliegue de sus aplicaciones como la productividad siguiendo un enfoque multi-tenancy, donde diferentes variantes de la misma aplicación pueden adaptarse rápidamente a las necesidades de cada usuario (tenant). Sin embargo, gestionar la variabilidad inherente a las aplicaciones multi-tenant, con cientos de usuarios y miles de configuraciones arquitectónicas diferentes, puede llegar a ser una tarea intratable de abordar manualmente. En este artículo, se propone un enfoque de línea de producto software en el cual: (1) usamos modelos de variabilidad con cardinalidad para modelar cada tenant como una característica clonable, (2) automatizamos el proceso de evolución de las arquitecturas de aplicaciones multi-tenant, y (3) demostramos que la implementación de los procesos de evolución es correcta y eficiente para un número elevado de tenants en un tiempo razonable.},
+  keywords     = {Cardinalidad, Evolución, Línea de Producto Arquitectónica, Variabilidad, CVL},
+  scope        = {national}
+}
+
+@inproceedings{Horcas2017_JISBD_ConfigurationEcoeficienteFQA,
+  editor       = {SISTEDES},
+  publisher    = {SISTEDES},
+  title        = {Configuración eco-eficiente de atributos de calidad funcionales},
+  author       = {José Miguel Horcas and Mónica Pinto and Lidia Fuentes},
+  url          = {https://hdl.handle.net/11705/JISBD/2017/003},
+  booktitle    = {XXII Jornadas de Ingeniería del Software y Bases de Datos ({JISBD})},
+  year         = {2017},
+  month        = {jul},
+  address      = {La Laguna, Tenerife, Spain},
+  abstract     = {Los atributos de calidad funcionales (FQAs) son aquellos que para satisfacerlos se necesita incorporar funcionalidad adicional a la arquitectura de las aplicación (e.g., seguridad). La nueva funcionalidad incorporada por estos FQAs (e.g., encriptación) afecta a otro atributo de calidad como es el consumo de energía de la aplicación. Hasta el momento no se han explorado suficientemente las interdependencias entre, por ejemplo diferentes niveles de seguridad y su incidencia en el consumo de energía. En este artículo se propone una solución para ayudar al arquitecto software a generar la configuración de los FQAs que optimiza la eficiencia energética de la aplicación. Para ello se define un modelo de uso para cada FQA, teniendo en cuenta las variables que influyen en el consumo de energía y como el valor de estas variables cambia en función del punto de la aplicación donde se requiere ese FQA. Se extiende una Línea de Productos Software que modela una familia de FQAs para incorporar la variabilidad del modelo de uso y los frameworks existentes que implementan los FQAs. Generamos la configuración más eco-eficiente seleccionando el framework y las características más adecuadas para cada FQA y configurándolo según los requisitos de la aplicación.},
+  keywords     = {Atributos De Calidad, Eco-Eficiente, Energía, FQA, Línea De Productos Software, Variabilidad},
+  scope        = {national}
+}
+
+@inproceedings{Horcas2018_JISBD_vEXgine,
+  editor       = {SISTEDES},
+  publisher    = {SISTEDES},
+  title        = {vEXgine: Extendiendo el motor de ejecución de CVL},
+  author       = {José Miguel Horcas and Mónica Pinto and Lidia Fuentes},
+  url          = {https://hdl.handle.net/11705/JISBD/2018/037},
+  booktitle    = {XXIII Jornadas de Ingeniería del Software y Bases de Datos ({JISBD})},
+  year         = {2018},
+  month        = {sep},
+  address      = {Seville, Spain},
+  abstract     = {El Lenguaje CVL (Common Variability Language) carece de una herramienta flexible que permita poner en práctica las necesidades industriales del modelado de la variabilidad en Líneas de Producto Software. Las herramientas existentes que proporcionan soporte para CVL son prototipos incompletos, o se centran principalmente en la especificación de la variabilidad, sin llegar a resolverla sobre modelos reales. Además, no existe una API que permita la interacción directa con el motor CVL para extenderlo o usarlo en una aplicación independiente. Este artículo presenta vEXgine, una implementación adaptable y extensible del motor de ejecución de la variabilidad de CVL.},
+  keywords     = {CVL, Línea De Producto Software, Variabilidad, VEXgine},
+  scope        = {national},
+  track        = {tool},
+}
+
+@inproceedings{Canete2018_JISBD_ReconfiguracionEcoeficienteAndroid,
+  editor       = {SISTEDES},
+  publisher    = {SISTEDES},
+  title        = {Mecanismos de reconfiguración eco-eficiente de código en aplicaciones móviles Android},
+  author       = {Ángel Cañete and José Miguel Horcas and Lidia Fuentes},
+  url          = {https://hdl.handle.net/11705/JISBD/2018/068},
+  booktitle    = {XXIII Jornadas de Ingeniería del Software y Bases de Datos ({JISBD})},
+  year         = {2018},
+  month        = {sep},
+  address      = {Seville, Spain},
+  abstract     = {Los dispositivos móviles ofrecen cada vez mayores prestaciones a costa de un mayor consumo energético. La energía consumida por un móvil no sólo depende de las aplicaciones en sí, sino también de las interacciones del usuario con la aplicación. Si un recurso no está siendo utilizado por la aplicación, no debería estar consumiendo energía. En este artículo se presenta un modelo de adaptación de aplicaciones móviles al contexto del usuario con el objetivo de reducir el consumo energético de las aplicaciones. Se desarrollan y evalúan cuatro implementaciones diferentes de la propuesta en busca del mecanismo de reconfiguración más eficiente energéticamente.},
+  keywords     = {Adaptabilidad, Android, Dispositivos Móviles, Eco-Eficiente, Energía, Reconfiguración Dinámica},
+  scope        = {national},
+}
+
+@inproceedings{Horcas2019_JISBD_ModelandoVariabilidadSPL,
+  editor       = {SISTEDES},
+  publisher    = {SISTEDES},
+  title        = {Modelando la variabilidad de características complejas en líneas de productos software},
+  author       = {José Miguel Horcas and Mónica Pinto and Lidia Fuentes},
+  url          = {https://hdl.handle.net/11705/JISBD/2019/069},
+  booktitle    = {XXIV Jornadas de Ingeniería del Software y Bases de Datos ({JISBD})},
+  year         = {2019},
+  month        = {sep},
+  address      = {Cáceres, Spain},
+  abstract     = {A pesar de la gran cantidad de trabajos y de herramientas existentes en el ámbito de las Líneas de Productos Software, muchos dominios de aplicación actuales no pueden verse beneficiados del uso de una Línea de Producto Software. Además, fuera del mundo académico, la empresa sigue siendo bastante reticente a usar este enfoque. En este artículo reflexionamos sobre las razones de esta falta de adopción, tanto desde el punto de vista de las características complejas que son imprescindibles en los sistemas actuales, como del soporte que las herramientas existentes proporcionan.},
+  keywords     = {Líneas De Productos Software, Modelado, Soporte De Herramientas, Variabilidad},
+  scope        = {national}
+}
+
+@inproceedings{Horcas2021_JISBD_HerramientaMontecarlo,
+  editor       = {SISTEDES},
+  publisher    = {SISTEDES},
+  title        = {Una herramienta para aplicar técnicas de Montecarlo al análisis de modelos de características},
+  author       = {José Miguel Horcas and Antonio Germán Márquez and José A. Galindo and David Benavides},
+  url          = {https://hdl.handle.net/11705/JISBD/2021/028},
+  booktitle    = {XXV Jornadas de Ingeniería del Software y Bases de Datos ({JISBD})},
+  year         = {2021},
+  month        = {sep},
+  address      = {Málaga, Spain},
+  abstract     = {La mayoría de los sistemas configurables describen un amplio espacio de soluciones que hacen intratable su exploración exhaustiva. En la literatura encontramos técnicas de análisis como la resolución SAT o la programación de restricciones. Sin embargo, ninguna de ellas ha explorado los métodos basados en la simulación de la toma de decisiones cuando configuramos un sistema. Nosotros proponemos usar el método de Montecarlo el cual simula la búsqueda en espacios de soluciones colosales de manera aleatoria. Este trabajo presenta la implementación de un marco conceptual que aborda varios de esos análisis utilizando métodos de Montecarlo, los cuales, han demostrado tener éxito en otros dominios con espacios de búsqueda colosales como la teoría de juegos. Concretamente presentamos una implementación en Python del marco de trabajo que muestra la viabilidad de nuestra propuesta con la que prevemos que se pueden abordar diferentes problemas y que nuestro marco pueda utilizarse para avanzar el estado del arte.},
+  keywords     = {Analisis Automático, Líneas De Producto Software, MonteCarlo},
+  scope        = {national},
+  track        = {tool}
+}
+
+@inproceedings{Horcas2022_JISBD_SPLVisualizacionDatos,
+  editor       = {SISTEDES},
+  publisher    = {SISTEDES},
+  title        = {Una línea de productos software para la visualización de datos},
+  author       = {José Miguel Horcas and José A. Galindo and David Benavides},
+  url          = {https://hdl.handle.net/11705/JISBD/2022/8222},
+  booktitle    = {XXVI Jornadas de Ingeniería del Software y Bases de Datos ({JISBD})},
+  year         = {2021},
+  month        = {sep},
+  address      = {Santiago de Compostela, Spain},
+  abstract     = {La visualización de datos expone una gran cantidad de variabilidad a nivel de diseño de gráficos y su implementación con las herramientas existentes. Sin embargo, no todas las configuraciones son igual de efectivas para representar datos. Nosotros proponemos una línea de productos software (SPL) para la visualización de datos que sintetiza la variabilidad y los principios y buenas prácticas de diseño en visualización de datos, modelando aquellas opciones recomendadas por los expertos en visualización y reduciendo la variabilidad expuesta por las librerías software existentes. Este trabajo presenta la implementación de la SPL de visualización de datos. Concretamente se presentan los artefactos desarrollados en la SPL, incluyendo el modelo de variabilidad y la implementación de las visualizaciones usando plantillas variables, y se muestra la viabilidad de nuestra propuesta con la que se abre una nueva línea de investigación donde se aplican técnicas de variabilidad a la visualización de datos.},
+  keywords     = {Línea De Productos Software, Variabilidad, Visualización},
+  scope        = {national},
+  track        = {short}
+}
+
+@inproceedings{RomeroOrganvidez2022_JIPII_VariabilidadMigracionDatos,
+  title        = {Aplicar técnicas de variabilidad para la migración de datos, un enfoque transformacional},
+  author       = {David Romero-Organvidez and David Benavides and José Miguel Horcas},
+  url          = {http://hdl.handle.net/10498/27607},
+  booktitle    = {II Jornadas de Investigación Predoctoral en Ingeniería Informática ({JIPII})},
+  year         = {2022},
+  month        = {jun},
+  address      = {Cádiz, Spain},
+  abstract     = {Las bases de datos relacionales se usan ampliamente en el desarrollo de aplicaciones informáticas. Su implementación más común se encuentra en los Sistemas de Gestión de Contenidos (CMS, por sus siglas en inglés), que están presentes en la mayoría de los sitios web. Sin embargo, la migración de la estructura y el contenido de una base de datos entre diferentes sistemas de gestión no es un proceso sencillo. La creación manual de scripts dificulta su reutilización en otros escenarios. Este documento propone una solución para la migración de bases de datos mediante el modelado de una línea de productos de migraciones. Con este método, es posible obtener diferentes configuraciones y productos finales válidos de forma semiautomática, considerando la variabilidad entre dos bases de datos relacionales cualesquiera. Para demostrar la viabilidad de la propuesta, se ha implementado una prueba de concepto que realiza la migración entre dos bases de datos.},
+  keywords     = {Líneas de productos de migraciones, Migraciones de datos, Transformación de modelos, Variabilidad entre bases de datos},
+  scope        = {national},
+  track        = {Doctoral Consortium}
+}
+
+@inproceedings{RomeroOrganvidez2023_JISBD_Transformo,
+  editor       = {SISTEDES},
+  publisher    = {SISTEDES},
+  title        = {Transformo: a tool for data transformation using SPL techniques},
+  author       = {David Romero-Organvidez and José Miguel Horcas and María Teresa Gómez-López and David Benavides},
+  url          = {https://hdl.handle.net/11705/JISBD/2023/3390},
+  booktitle    = {XXVII Jornadas de Ingeniería del Software y Bases de Datos ({JISBD})},
+  year         = {2023},
+  month        = {sep},
+  address      = {Ciudad Real, Spain},
+  abstract     = {Software modernization often involves complex data migration projects, which can result in resource loss and delays. Data migration typically requires ETL (Extraction, Transformation, and Load) operations, but there is limited literature on reusing data migration artifacts to reduce complexity. This paper introduces a tool that employs software product line techniques in data migration projects, specifically in the data transformation stage, to systematize artifact reuse. The proposed solution enables the automatic creation of scripts through configuration techniques, streamlining the data transformation process. This tool's feasibility is demonstrated in web information systems modernization, where data is migrated between Drupal and WordPress portals. Various migration scripts are generated by selecting different features, showcasing the method's versatility. This innovative tool is the first to utilize a complete stack of software product line techniques, enabling the reuse of artifacts for data migration. This tool opens up new opportunities for further applications of software product line techniques in data migration projects across various domains.},
+  keywords     = {Data Migration, Data Transformation, Software Product Line, Feature Model},
+  scope        = {national},
+  track        = {tool},
+  note         = {external collaboration}
+}
+
+@inproceedings{Horcas2023_JISBD_AnalizadorGFT,
+  editor       = {SISTEDES},
+  publisher    = {SISTEDES},
+  title        = {Un analizador de modelos de variabilidad basado en el árbol de características},
+  author       = {José Miguel Horcas and Mónica Pinto and Lidia Fuentes},
+  url          = {https://hdl.handle.net/11705/JISBD/2023/268},
+  booktitle    = {XXVII Jornadas de Ingeniería del Software y Bases de Datos ({JISBD})},
+  year         = {2023},
+  month        = {sep},
+  address      = {Ciudad Real, Spain},
+  abstract     = {Un árbol de características generalizado (GFT) es un modelo de variabilidad en el que las restricciones textuales han sido eliminadas manteniendo la semántica del modelo. La ventaja de un GFT es que se puede analizar directamente razonando sobre las relaciones jerárquicas del árbol de características sin tener que transformar el modelo a SAT o construir un árbol de decisión binario (BDD). La desventaja de un GFT es que puede contener características duplicadas y su tamaño en número de características con respecto al modelo de variabilidad original es considerablemente mayor, lo que complica el análisis automático. En este artículo se propone un analizador de modelos GFT basado en las relaciones jerárquicas del árbol de características teniendo en cuenta la existencia de características duplicadas. Se definen un conjunto de operaciones de análisis sobre GFT y se compara su eficiencia con solvers SAT y BDD. El solver GFT mejora la eficiencia del análisis sobre solvers BDD para modelos de hasta diez mil características.},
+  keywords     = {Análisis Automático, Árbol De Característica, GFT, Modelo De Variabilidad, SPL, Solver},
+  scope        = {national}
+}
+
+@inproceedings{Horcas2024_JISBD_HeuristicasEliminacionRestricciones,
+  editor       = {SISTEDES},
+  publisher    = {SISTEDES},
+  title        = {Heurísticas para mejorar el rendimiento en la eliminación de restricciones en modelos de características},
+  author       = {José Miguel Horcas and Joaquín Ballesteros and Mónica Pinto and Lidia Fuentes},
+  url          = {https://hdl.handle.net/11705/JISBD/2024/75},
+  booktitle    = {XXVIII Jornadas de Ingeniería del Software y Bases de Datos ({JISBD})},
+  year         = {2024},
+  month        = {jun},
+  address      = {A Coruña, Spain},
+  abstract     = {El análisis automático de los modelos de variabilidad se realiza habitualmente transformando el modelo a SAT o construyendo un árbol de decisión binario. Una alternativa que se está explorando en los últimos años es la eliminación de las restricciones del modelo, manteniendo su semántica. La principal ventaja de este enfoque es la posibilidad de analizar el modelo directamente sobre el árbol de características, razonando sobre las relaciones jerárquicas del árbol. La principal desventaja es que el tamaño del árbol crece sustancialmente para modelos grandes y complejos, dando lugar a problemas de escalabilidad tanto a nivel de tiempo de análisis como de espacio de almacenamiento. En un trabajo previo definimos la propuesta FMSans para la eliminación de todas las restricciones de un modelo de variabilidad, basada en el uso de árboles disjuntos y en el uso de paralelismo tanto para la generación de los árboles como para su análisis. En este artículo se proponen cuatro heurísticas para reordenar las restricciones del modelo y reducir el tiempo necesario para identificar los árboles disjuntos resultantes de eliminar las restricciones del modelo de variabilidad.},
+  keywords     = {Árbol De Características, Heurísticas, Modelo De Variabilidad, Restricciones, SPL},
+  scope        = {national}
+}
+
+@inproceedings{Ballesteros2024_JISBD_DiBDDme,
+  editor       = {SISTEDES},
+  publisher    = {SISTEDES},
+  title        = {DiBDDme, una estrategia de división no disjunta para el análisis de Modelos de Variabilidad},
+  author       = {Joaquín Ballesteros and José Miguel Horcas and Lidia Fuentes},
+  url          = {https://hdl.handle.net/11705/JISBD/2024/112},
+  booktitle    = {XXVIII Jornadas de Ingeniería del Software y Bases de Datos ({JISBD})},
+  year         = {2024},
+  month        = {jun},
+  address      = {A Coruña, Spain},
+  abstract     = {Los modelos de variabilidad, especialmente los modelos de características, son fundamentales para describir las características visibles para el usuario en líneas de productos de software (SPLs). Sin embargo, el análisis de SPLs se enfrenta a desafíos significativos cuando se trata de modelos de variabilidad muy grandes. Aunque técnicas como los resolutores de satisfacibilidad (SAT) y los diagramas de decisión binarios (BDD) son útiles, algunos análisis complejos siguen siendo difíciles de abordar de manera eficiente. En este artículo, proponemos una estrategia innovadora de dividir los modelos de variabilidad en subconjuntos no disjuntos, junto con un algoritmo para generar configuraciones válidas en estos subconjuntos. Demostramos que esta técnica no solo mejora significativamente los tiempos y el espacio necesarios para el análisis de SPLs, sino que también hace posible operaciones de análisis en modelos de variabilidad que de otro modo serían intratables.},
+  keywords     = {Arbol De Características, Diagrama De Decisión Binario, Modelo De Variabilidad, Divide Y Vencerás, SPL},
+  scope        = {national}
+}
+
+@inproceedings{RomeroOrganvidez2024_JISBD_UVLHubCienciaAbierta,
+  editor       = {SISTEDES},
+  publisher    = {SISTEDES},
+  title        = {UVLHub: compartir modelos en UVL siguiendo principios de ciencia abierta},
+  author       = {David Romero-Organvidez and José A. Galindo and Chico Sundermann and José Miguel Horcas and David Benavides},
+  url          = {https://hdl.handle.net/11705/JISBD/2024/17},
+  booktitle    = {XXVIII Jornadas de Ingeniería del Software y Bases de Datos ({JISBD})},
+  year         = {2024},
+  month        = {jun},
+  address      = {A Coruña, Spain},
+  abstract     = {Los feature models son el estándar de facto para representar la variabilidad en las líneas de productos de software. Existen varios lenguajes propuestos para describir modelos de características, como el UVL (Universal Variability Language). UVL es un esfuerzo de la comunidad para crear un estándar para describir modelos de características. Estos modelos de características suelen estar disponibles en conjuntos de datos en repositorios con deuda técnica, son obsoletos o privados, lo que dificulta su reutilización y estudio en investigaciones posteriores. Este artículo describe la herramienta UVLHub, un repositorio de dataset de modelos de características en formato UVL. La herramienta utiliza Zenodo como backend, un repositorio que sigue los principios de la Ciencia Abierta y promueve la transparencia, la accesibilidad y el almacenamiento permanente. UVLHub proporciona utilidades que ayudan en el procesamiento, la gestión y la búsqueda de modelos.},
+  keywords     = {Feature Model, Software Product, Variability, Datasets, UVL},
+  scope        = {national},
+  note         = {external collaboration},
+  track        = {tool}
+}
+
+@inproceedings{Galindo2024_JISBD_Flama,
+  editor       = {SISTEDES},
+  publisher    = {SISTEDES},
+  title        = {Flama: un esfuerzo colaborativo para soportar de forma sostenible el análisis de modelos de variabilidad},
+  author       = {José A. Galindo and José Miguel Horcas and Viet-Man Le and Alexander Felfernig and Rubén Heradio and David Fernández-Amorós and David Benavides},
+  url          = {https://hdl.handle.net/11705/JISBD/2024/26},
+  booktitle    = {XXVIII Jornadas de Ingeniería del Software y Bases de Datos ({JISBD})},
+  year         = {2024},
+  month        = {jun},
+  address      = {A Coruña, Spain},
+  abstract     = {En este artículo, presentamos la herramienta Flama para el análisis de diversos tipos de modelos de variabilidad. Este framework trata como elemento de primer orden la colaboración entre desarrolladores e investigadores. Asimismo, presentamos un distribución de Flama específicamente optimizada para el análisis de modelos de características.},
+  keywords     = {Framework, Automated Analysis, Variability Models, Python},
+  scope        = {national},
+  note         = {external collaboration},
+  track        = {tool}
+}
+

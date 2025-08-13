@@ -357,7 +357,10 @@ function getMonthNumber(monthString) {
 }
 
 
-function getEntryType(entryType, journal, booktitle, icoreRanking, isWorkshop, publisher) {
+function getEntryType(entryType, journal, booktitle, national, isWorkshop, publisher) {
+  if (national) {
+    return 'national';
+  }
   if (entryType === 'article') {
     if (journal.toLowerCase() === 'corr') {
         return 'other';

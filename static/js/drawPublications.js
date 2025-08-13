@@ -29,6 +29,7 @@ function drawChart(publications, chartId) {
         journal: '#c32b72',
         conference: '#196ca3',
         workshop: '#2ecc71',
+        national: '#e68019',
         dataArtifacts: '#885522',
         book: '#ffd500',
         editorship: '#33c3ba',
@@ -38,8 +39,9 @@ function drawChart(publications, chartId) {
     // types map
     const typesMap = {
         journal: 'Journal',
-        conference: 'Conference',
-        workshop: 'Workshop',
+        conference: 'International conference',
+        workshop: 'International workshop',
+        national: 'National conference',
         dataArtifacts: 'Data and artifacts',
         book: 'Books and PhD thesis',
         editorship: 'Editorship',
@@ -106,6 +108,12 @@ function drawChart(publications, chartId) {
                 // Se ha añadido la lógica para ordenar por icore
                 const icoreCmp = (icoreOrder[a.icore] ?? icoreOrder['-']) - (icoreOrder[b.icore] ?? icoreOrder['-']);
                 if (icoreCmp !== 0) return icoreCmp;
+
+                // 2.1. Si hay empate en ICORE, ordenar por número de premios (más premios primero)
+                const awardsA = a.awards ? a.awards.length : 0;
+                const awardsB = b.awards ? b.awards.length : 0;
+                const awardsCmp = awardsB - awardsA; // descendente
+                if (awardsCmp !== 0) return awardsCmp;
             }
 
             // 3. Si todo lo anterior es igual, ordenar por fecha (de más reciente a más antiguo)

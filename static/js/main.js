@@ -108,7 +108,8 @@ function processBibtexFile(bibtexContent, researcherName) {
       const entryType = pub.entryType.toLowerCase();
       const journal = normalizeAccents(pub.entryTags?.journal || '');
       const publisher = pub.entryTags?.publisher || '';
-      const publicationType = getEntryType(entryType, journal, booktitle, icoreRanking, isWorkshop, publisher);
+      const isNational = pub.entryTags?.scope === 'national' || '';
+      const publicationType = getEntryType(entryType, journal, booktitle, isNational, isWorkshop, publisher);
     
       return {
         type: publicationType,
@@ -134,6 +135,7 @@ function processBibtexFile(bibtexContent, researcherName) {
         address: pub.entryTags?.address || '',
         volume: pub.entryTags?.volume || '',
         calification: pub.entryTags?.calification || '',
+        national: isNational,
       };
     });
 
