@@ -119,6 +119,41 @@ function drawChart(publications, chartId) {
     // Limpiar el contenido anterior del SVG
     svg.html('');
     
+    // Incrustar los estilos dentro del propio SVG para su correcta exportación
+    const IMPORTS = ['https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@900',
+                     'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css'];
+    const svgNode = svg.node();
+    const style = `
+        body {
+            font-family: Arial, Helvetica, sans-serif;;
+            background: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .pub-square text {
+            font-size: 12px;
+            pointer-events: none;
+        }
+
+        .pub-square {
+            cursor: pointer;
+            transition: transform 0.2s;
+            transform-origin: center;
+        }
+
+        .pub-square:hover {
+            filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.5));
+        }
+    `;
+
+    const defs = d3.select(svgNode)
+        .append("defs")
+        .append("style")
+        .attr("type", "text/css")
+        .text(style);
+
+    // Dibujar los cuadrados
     const squareSize = 120;
     const rowGap = 130;
     const columnGap = 150;
@@ -157,6 +192,7 @@ function drawChart(publications, chartId) {
         .attr("y", (d, i) => (i * rowGap) + padding)
         .attr("dy", "14px")
         .attr("text-anchor", "end")
+        .style("font-family", "Helvetica, Arial, sans-serif")
         .text(d => d);
 
     // Línea vertical del eje Y
@@ -227,6 +263,7 @@ function drawChart(publications, chartId) {
         .attr("text-anchor", "middle")
         .attr("font-weight", "bold")
         .style("font-size", "20px") 
+        .style("font-family", "Helvetica, Arial, sans-serif")
         .text(d => {
             if (d.type === 'journal') return d.quartile || '-';
             if (['conference', 'workshop'].includes(d.type)) return d.icore || '-';
@@ -252,6 +289,7 @@ function drawChart(publications, chartId) {
                 group.append("text")
                     .attr("x", 0)
                     .attr("y", -14) // Posición ajustada para la primera línea
+                    .style("font-family", "Helvetica, Arial, sans-serif")
                     .text(trackText);
             } else {
                 const words = acronymText.split(' ');
@@ -261,6 +299,7 @@ function drawChart(publications, chartId) {
                     group.append("text")
                         .attr("x", 0)
                         .attr("y", -14) // Posición ajustada para la primera línea
+                        .style("font-family", "Helvetica, Arial, sans-serif")
                         .text(splitWords[0]);
                     acronymText = splitWords[1];
                 } else {
@@ -271,12 +310,14 @@ function drawChart(publications, chartId) {
             group.append("text")
                 .attr("x", 0)
                 .attr("y", 0) // Posición ajustada para la segunda línea
+                .style("font-family", "Helvetica, Arial, sans-serif")
                 .text(acronymText);
         } else {
             // Si no es largo, lo mostramos todo en una sola línea
             group.append("text")
                 .attr("x", 0)
                 .attr("y", 0)
+                .style("font-family", "Helvetica, Arial, sans-serif")
                 .text(trackText + acronymText);
         }
     });
@@ -286,7 +327,8 @@ function drawChart(publications, chartId) {
         .attr("x", squareSize - padding + 10)
         .attr("y", padding + 15)
         .attr("text-anchor", "end")
-        .style("font-size", "24px") 
+        .style("font-size", "24px")
+        .style("font-family", "Helvetica, Arial, sans-serif") 
         .text(d => (d.awards && d.awards.length > 0) ? d.awards.map(() => "🏆").join('') : "");
 
     // Superior izquierda: Iconos (colaboraciones, etc.)
@@ -295,6 +337,7 @@ function drawChart(publications, chartId) {
         .attr("y", padding + 15)
         .attr("text-anchor", "start")
         .style("font-size", "24px") 
+        .style("font-family", "Helvetica, Arial, sans-serif")
         .text(d => d.notes === '' ? ''  : (d.notes.split(',') || [])
                                             .map(i => `${iconMap[i.trim().toLowerCase()]}` || '')
                                             .join(""));
@@ -304,6 +347,7 @@ function drawChart(publications, chartId) {
         .attr("x", padding -5)
         .attr("y", squareSize - padding + 5)
         .attr("text-anchor", "start")
+        .style("font-family", "Helvetica, Arial, sans-serif")
         .text(d => d.authorPosition);
 
    // Etiquetas de año debajo de cada columna, incluyendo años sin publicaciones
@@ -317,6 +361,7 @@ function drawChart(publications, chartId) {
     .attr("text-anchor", "middle")
     .attr("font-weight", "bold")
     .attr("font-size", "14px")
+    .style("font-family", "Helvetica, Arial, sans-serif")
     .text(d => d[0]);  // el año está en la primera posición de la tupla
 
     // ---------- Leyenda ----------
@@ -350,6 +395,7 @@ function drawChart(publications, chartId) {
         .append("text")
         .attr("x", 25)
         .attr("y", (d, i) => i * 25 + 14)
+        .style("font-family", "Helvetica, Arial, sans-serif")
         .text(d => d[1])
         .attr("font-size", "14px")
         .attr("alignment-baseline", "middle");
@@ -360,6 +406,7 @@ function drawChart(publications, chartId) {
         .attr("font-size", "14px")
         .attr("font-weight", "bold")
         .style("text-decoration", "underline")
+        .style("font-family", "Helvetica, Arial, sans-serif")
         .text("Publication types:");
 
     // Add quartiles and i-cores to the legend
@@ -369,6 +416,7 @@ function drawChart(publications, chartId) {
         .attr("font-size", "14px")
         .attr("font-weight", "bold")
         .style("text-decoration", "underline")
+        .style("font-family", "Helvetica, Arial, sans-serif")
         .text("JCR ranking:");
 
     const quartileStart = legendData.length * legendSpacing + 35; // espacio extra
@@ -381,6 +429,7 @@ function drawChart(publications, chartId) {
         .attr("x", 0)
         .attr("y", (d, i) => quartileStart + i * legendSpacing + 15)
         .attr("font-size", "14px")
+        .style("font-family", "Helvetica, Arial, sans-serif")
         .text(d => `${d}`);
 
     // ---- Título I-CORE ----
@@ -391,6 +440,7 @@ function drawChart(publications, chartId) {
         .attr("font-size", "14px")
         .attr("font-weight", "bold")
         .style("text-decoration", "underline")
+        .style("font-family", "Helvetica, Arial, sans-serif")
         .text("ICORE ranking:");
 
     const icoreStart = icoreTitleY + 5;
@@ -407,6 +457,7 @@ function drawChart(publications, chartId) {
         .attr("x", 0)
         .attr("y", (d, i) => icoreStart + i * legendSpacing + 15)
         .attr("font-size", "14px")
+        .style("font-family", "Helvetica, Arial, sans-serif")
         .text(d => `${d}`);
 
     // ---- Título Iconos ----
@@ -417,6 +468,7 @@ function drawChart(publications, chartId) {
         .attr("font-size", "14px")
         .attr("font-weight", "bold")
         .style("text-decoration", "underline")
+        .style("font-family", "Helvetica, Arial, sans-serif")
         .text("Other info:");
 
     // Combinar icono y significado en un array de objetos
@@ -434,130 +486,7 @@ function drawChart(publications, chartId) {
         .attr("x", 0)
         .attr("y", (d, i) => iconStart + i * legendSpacing + 15)
         .attr("font-size", "14px")
+        .style("font-family", "Helvetica, Arial, sans-serif")
         .text(d => `${d.icon}: ${d.meaning}`);
+    
 }
-
-/* // Ejemplo de datos, ahora en una constante
-const examplePublications = [
-    {
-        type: 'journal',
-        quartile: 'Q1',
-        icore: null,
-        authorPosition: '1/3',
-        acronym: 'JSS',
-        track: null,
-        awards: ['best'],
-        icons: ['collab', 'industry'],
-        doi: 'https://doi.org/10.1016/j.jss.2021.111013',
-        year: 2021,
-        date: '2021-07-10'
-    },
-    {
-        type: 'journal',
-        quartile: 'Q1',
-        icore: null,
-        authorPosition: '1/3',
-        acronym: 'JSS',
-        track: null,
-        awards: ['best'],
-        icons: ['collab', 'industry'],
-        doi: 'https://doi.org/10.1016/j.jss.2021.111013',
-        year: 2021,
-        date: '2021-07-13'
-    },
-    {
-        type: 'conference',
-        quartile: null,
-        icore: 'A+',
-        authorPosition: '2/5',
-        acronym: 'ICSE',
-        track: 'tool',
-        awards: [],
-        icons: ['stay'],
-        doi: 'https://doi.org/10.1145/1234567.1234568',
-        year: 2021,
-        date: '2021-07-12'
-    },
-    {
-        type: 'non_indexed_conf',
-        quartile: null,
-        icore: null,
-        authorPosition: '1/2',
-        acronym: 'JISBD',
-        track: null,
-        awards: [],
-        icons: [],
-        doi: 'https://doi.org/10.1234/jisbd.2022',
-        year: 2022,
-        date: '2022-07-10'
-    },
-    {
-        type: 'non_indexed_conf',
-        quartile: null,
-        icore: null,
-        authorPosition: '1/2',
-        acronym: 'JISBD',
-        track: null,
-        awards: [],
-        icons: [],
-        doi: 'https://doi.org/10.1234/jisbd.2022',
-        year: 2022,
-        date: '2022-07-10'
-    },
-    {
-        type: 'non_indexed_conf',
-        quartile: null,
-        icore: null,
-        authorPosition: '1/2',
-        acronym: 'JISBD',
-        track: null,
-        awards: [],
-        icons: [],
-        doi: 'https://doi.org/10.1234/jisbd.2022',
-        year: 2022,
-        date: '2022-07-10'
-    },
-    {
-        type: 'non_indexed_conf',
-        quartile: null,
-        icore: null,
-        authorPosition: '1/2',
-        acronym: 'JISBD',
-        track: null,
-        awards: [],
-        icons: [],
-        doi: 'https://doi.org/10.1234/jisbd.2022',
-        year: 2022,
-        date: '2022-07-10'
-    },
-    {
-        type: 'journal',
-        quartile: 'Q1',
-        icore: null,
-        authorPosition: '1/3',
-        acronym: 'JSS',
-        track: null,
-        awards: ['best'],
-        icons: ['collab', 'industry'],
-        doi: 'https://doi.org/10.1016/j.jss.2021.111013',
-        year: 2024,
-        date: '2024-07-13'
-    },
-    {
-        type: 'conference',
-        quartile: null,
-        icore: 'A+',
-        authorPosition: '2/5',
-        acronym: 'ICSE',
-        track: 'tool',
-        awards: [],
-        icons: ['stay'],
-        doi: 'https://doi.org/10.1145/1234567.1234568',
-        year: 2024,
-        date: '2024-07-12'
-    },
-]; */
-
-// Llamada inicial para dibujar el gráfico con los datos de ejemplo
-//drawChart(examplePublications, "#chart");
-
