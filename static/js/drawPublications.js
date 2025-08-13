@@ -511,13 +511,24 @@ function drawChart(publications, chartId) {
     // Contar publicaciones que usan cada icono
     const iconCounts = Object.keys(iconMap).reduce((acc, key) => {
         let count = 0;
+        const keyLower = key.toLowerCase();
+
         publications.forEach(d => {
             if (["journal", "conference", "workshop"].includes(d.type)) {
                 // Contamos 1 si notes incluye la key
-                if (d.notes?.includes(key)) count += 1;
+                if (d.notes) {
+                    const noteItems = d.notes
+                        .toLowerCase()
+                        .split(/[,;]+/) // separa por coma o punto y coma
+                        .map(s => s.trim());
 
+                    // Coincidencia exacta de ítem con key
+                    if (noteItems.includes(keyLower)) {
+                        count += 1;
+                    }
+                }
                 // Contamos cada premio que coincide con la key
-                if (d.awards?.length > 0) {
+                if (d.awards?.length > 0 && key === 'best paper award') {
                     count += d.awards.length;
                 }
             } else if (d.type === 'book' && key === 'other award') {  // book or phdthesis
@@ -528,7 +539,7 @@ function drawChart(publications, chartId) {
         return acc;
     }, {});
 
-    iconCounts['other award'] -= iconCounts['best paper award']; // adapt the count for best paper awards
+    //iconCounts['other award'] -= iconCounts['best paper award']; // adapt the count for best paper awards
 
     // Convertimos a array de objetos para la leyenda
     const iconEntries = Object.keys(iconCounts).map(key => ({

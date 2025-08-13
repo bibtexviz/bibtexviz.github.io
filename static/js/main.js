@@ -111,8 +111,7 @@ function processBibtexFile(bibtexContent, researcherName) {
       const isNational = pub.entryTags?.scope === 'national' || '';
       const publicationType = getEntryType(entryType, journal, booktitle, isNational, isWorkshop, publisher);
       const authors = getAuthors(pub.entryTags?.author || '');
-
-      console.log("Autor for publication:", authors);
+      
       return {
         type: publicationType,
         authors: authors,
@@ -137,7 +136,6 @@ function processBibtexFile(bibtexContent, researcherName) {
         address: pub.entryTags?.address || '',
         volume: pub.entryTags?.volume || '',
         calification: pub.entryTags?.calification || '',
-        national: isNational,
       };
     });
 
