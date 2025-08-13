@@ -11,7 +11,7 @@
 <body>
     <!-- Título y subtítulo centrados -->
     <div class="text-center mt-4 mb-4">
-        <h1 class="title-gradient">BibTex Visualization</h1>
+        <h1 class="title-gradient"><a href="/" style="text-decoration: none; color: inherit;">BibTex Visualization</a></h1>
         <h4 class="subtitle-colored">Transform .bibtex files into powerful visualizations to explore and analyze research productivity.</h4>
     </div>
 
@@ -58,15 +58,26 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Visualization of a publication</h5>
+                                Publications are shown as colored squares in a bar chart timeline. Each bar represents a year, with all publications for that year stacked vertically. Within a year, publications are ordered from top to bottom by type, ranking, awards, and date, in that order of precedence. The type order is specified in the following section.
+                                Each square is interactive, allowing you to click and view publication details such as title, authors, DOI, and more.
                                 <p class="card-text"><img src="static/images/publication_schema.png" alt="Visualization example"></p>
                             </div>
                         </div>
 
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Type of publications:</h5>
-                                <p class="card-text">The type of a publication is codified by colors following a similar schema that use in <a href="https://dblp.org/">DBLP</a>.
+                                <h5 class="card-title">Publication type:</h5>
+                                <p class="card-text">The type of a publication is automatically extracted from the BibTeX entry and encoded with colors following a schema similar to that used by <a href="https://dblp.org/">DBLP</a>.
                                     <div class="color-legend" style="display: flex; flex-direction: column; gap: 12px; margin-top: 10px;">
+                                    
+                                    
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <div style="width: 20px; height: 20px; background-color: #ffd500;"></div>
+                                        <div>
+                                            <strong>Book and PhD thesis</strong>
+                                            <small>From BibTeX entry <code>@book</code> or <code>@phdthesis</code></small>
+                                        </div>
+                                    </div>
                                     <div style="display: flex; align-items: center; gap: 8px;">
                                         <div style="width: 20px; height: 20px; background-color: #c32b72;"></div>
                                         <div>
@@ -77,56 +88,68 @@
                                     <div style="display: flex; align-items: center; gap: 8px;">
                                         <div style="width: 20px; height: 20px; background-color: #196ca3;"></div>
                                         <div>
-                                            <strong>Conference</strong><br>
+                                            <strong>International conference</strong>
                                             <small>From BibTeX entry <code>@inproceedings</code></small>
                                         </div>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 8px;">
                                         <div style="width: 20px; height: 20px; background-color: #2ecc71;"></div>
                                         <div>
-                                            <strong>Workshop</strong><br>
-                                            <small>From BibTeX entry <code>@inproceedings</code> with <code>scope={workshop}</code></small>
+                                            <strong>International workshop</strong>
+                                            <small>From BibTeX entry <code>@inproceedings</code> with the <code>Workshop</code> or <code>WS</code> word in the <code>booktitle</code></small>
                                         </div>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 8px;">
                                         <div style="width: 20px; height: 20px; background-color: #e68019;"></div>
                                         <div>
-                                            <strong>National</strong><br>
-                                            <small>Requires <code>scope={national}</code> in BibTeX entry</small>
+                                            <strong>National conference</strong>
+                                            <small>From BibTeX entry <code>@inproceedings</code>, requires <code>scope={national}</code> in the entry (not present in DBLP)</small>
                                         </div>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 8px;">
                                         <div style="width: 20px; height: 20px; background-color: #885522;"></div>
                                         <div>
-                                            <strong>Data Artifacts</strong><br>
-                                            <small>Other datasets or software artifacts</small>
-                                        </div>
-                                    </div>
-                                    <div style="display: flex; align-items: center; gap: 8px;">
-                                        <div style="width: 20px; height: 20px; background-color: #ffd500;"></div>
-                                        <div>
-                                            <strong>Book</strong><br>
-                                            <small>From BibTeX entry <code>@book</code> or <code>@phdthesis</code></small>
+                                            <strong>Data and artifacts</strong>
+                                            <small>From BibTeX entry <code>@misc</code> with <code>publisher={Zenodo}</code></small>
                                         </div>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 8px;">
                                         <div style="width: 20px; height: 20px; background-color: #33c3ba;"></div>
                                         <div>
-                                            <strong>Editorship</strong><br>
-                                            <small>From BibTeX entry <code>@editor</code> or similar</small>
+                                            <strong>Editorship</strong>
+                                            <small>From BibTeX entry <code>@proceedings</code></small>
                                         </div>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 8px;">
                                         <div style="width: 20px; height: 20px; background-color: #606b70;"></div>
                                         <div>
-                                            <strong>Other</strong><br>
-                                            <small>Other BibTeX entries like <code>@techreport</code>, <code>@manual</code>, etc.</small>
+                                            <strong>Informal and other publications</strong>
+                                            <small>Other BibTeX entries such as <code>@article</code> with <code>journal={CoRR}</code>, <code>@techreport</code>, <code>@misc</code>, etc.</small>
                                         </div>
                                     </div>
                                 </div>
-
-
                                 </p>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Ranking</h5>
+                                <ul class="card-text">
+                                    <li>
+                                        <strong>Journals:</strong> The ranking is based on the <a href="https://clarivate.com/academia-government/scientific-and-academic-research/research-funding-analytics/journal-citation-reports/">Journal Citation Reports (JCR)</a>, which indicate their quartile (Q1 to Q4).
+                                    Since there is currently no free public API for JCR, this information cannot be obtained automatically. It must be manually added to the BibTeX entry, for example: <code>jcr={Q1}</code>. More detailed information can also be included and will be shown in the publication details, e.g., <code>jcr={Q1 (9/131) Computer Science, Software Engineering. Impact factor: 6.5}</code>, as long as it starts with the quartile.
+                                    Non-indexed journals are indicated as <code>jcr={}</code> and appear in the visualization with a <code>-</code>, while if the <code>jcr</code> field is missing, the ranking is considered unknown and shown as <code>?</code>.
+                                    </li>
+                                    <li>
+                                        <strong>Conferences:</strong> The ranking is based on the <a href="https://portal.core.edu.au/conf-ranks/">ICORE ranking</a>, which classifies conferences from A* to C.
+                                    This information is automatically extracted from the .csv file provided on the ICORE portal.
+                                    Non-indexed conferences are displayed with a <code>-</code> in the visualization.
+                                    </li>
+                                    <li>
+                                        <strong>Others:</strong> Other publications are not ranked by default and appear with a <code>-</code> in the visualization. However, you can specify their ranking using a <code>calification</code> BibTex entry. For example, to indicate the rating of a PhD thesis, use <code>calification={Cum Laude}</code>, which will display "Cum Laude" as its ranking in the visualization.
+                                    </li>
+                                </ul>
                             </div>
                         </div>
 

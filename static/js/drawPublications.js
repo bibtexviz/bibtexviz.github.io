@@ -45,7 +45,7 @@ function drawChart(publications, chartId) {
         dataArtifacts: 'Data and artifacts',
         book: 'Books and PhD thesis',
         editorship: 'Editorship',
-        other: 'Other' // Otros tipos
+        other: 'Informal and other publications' // Otros tipos
     };
 
    // Nuevo orden de apilado (de arriba a abajo)
@@ -54,9 +54,10 @@ function drawChart(publications, chartId) {
         'journal': 1,
         'conference': 2,
         'workshop': 3,
-        'dataArtifacts': 4,
-        'editorship': 5,
-        'other': 6 // Los que no tienen tipo van al final
+        'national': 4,
+        'dataArtifacts': 5,
+        'editorship': 6,
+        'other': 7 // Los que no tienen tipo van al final
     };
 
     // Orden para quartiles (Q1 arriba, Q4 abajo)
@@ -595,7 +596,7 @@ function drawChart(publications, chartId) {
 
     // Calcular el ancho total
     const numColumns = groupedByYear.length;
-    const legendWidth = 300; // Ancho fijo para la leyenda
+    const legendWidth = 500; // Ancho fijo para la leyenda
     const svgWidth = xStart + (numColumns - 1) * columnGap + squareSize + padding + legendWidth;
 
     d3.select("#chart")

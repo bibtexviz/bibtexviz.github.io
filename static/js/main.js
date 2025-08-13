@@ -80,7 +80,7 @@ function processBibtexFile(bibtexContent, researcherName) {
       const booktitle = normalizeAccents(pub.entryTags?.booktitle || '');
       const year = parseInt(pub.entryTags?.year);
       const icoreRanking = booktitle ? getICORERanking(booktitle, getAcronymOrTruncate(booktitle, 50), year) : null;
-      const isWorkshop = booktitle.toLowerCase().includes('workshop') || booktitle.toLowerCase().includes('ws');
+      const isWorkshop = booktitle.toLowerCase().includes('workshop') || booktitle.toLowerCase().includes(' ws ');
       const entryType = pub.entryType.toLowerCase();
       const journal = normalizeAccents(pub.entryTags?.journal || '');
       const publisher = pub.entryTags?.publisher || '';
