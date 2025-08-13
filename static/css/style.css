@@ -2,7 +2,6 @@ body {
   font-family: sans-serif;
   background: #f9f9f9;
   margin: 0;
-  padding: 0;
 }
 
 .pub-square text {
@@ -18,4 +17,57 @@ body {
 
 .pub-square:hover {
   filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.5));
+}
+
+.title-gradient {
+    background: linear-gradient(90deg, #c32b72, #196ca3, #2ecc71);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle-colored {
+    color: #196ca3;
+}
+
+/* Tarjeta de Researcher Information */
+.card-researcher {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card-researcher .card-header {
+    font-weight: bold;
+    height: auto;
+    min-height: 0;
+}
+
+/* Tarjeta de Publications */
+.card-publications {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card-publications .card-header {
+    font-weight: bold;
+}
+
+.tab-content {
+    height: auto;
+    overflow: visible;  /* Evita scroll innecesario */
+}
+
+.tab-content {
+  position: relative;  /* importante */
+}
+
+.tab-pane {
+  position: absolute;  /* cada pestaña ocupa su propio flujo */
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: none;       /* por defecto oculta */
+}
+
+.tab-pane.show {
+  display: block;      /* solo la activa se muestra */
+  position: relative;  /* la activa ocupa altura normal */
 }

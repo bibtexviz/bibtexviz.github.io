@@ -123,4 +123,3 @@ function processBibtexFile(bibtexContent, researcherName) {
     return [];
   }
 }
-

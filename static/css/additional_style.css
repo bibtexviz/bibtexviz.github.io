@@ -1,0 +1,25 @@
+/* Tarjeta de Researcher Information */
+.card-researcher {
+    border: none;
+    background-color: #fce4ec; /* tono suave derivado de #c32b72 */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card-researcher .card-header {
+    background-color: #c32b72;
+    color: white;
+    font-weight: bold;
+}
+
+/* Tarjeta de Publications */
+.card-publications {
+    border: none;
+    background-color: #e3f2fd; /* tono suave derivado de #196ca3 */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card-publications .card-header {
+    background-color: #196ca3;
+    color: white;
+    font-weight: bold;
+}

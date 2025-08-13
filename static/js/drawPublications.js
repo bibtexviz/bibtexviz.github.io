@@ -592,6 +592,15 @@ function drawChart(publications, chartId) {
         .attr('cursor', 'pointer')
         .attr('transform-origin', 'center')
         .attr('style', 'transition: transform 0.2s;');
+
+    // Calcular el ancho total
+    const numColumns = groupedByYear.length;
+    const legendWidth = 300; // Ancho fijo para la leyenda
+    const svgWidth = xStart + (numColumns - 1) * columnGap + squareSize + padding + legendWidth;
+
+    d3.select("#chart")
+        .attr("width", svgWidth)
+
 }
 
 
