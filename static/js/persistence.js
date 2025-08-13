@@ -6,23 +6,23 @@ const setupSaveButton = (buttonId, chartSelector, serializeFunction, extension) 
         const svgElement = chart.node();
         const originalHeight = adjustSVGSize(svgElement);
 
-        const fm_name = window.FM_NAME;
+        const name = 'publications';
         try {
             const blob = await serializeFunction(svgElement);
-            saveAs(blob, fm_name + extension);
+            saveAs(blob, name + extension);
         } catch (error) {
             console.error(`An error occurred while saving the ${extension.toUpperCase()}:`, error);
         } finally {
-            restoreSVGSize(svgElement, originalHeight);
-            newData = filterData(ALL_DATA);
-            redrawLabel(newData);
+            //restoreSVGSize(svgElement, originalHeight);
+            //newData = filterData(ALL_DATA);
+            //redrawLabel(newData);
         }
     });
 };
 
 //setupSaveButton('#saveSVG', '#FMFactLabelChart', serializeToSVG, '.svg');
 
-//setupSaveButton('#savePNG', '#FMFactLabelChart', rasterize, '.png');
+setupSaveButton('#downloadPng', '#chart', rasterize, '.png');
 
 
 const setupPDFSaveButton = (buttonId, chartSelector) => {
@@ -59,7 +59,7 @@ const setupPDFSaveButton = (buttonId, chartSelector) => {
                 downloadLink.href = blobUrl;
 
                 // Asignar un nombre al archivo PDF descargado
-                downloadLink.download = `${fm_name}.pdf`;
+                downloadLink.download = 'publications.pdf';
 
                 // Simular clic para descargar el archivo
                 downloadLink.click();

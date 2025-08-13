@@ -52,36 +52,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'visualizacion.svg';
+        a.download = 'publications.svg';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
     });
-
-    // Lógica para descargar el PNG (requiere una biblioteca como canvg o html2canvas)
-    document.getElementById('downloadPng').addEventListener('click', (e) => {
-        e.preventDefault();
-        // Implementación de la descarga PNG
-        // Esto requiere convertir el SVG a un elemento canvas para luego descargarlo
-        alert('La función de descarga PNG requiere una biblioteca adicional. Por favor, implementa la lógica usando canvg o similar.');
-        // Ejemplo de pseudocódigo con canvg:
-        /*
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        const v = canvg.Canvg.fromString(ctx, new XMLSerializer().serializeToString(chart));
-        v.render().then(() => {
-            const url = canvas.toDataURL('image/png');
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'visualizacion.png';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        });
-        */
-    });
-    
    
 });
 
@@ -111,7 +87,7 @@ function processBibtexFile(bibtexContent, researcherName) {
       const isNational = pub.entryTags?.scope === 'national' || '';
       const publicationType = getEntryType(entryType, journal, booktitle, isNational, isWorkshop, publisher);
       const authors = getAuthors(pub.entryTags?.author || '');
-      
+
       return {
         type: publicationType,
         authors: authors,
