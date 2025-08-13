@@ -10,6 +10,7 @@ function drawChart(publications, chartId) {
     // Iconos usados en la esquina superior izquierda
     const iconMap = {
         'best paper award': '🏆',
+        'other award': '🏅',
         'external collaboration': '👥',
         'industry collaboration': '🏢',
         'international stay result': '🗺️',
@@ -17,6 +18,7 @@ function drawChart(publications, chartId) {
 
     const iconMeaningMap = {
         'best paper award': 'Best paper award',
+        'other award': 'Other award',
         'external collaboration': 'External collaboration',
         'industry collaboration': 'Industry collaboration',
         'international stay result': 'International stay result',
@@ -198,7 +200,7 @@ function drawChart(publications, chartId) {
             ${d.icore ? `<p><strong>ICORE:</strong> ${d.icore === '-' ? 'No indexed' : d.icore}</p>` : ''}
             ${d.calification ? `<p><strong>Calification:</strong> ${d.calification}</p>` : ''}
             ${d.publisher ? `<p><strong>Publisher:</strong> ${d.publisher}<p>` : ''}
-            ${d.awards && d.awards.length > 0 ? `<p><strong>Awards:</strong> ${d.awards.map(i => `🏆 ${i}`).join(', ')}</p>` : ''}
+            ${d.awards && d.awards.length > 0 ? `<p><strong>Awards:</strong> ${d.awards.map(i => `${d.type === 'book' ? '🏅' : '🏆'} ${i}`).join(', ')}</p>` : ''}
             ${d.notes ? `<p><strong>Notes:</strong> ${d.notes.split(',').map(i => `${iconMeaningMap[i.trim().toLowerCase()]} ${iconMap[i.trim().toLowerCase()]}` || '').join(", ")}</p>` : ''}
             <p><strong>DOI/Handle/URL:</strong> <a href="${urlValue}" target="_blank" rel="noopener noreferrer">${linkText}</a></p>
             ${d.abstract ? `<p><strong>Abstract:</strong> ${d.abstract}</p>` : ''}
@@ -297,7 +299,11 @@ function drawChart(publications, chartId) {
         .attr("y", padding - 10)
         .attr("width", 36)
         .attr("height", 36)
-        .attr("href", () => emojiToDataURL("🏆"));
+        .attr("href", function(award) {
+            // d3 selecciona 'this' como <image>, su padre es el <g> de la publicación
+            const parentData = d3.select(this.parentNode).datum();
+            return emojiToDataURL(parentData.type === 'book' ? '🏅' : '🏆');
+    });
 
     // Superior izquierda: Iconos (colaboraciones, etc.)
     squares.selectAll(".note-icon")
@@ -336,11 +342,18 @@ function drawChart(publications, chartId) {
     .text(d => d[0]);  // el año está en la primera posición de la tupla
 
     // ---------- Leyenda ----------
+    // Calcular totales por tipo
+    const totalsByType = {};
+    Object.keys(typesMap).forEach(type => {
+        totalsByType[type] = publications.filter(d => d.type === type).length;
+    });
+
     const legendSpacing = 25;
 
     // Datos de la leyenda a partir de colorMap
-    const legendData = Object.entries(typesMap);
-    const legendColor = Object.entries(colorMap);
+    const legendData = Object.entries(typesMap).filter(([type]) => totalsByType[type] > 0);
+    const legendColor = Object.entries(colorMap).filter(([type]) => totalsByType[type] > 0);
+
 
     // Posición inicial de la leyenda (a la derecha del gráfico)
     const legendX = xStart + groupedByYear.length * columnGap + 50;
@@ -367,20 +380,43 @@ function drawChart(publications, chartId) {
         .attr("x", 25)
         .attr("y", (d, i) => i * 25 + 14)
         .style("font-family", "Helvetica, Arial, sans-serif")
-        .text(d => d[1])
+        .text(d => `${d[1]} (${totalsByType[d[0]]})`)
         .attr("font-size", "14px")
         .attr("alignment-baseline", "middle");
 
+    // Texto subrayado para "Publications:"
     legend.append("text")
         .attr("x", 0)
-        .attr("y", -5) // un poco arriba de los rectángulos para que no se superponga
+        .attr("y", -5)
         .attr("font-size", "14px")
         .attr("font-weight", "bold")
         .style("text-decoration", "underline")
         .style("font-family", "Helvetica, Arial, sans-serif")
-        .text("Publication types:");
+        .text("Publications:");
+
+    // Número sin subrayado, separado en otro <text>
+    legend.append("text")
+        .attr("x", 95) // ajusta según la longitud de "Publications:" para que quede alineado
+        .attr("y", -5)
+        .attr("font-size", "14px")
+        .attr("font-weight", "bold")
+        .style("text-decoration", "none")
+        .style("font-family", "Helvetica, Arial, sans-serif")
+        .text(`(${publications.length})`);
 
     // Add quartiles and i-cores to the legend
+     // Contar publicaciones por cuartil
+    const quartileCounts = {
+        'Q1': publications.filter(d => d.quartile === 'Q1').length,
+        'Q2': publications.filter(d => d.quartile === 'Q2').length,
+        'Q3': publications.filter(d => d.quartile === 'Q3').length,
+        'Q4': publications.filter(d => d.quartile === 'Q4').length,
+        '?: Unknown': publications.filter(d => d.quartile === '?: Unknown').length,
+        '-: No indexed in JCR': publications.filter(d => d.quartile === '-: No indexed in JCR').length
+    };
+
+    const totalJCRPublications = quartileCounts['Q1'] + quartileCounts['Q2'] + quartileCounts['Q3'] + quartileCounts['Q4'];
+
     legend.append("text")
         .attr("x", 0)
         .attr("y", legendData.length * legendSpacing + 30) // justo debajo de la última fila de tipos
@@ -390,10 +426,23 @@ function drawChart(publications, chartId) {
         .style("font-family", "Helvetica, Arial, sans-serif")
         .text("JCR ranking:");
 
+    legend.append("text")
+        .attr("x", 95) // ajusta según la longitud de "Publications:" para que quede alineado
+        .attr("y", legendData.length * legendSpacing + 30)
+        .attr("font-size", "14px")
+        .attr("font-weight", "bold")
+        .style("text-decoration", "none")
+        .style("font-family", "Helvetica, Arial, sans-serif")
+        .text(`(${totalJCRPublications})`);
+
+    // Filtrar solo los que tienen publicaciones
+    //const quartilesFiltered = Object.entries(quartileCounts).filter(([q, count]) => count > 0);
+    const quartilesFiltered = Object.entries(quartileCounts);
+
+    // Dibujar leyenda de quartiles
     const quartileStart = legendData.length * legendSpacing + 35; // espacio extra
-    const quartiles = ['Q1, Q2, Q3, Q4', '?: Unknown', '-: No indexed in the JCR'];
     legend.selectAll("text.quartile")
-        .data(quartiles)
+        .data(quartilesFiltered)
         .enter()
         .append("text")
         .attr("class", "quartile")
@@ -401,10 +450,21 @@ function drawChart(publications, chartId) {
         .attr("y", (d, i) => quartileStart + i * legendSpacing + 15)
         .attr("font-size", "14px")
         .style("font-family", "Helvetica, Arial, sans-serif")
-        .text(d => `${d}`);
+        .text(d => `${d[0]} (${d[1]})`);
 
     // ---- Título I-CORE ----
-    const icoreTitleY = quartileStart + quartiles.length * legendSpacing + 30;
+    // Contar publicaciones por ICORE
+    const icoreCounts = {
+        'A*': publications.filter(d => d.icore === 'A*').length,
+        'A': publications.filter(d => d.icore === 'A').length,
+        'B': publications.filter(d => d.icore === 'B').length,
+        'C': publications.filter(d => d.icore === 'C').length,
+        '-: No indexed in ICORE': publications.filter(d => d.icore === '-').length
+    };
+
+    const totalICOREPublications = icoreCounts['A*'] + icoreCounts['A'] + icoreCounts['B'] + icoreCounts['C'];
+
+    const icoreTitleY = quartileStart + Object.keys(quartileCounts).length * legendSpacing + 30;
     legend.append("text")
         .attr("x", 0)
         .attr("y", icoreTitleY)
@@ -413,15 +473,23 @@ function drawChart(publications, chartId) {
         .style("text-decoration", "underline")
         .style("font-family", "Helvetica, Arial, sans-serif")
         .text("ICORE ranking:");
+    
+    legend.append("text")
+        .attr("x", 107) // ajusta según la longitud de "Publications:" para que quede alineado
+        .attr("y", icoreTitleY)
+        .attr("font-size", "14px")
+        .attr("font-weight", "bold")
+        .style("text-decoration", "none")
+        .style("font-family", "Helvetica, Arial, sans-serif")
+        .text(`(${totalICOREPublications})`);
 
+
+    // Filtrar solo los que tienen publicaciones
+    const icoreFiltered = Object.entries(icoreCounts);
     const icoreStart = icoreTitleY + 5;
-    const iCores = [
-        'A*, A, B, C',
-        '-: No indexed'
-    ];
 
     legend.selectAll("text.icore")
-        .data(iCores)
+        .data(icoreFiltered)
         .enter()
         .append("text")
         .attr("class", "icore")
@@ -429,10 +497,39 @@ function drawChart(publications, chartId) {
         .attr("y", (d, i) => icoreStart + i * legendSpacing + 15)
         .attr("font-size", "14px")
         .style("font-family", "Helvetica, Arial, sans-serif")
-        .text(d => `${d}`);
+        .text(d => `${d[0]} (${d[1]})`);
 
     // ---- Título Iconos ----
-    const iconTitleY = icoreStart + iCores.length * legendSpacing + 30;
+    // Contar publicaciones que usan cada icono
+    const iconCounts = Object.keys(iconMap).reduce((acc, key) => {
+        let count = 0;
+        publications.forEach(d => {
+            if (["journal", "conference", "workshop"].includes(d.type)) {
+                // Contamos 1 si notes incluye la key
+                if (d.notes?.includes(key)) count += 1;
+
+                // Contamos cada premio que coincide con la key
+                if (d.awards?.length > 0) {
+                    count += d.awards.length;
+                }
+            } else if (d.type === 'book' && key === 'other award') {  // book or phdthesis
+                count += d.awards.length;
+            }
+        });
+        acc[key] = count;
+        return acc;
+    }, {});
+
+    iconCounts['other award'] -= iconCounts['best paper award']; // adapt the count for best paper awards
+
+    // Convertimos a array de objetos para la leyenda
+    const iconEntries = Object.keys(iconCounts).map(key => ({
+        icon: iconMap[key],
+        meaning: iconMeaningMap[key],
+        count: iconCounts[key]
+    }));
+
+    const iconTitleY = icoreStart + Object.keys(icoreFiltered).length * legendSpacing + 30;
     legend.append("text")
         .attr("x", 0)
         .attr("y", iconTitleY)
@@ -441,12 +538,6 @@ function drawChart(publications, chartId) {
         .style("text-decoration", "underline")
         .style("font-family", "Helvetica, Arial, sans-serif")
         .text("Other info:");
-
-    // Combinar icono y significado en un array de objetos
-    const iconEntries = Object.keys(iconMeaningMap).map(key => ({
-        icon: iconMap[key],
-        meaning: iconMeaningMap[key]
-    }));
 
     const iconStart = iconTitleY + 5;
 
@@ -471,7 +562,7 @@ function drawChart(publications, chartId) {
         .attr("y", 12)  // centra verticalmente respecto al icono
         .attr("font-size", "14px")
         .style("font-family", "Helvetica, Arial, sans-serif")
-        .text(d => d.meaning);
+        .text(d => `${d.meaning} (${d.count})`);
         
     // Aplicar estilos como atributos inline para que se incrusten en el SVG de cara a exportarlo a SVG y PDF
     svg.selectAll('.pub-square text')

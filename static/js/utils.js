@@ -380,17 +380,11 @@ function getEntryType(entryType, journal, booktitle, icoreRanking, isWorkshop, p
   }
 }
 
-function getQuartile(jcr, journal) {
-  if (journal && jcr !== undefined) {
-    if (jcr.trim() === '') {
-        return '-';
-    } else {
-        return jcr.trim().slice(0, 2).toUpperCase();
-    }
-  } else if (journal) {
-      return '?';
+function getQuartile(jcr) {
+  if (jcr.trim() === '') {
+      return '-';
   } else {
-    return '';
+      return jcr.trim().slice(0, 2).toUpperCase();
   }
 }
 

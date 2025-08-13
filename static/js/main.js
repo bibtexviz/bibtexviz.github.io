@@ -116,7 +116,7 @@ function processBibtexFile(bibtexContent, researcherName) {
         title: normalizeAccents(pub.entryTags?.title) || '',
         journal: journal,
         booktitle: booktitle,
-        quartile: getQuartile(pub.entryTags?.jcr || '', journal),
+        quartile: getQuartile(pub.entryTags?.jcr !== undefined ? pub.entryTags?.jcr : '?'),
         jcr: pub.entryTags?.jcr || '',
         icore: icoreRanking?.rank || null,
         authorPosition: findAuthorPosition(pub.entryTags?.author || '', researcherName),
