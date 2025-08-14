@@ -45,7 +45,7 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="bibFile" class="form-label">Upload .bib File (optional)</label>
+                                    <label for="bibFile" class="form-label">Upload .bib file (optional)</label>
                                     <input class="form-control" type="file" id="bibFile" accept=".bib">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -57,16 +57,35 @@
                     <div class="tab-pane fade" id="about" role="tabpanel">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Visualization of a publication</h5>
-                                Publications are shown as colored squares in a bar chart timeline. Each bar represents a year, with all publications for that year stacked vertically. Within a year, publications are ordered from top to bottom by type, ranking, awards, and date, in that order of precedence. The type order is specified in the following section.
-                                Each square is interactive, allowing you to click and view publication details such as title, authors, DOI, and more.
-                                <p class="card-text"><img src="static/images/publication_schema.png" alt="Visualization example"></p>
+                                <h5 class="card-title">Researcher information</h5>
+                                The input form contains two fields:
+                                <ul class="card-text">
+                                    <li>
+                                        <strong>Researcher (required):</strong> The researcher's full name. It is used to search for the researcher in the <a href="https://dblp.org/">DBLP</a> database and retrieve all their BibTeX entries.
+                                        It is also used to determine the author's position among the total number of authors in each publication. 
+                                        Note that DBLP may not list all publications or may contain incomplete BibTeX entries, so providing a <code>.bib</code> file can help fill in any missing information and improve the visualization.
+                                    </li>
+                                    <li>
+                                        <strong>.bib file (optional):</strong> The provided <code>.bib</code> file is used to extract the researcher's publications. 
+                                        If this field is not provided, publications are retrieved from DBLP. 
+                                        If both sources are provided, the <code>.bib</code> file takes precedence over DBLP, allowing you to customize entries and include additional information not available in DBLP.
+                                    </li>
+                                </ul>
                             </div>
                         </div>
 
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Publication type:</h5>
+                                <h5 class="card-title">Visualization of a publication</h5>
+                                Publications are shown as colored squares in a bar chart timeline. Each bar represents a year, with all publications for that year stacked vertically. Within a year, publications are ordered from top to bottom by type, ranking, awards, and date, in that order of precedence. The type order is specified in the following section.
+                                Each square is interactive, allowing you to click and view publication details such as title, authors, DOI, and more.
+                                <p class="card-text"><img class="img-fluid" src="static/images/publication_schema.png" alt="Visualization example"></p>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Publication type</h5>
                                 <p class="card-text">The type of a publication is automatically extracted from the BibTeX entry and encoded with colors following a schema similar to that used by <a href="https://dblp.org/">DBLP</a>.
                                     <div class="color-legend" style="display: flex; flex-direction: column; gap: 12px; margin-top: 10px;">
                                     
@@ -155,13 +174,80 @@
 
                         <div class="card">
                             <div class="card-body">
+                                <h5 class="card-title">Venue</h5>
+                                <p class="card-text">The venue of a publication is automatically extracted from the BibTeX entry and displayed at the bottom-right corner of the square. Its value depends on the publication type:</p>
+                                <ul class="card-text">
+                                <li>
+                                    <strong>Journals:</strong> Taken from the <code>journal</code> field.
+                                </li>
+                                <li>
+                                    <strong>Conferences:</strong> Taken from the <code>booktitle</code> field.
+                                </li>
+                                <li>
+                                    <strong>Books and PhDThesis:</strong> Displays <code>Book</code> or <code>PhD Thesis</code>, respectively.
+                                </li>
+                                <li>
+                                    <strong>Others:</strong> Taken from the <code>journal</code> or <code>booktitle</code> field.
+                                </li>
+                                </ul>
+                                In all cases, if the value of the <code>journal</code> or <code>booktitle</code> field has fewer than 25 characters, it is shown as is. Otherwise, an acronym within that field, usually enclosed in parentheses,is searched and used. If no explicit acronym is found, one is generated automatically.
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Authors</h5>
+                                    <p class="card-text">At the bottom-left corner of the square, both the researcher's position and the total number of authors are displayed. If the researcher's name is not found in the <code>author</code> field, only the total number of authors is shown.</p>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Awards</h5>
+                                    <p class="card-text">Awards are extracted from the <code>awards</code> field, where you can list any number of awards separated by commas. In the visualization, two types of awards are distinguished:</p>
+                                    <ul class="card-text">
+                                        <li>
+                                            <strong>🏆 Best paper awards:</strong> For conference publications.
+                                        </li>
+                                        <li>
+                                            <strong>🏅 Other awards:</strong> For books and PhD theses.
+                                        </li>
+                                    </ul>
+                                    Example: <code>awards={Best Paper Award, Best Presentation Award}</code>. In this case, two 🏆 icons will appear in the visualization.
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Additional notes</h5>
+                                    <p class="card-text">Additional notes about the publications can be added using the <code>note</code> field, where multiple notes can be listed, separated by commas. The following values are supported:</p>
+                                    <ul class="card-text">
+                                        <li>
+                                            👥 <code>external collaboration</code>: Indicates that at least one co-author belongs to a different institution than the researcher.
+                                        </li>
+                                        <li>
+                                            🏢 <code>industry collaboration</code>: Indicates that at least one co-author is affiliated with a company.
+                                        </li>
+                                        <li>
+                                            🗺️ <code>international stay result</code>: Indicates that the publication is the outcome of an international research stay or internship carried out by the researcher.
+                                        </li>
+                                    </ul>
+                                    Example: <code>note={external collaboration, industry collaboration}</code>. In this case, the icons 👥🏢 will appear in the visualization.
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
                                 <h5 class="card-title">Contact</h5>
-                                <p class="card-text"><a
-                                        href="https://sites.google.com/view/josemiguelhorcas">José
-                                        Miguel Horcas</a></p>
+                                <p class="card-text">
+                                    For questions, feedback, or bug reports, you can contact 
+                                    <a href="https://sites.google.com/view/josemiguelhorcas" target="_blank">José Miguel Horcas</a> 
+                                    by email or open an issue on GitHub.
+                                </p>
                                 <a href="mailto:&#104;&#111;&#114;&#099;&#097;&#115;&#064;&#117;&#109;&#097;&#046;&#101;&#115;?subject=[BibTexViz]"
-                                    class="btn btn-outline-primary" role="button"
-                                    aria-pressed="true">Contact</a>
+                                class="btn btn-outline-dark" role="button" aria-pressed="true">📧 Email</a>
+                                <a href="https://github.com/bibtexviz/bibtexviz.github.io/issues" 
+                                class="btn btn-outline-dark" role="button" aria-pressed="true" target="_blank">🐙 GitHub Issues</a>
                             </div>
                         </div>
                     </div>
@@ -179,6 +265,8 @@
                                 </svg>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#" id="downloadBib">Download as BibTex</a></li>
+                                <div class="dropdown-divider"></div>
                                 <li><a class="dropdown-item" href="#" id="downloadSvg">Download as SVG</a></li>
                                 <li><a class="dropdown-item" href="#" id="downloadPng">Download as PNG</a></li>
                                 <li><a class="dropdown-item" href="#" id="downloadPdf">Download as PDF</a></li>
@@ -209,8 +297,7 @@
                 <h5 class="modal-title" id="publicationModalLabel">Publication Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                </div>
+            <div class="modal-body"></div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>

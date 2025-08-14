@@ -1,3 +1,5 @@
+let bibtexContent = "";
+
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('dataForm');
     const chart = document.getElementById('chart');
@@ -17,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (bibFile) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    const bibtexContent = e.target.result;
+                    bibtexContent = e.target.result;
                     const processedPublications = processBibtexFile(bibtexContent, researcherName);
         
                     // If the processing was successful, draw the chart
@@ -30,13 +32,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 reader.readAsText(bibFile);
             } else {
                 // If the file is not provided, search the author dblp
-                const bibtexContent = await getAuthorBibtex(researcherName);
+                bibtexContent = await getAuthorBibtex(researcherName);
                 console.log("Fetched BibTeX content:", bibtexContent);
                 const processedPublications = processBibtexFile(bibtexContent, researcherName);
                 if (processedPublications.length > 0) {
                     console.log("Parsed publication data from .bib file:", processedPublications);
                     drawChart(processedPublications, "#chart");
                     //alert('Archivo .bib cargado y gráfico actualizado.');
+                } else {
+                    alert(`Researcher "${researcherName}" not found in DBLP. Please upload a .bib file.`);
                 }
             }
         } else {
@@ -59,6 +63,22 @@ document.addEventListener('DOMContentLoaded', () => {
         URL.revokeObjectURL(url);
     });
    
+    document.getElementById('downloadBib').addEventListener('click', (e) => {
+        e.preventDefault();
+        if (!bibtexContent) {
+            alert('No hay datos BibTeX para descargar.');
+            return;
+        }
+        const blob = new Blob([bibtexContent], { type: 'application/x-bibtex' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'publications.bib';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    });
 });
 
 
@@ -112,6 +132,8 @@ function processBibtexFile(bibtexContent, researcherName) {
         address: pub.entryTags?.address || '',
         volume: pub.entryTags?.volume || '',
         calification: pub.entryTags?.calification || '',
+        pages: pub.entryTags?.pages || '',
+        bibtexContent: generateBibtex(pub),
       };
     });
 
@@ -123,3 +145,4 @@ function processBibtexFile(bibtexContent, researcherName) {
     return [];
   }
 }
+

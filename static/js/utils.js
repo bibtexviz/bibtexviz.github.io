@@ -427,3 +427,23 @@ function capitalizeFirstLetter(sentence) {
   
   return firstLetter + restOfSentence;
 }
+
+function generateBibtex(pub) {
+    const type = pub.entryType;
+    const key = pub.citationKey;
+    const tags = pub.entryTags || {};
+
+    // Convertimos los tags en líneas BibTeX
+    const entries = Object.entries(tags)
+        .map(([k, v]) => {
+            if (k === 'entryType' || k === 'citationKey') return '';
+            if (!v) return '';
+            // Escapamos llaves y comillas
+            //const safeValue = v.replace(/[{}]/g, '');
+            return `  ${k} = {${v}}`;
+        })
+        .filter(line => line !== '')
+        .join(',\n');
+
+    return `@${type}{${key},\n${entries}\n}`;
+}

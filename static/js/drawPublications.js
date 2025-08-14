@@ -189,35 +189,55 @@ function drawChart(publications, chartId) {
         .append("g")
         .attr("class", "pub-square-group")
         .on("click", function(event, d) {
-        // Obtenemos una referencia al modal de Bootstrap
-        const myModal = new bootstrap.Modal(document.getElementById('publicationModal'));
-        
-        // Rellenamos el contenido del modal
-        const urlValue = d.doi || d.url;
-        const linkText = urlValue || '-';
-        const modalBody = d3.select("#publicationModal .modal-body");
-        modalBody.html(`
-            <p><strong>Type:</strong> ${typesMap[d.type]}</p>
-            <p><strong>Authors (${d.authorPosition}):</strong> ${d.authors}</p>
-            <p><strong>Title:</strong> ${d.title}</p>
-            ${d.journal ? `<p><strong>Journal:</strong> ${d.journal}</p>` : ''} 
-            ${d.booktitle ? `<p><strong>Conference:</strong> ${d.booktitle}</p>` : ''}
-            ${d.volume ? `<p><strong>Volume:</strong> ${d.volume}</p>` : ''}
-            <p><strong>Year:</strong> ${d.month ? d.month : ''} ${d.year}</p>
-            ${d.address ? `<p><strong>Address:</strong> ${d.address}</p>` : ''}
-            ${d.jcr ? `<p><strong>JCR:</strong> ${d.jcr}</p>` : ''}
-            ${d.icore ? `<p><strong>ICORE:</strong> ${d.icore === '-' ? 'No indexed' : d.icore}</p>` : ''}
-            ${d.calification ? `<p><strong>Calification:</strong> ${d.calification}</p>` : ''}
-            ${d.publisher ? `<p><strong>Publisher:</strong> ${d.publisher}<p>` : ''}
-            ${d.awards && d.awards.length > 0 ? `<p><strong>Awards:</strong> ${d.awards.map(i => `${d.type === 'book' ? '🏅' : '🏆'} ${i}`).join(', ')}</p>` : ''}
-            ${d.notes ? `<p><strong>Notes:</strong> ${d.notes.split(',').map(i => `${iconMeaningMap[i.trim().toLowerCase()]} ${iconMap[i.trim().toLowerCase()]}` || '').join(", ")}</p>` : ''}
-            <p><strong>DOI/Handle/URL:</strong> <a href="${urlValue}" target="_blank" rel="noopener noreferrer">${linkText}</a></p>
-            ${d.abstract ? `<p><strong>Abstract:</strong> ${d.abstract}</p>` : ''}
-            ${d.keywords ? `<p><strong>Keywords:</strong> ${d.keywords}</p>` : ''}
-        `);
-        
-        // Mostramos el modal
-        myModal.show();
+            // Obtenemos una referencia al modal de Bootstrap
+            const myModal = new bootstrap.Modal(document.getElementById('publicationModal'));
+            
+            // Rellenamos el contenido del modal
+            const urlValue = d.doi || d.url;
+            const linkText = urlValue || '-';
+            const modalBody = d3.select("#publicationModal .modal-body");
+            const textReference = `${d.authors}. ${d.title}.${d.journal || d.booktitle ? ` ${d.journal || d.booktitle},` : ''} ${d.year}. ${d.volume ? `${d.volume}:` : ''}${d.pages ? ` ${d.pages.replace(/--/, '-')}.` : ''}${d.address ? ` ${d.address}.` : ''} ${d.doi ? `${d.doi}` : d.url ? `${d.url}` : ''}${d.awards && d.awards.length > 0 ? ` ${d.awards.map(i => ` «${i}»`).join(', ')}` : ''}`;
+            modalBody.html(`
+                <p><strong>Type:</strong> ${typesMap[d.type]}</p>
+                <p><strong>Authors (${d.authorPosition}):</strong> ${d.authors}</p>
+                <p><strong>Title:</strong> ${d.title}</p>
+                ${d.journal ? `<p><strong>Journal:</strong> ${d.journal}</p>` : ''} 
+                ${d.booktitle ? `<p><strong>Conference:</strong> ${d.booktitle}</p>` : ''}
+                ${d.volume ? `<p><strong>Volume:</strong> ${d.volume}</p>` : ''}
+                <p><strong>Year:</strong> ${d.month ? d.month : ''} ${d.year}</p>
+                ${d.address ? `<p><strong>Address:</strong> ${d.address}</p>` : ''}
+                ${d.jcr ? `<p><strong>JCR:</strong> ${d.jcr}</p>` : ''}
+                ${d.icore ? `<p><strong>ICORE:</strong> ${d.icore === '-' ? 'No indexed' : d.icore}</p>` : ''}
+                ${d.calification ? `<p><strong>Calification:</strong> ${d.calification}</p>` : ''}
+                ${d.publisher ? `<p><strong>Publisher:</strong> ${d.publisher}<p>` : ''}
+                ${d.awards && d.awards.length > 0 ? `<p><strong>Awards:</strong> ${d.awards.map(i => `${d.type === 'book' ? '🏅' : '🏆'} ${i}`).join(', ')}</p>` : ''}
+                ${d.notes ? `<p><strong>Notes:</strong> ${d.notes.split(',').map(i => `${iconMeaningMap[i.trim().toLowerCase()]} ${iconMap[i.trim().toLowerCase()]}` || '').join(", ")}</p>` : ''}
+                <p><strong>DOI/Handle/URL:</strong> <a href="${urlValue}" target="_blank" rel="noopener noreferrer">${linkText}</a></p>
+                ${d.abstract ? `<p><strong>Abstract:</strong> ${d.abstract}</p>` : ''}
+                ${d.keywords ? `<p><strong>Keywords:</strong> ${d.keywords}</p>` : ''}
+                <hr style="border-top: 1px solid #ccc;">
+                <p><strong>Reference:</strong>
+                ${textReference}
+                <div class="d-flex justify-content-center mt-3">
+                    <button type="button" class="btn btn-outline-dark me-2" id="copyTextBtn">🏷️ Copy Reference</button>
+                    <button type="button" class="btn btn-outline-dark" id="copyBibBtn">🗎 Copy BibTeX</button>
+                </div>
+            `);
+            
+            document.getElementById("copyTextBtn").addEventListener("click", () => {
+                        navigator.clipboard.writeText(textReference)
+                            .then(() => alert("Text copied to clipboard!"))
+                            .catch(err => console.error("Failed to copy text: ", err));
+            });
+
+            document.getElementById("copyBibBtn").addEventListener("click", () => {
+                navigator.clipboard.writeText(d.bibtexContent)
+                    .then(() => alert("BibTeX copied to clipboard!"))
+                    .catch(err => console.error("Failed to copy BibTeX: ", err));
+            });
+            
+            // Mostramos el modal
+            myModal.show();
     });
 
     const squares = group.append("g")
