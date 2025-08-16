@@ -45,9 +45,9 @@ function getAcronymOrTruncate(text, N) {
         .toUpperCase();
 
     // Validate that the built acronym does not exceed the limit N
-    if (initialsAcronym.length > N) {
+    if (initialsAcronym.length > 8) {
         // ** Modified logic to truncate the acronym and keep the last N characters **
-        return initialsAcronym.slice(-N);
+        return initialsAcronym.slice(-8);
     }
 
     return initialsAcronym;
