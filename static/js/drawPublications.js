@@ -11,6 +11,7 @@ function drawChart(publications, chartId) {
     const iconMap = {
         'best paper award': '🏆',
         'other award': '🏅',
+        'runner-up': '🥈',
         'external collaboration': '👥',
         'industry collaboration': '🏢',
         'international stay result': '🗺️',
@@ -19,10 +20,23 @@ function drawChart(publications, chartId) {
     const iconMeaningMap = {
         'best paper award': 'Best paper award',
         'other award': 'Other award',
+        'runner-up': 'Runner-up',
         'external collaboration': 'External collaboration',
         'industry collaboration': 'Industry collaboration',
         'international stay result': 'International stay result',
     };
+
+    const RUNNER_UP_AWARD_NAMES = [
+        "candidate",
+        "runner-up",
+        "runner up",
+        "second best paper",
+        "second best paper award",
+        "second prize",
+        "third prize",
+        "third best paper",
+        "honorable mention",
+    ];
 
     // Colores por tipo de publicación
     const colorMap = {
@@ -197,6 +211,7 @@ function drawChart(publications, chartId) {
             const linkText = urlValue || '-';
             const modalBody = d3.select("#publicationModal .modal-body");
             const textReference = `${d.authors}. ${d.title}.${d.journal || d.booktitle ? ` ${d.journal || d.booktitle},` : ''} ${d.year}. ${d.volume ? `${d.volume}:` : ''}${d.pages ? ` ${d.pages.replace(/--/, '-')}.` : ''}${d.address ? ` ${d.address}.` : ''} ${d.doi ? `${d.doi}` : d.url ? `${d.url}` : ''}${d.awards && d.awards.length > 0 ? ` ${d.awards.map(i => ` «${i}»`).join(', ')}` : ''}`;
+            const awardsText = d.awards && d.awards.length > 0 ? d.awards.map(i => `${d.type === 'book' ? iconMap['other award'] : RUNNER_UP_AWARD_NAMES.some(name => i.toLowerCase().includes(name)) ? iconMap['runner-up'] : iconMap['best paper award']} ${i}`).join(', ') : '';
             modalBody.html(`
                 <p><strong>Type:</strong> ${typesMap[d.type]}</p>
                 <p><strong>Authors (${d.authorPosition}):</strong> ${d.authors}</p>
@@ -210,7 +225,7 @@ function drawChart(publications, chartId) {
                 ${d.icore ? `<p><strong>ICORE:</strong> ${d.icore === '-' ? 'No indexed' : d.icore}</p>` : ''}
                 ${d.calification ? `<p><strong>Calification:</strong> ${d.calification}</p>` : ''}
                 ${d.publisher ? `<p><strong>Publisher:</strong> ${d.publisher}<p>` : ''}
-                ${d.awards && d.awards.length > 0 ? `<p><strong>Awards:</strong> ${d.awards.map(i => `${d.type === 'book' ? '🏅' : '🏆'} ${i}`).join(', ')}</p>` : ''}
+                ${d.awards && d.awards.length > 0 ? `<p><strong>Awards:</strong> ${awardsText}</p>` : ''}
                 ${d.notes ? `<p><strong>Notes:</strong> ${d.notes.split(',').map(i => `${iconMeaningMap[i.trim().toLowerCase()]} ${iconMap[i.trim().toLowerCase()]}` || '').join(", ")}</p>` : ''}
                 <p><strong>DOI/Handle/URL:</strong> <a href="${urlValue}" target="_blank" rel="noopener noreferrer">${linkText}</a></p>
                 ${d.abstract ? `<p><strong>Abstract:</strong> ${d.abstract}</p>` : ''}
@@ -331,7 +346,7 @@ function drawChart(publications, chartId) {
         .attr("href", function(award) {
             // d3 selecciona 'this' como <image>, su padre es el <g> de la publicación
             const parentData = d3.select(this.parentNode).datum();
-            return emojiToDataURL(parentData.type === 'book' ? '🏅' : '🏆');
+            return emojiToDataURL(parentData.type === 'book' ? iconMap['other award'] : RUNNER_UP_AWARD_NAMES.some(name => award.toLowerCase().includes(name)) ? iconMap['runner-up'] : iconMap['best paper award']);
     });
 
     // Superior izquierda: Iconos (colaboraciones, etc.)
@@ -549,8 +564,15 @@ function drawChart(publications, chartId) {
                     }
                 }
                 // Contamos cada premio que coincide con la key
-                if (d.awards?.length > 0 && key === 'best paper award') {
-                    count += d.awards.length;
+                if (d.awards?.length > 0 ) {
+                    for (const award of d.awards) {
+                        const isRunnerUp = RUNNER_UP_AWARD_NAMES.some(name => award.toLowerCase().includes(name));
+                        if (key === 'runner-up' && isRunnerUp) {
+                            count += 1;
+                        } else if (key === 'best paper award' && !isRunnerUp) {
+                            count += 1;
+                        }
+                    }
                 }
             } else if (d.type === 'book' && key === 'other award') {  // book or phdthesis
                 count += d.awards.length;
