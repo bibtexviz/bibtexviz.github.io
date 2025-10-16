@@ -211,7 +211,7 @@ function drawChart(publications, chartId) {
             const linkText = urlValue || '-';
             const modalBody = d3.select("#publicationModal .modal-body");
             const textReference = `${d.authors}. ${d.title}.${d.journal || d.booktitle ? ` ${d.journal || d.booktitle},` : ''} ${d.year}. ${d.volume ? `${d.volume}:` : ''}${d.pages ? ` ${d.pages.replace(/--/, '-')}.` : ''}${d.address ? ` ${d.address}.` : ''} ${d.doi ? `${d.doi}` : d.url ? `${d.url}` : ''}${d.awards && d.awards.length > 0 ? ` ${d.awards.map(i => ` «${i}»`).join(', ')}` : ''}`;
-            const awardsText = d.awards && d.awards.length > 0 ? d.awards.map(i => `${d.type === 'book' ? iconMap['other award'] : RUNNER_UP_AWARD_NAMES.some(name => i.toLowerCase().includes(name)) ? iconMap['runner-up'] : iconMap['best paper award']} ${i}`).join(', ') : '';
+            const awardsText = d.awards && d.awards.length > 0 ? d.awards.map(i => `${d.type === 'book' ? (RUNNER_UP_AWARD_NAMES.some(name => i.toLowerCase().includes(name)) ? iconMap['runner-up'] : iconMap['other award']) : (RUNNER_UP_AWARD_NAMES.some(name => i.toLowerCase().includes(name)) ? iconMap['runner-up'] : iconMap['best paper award'])} ${i}`).join(', ') : '';
             modalBody.html(`
                 <p><strong>Type:</strong> ${typesMap[d.type]}</p>
                 <p><strong>Authors (${d.authorPosition}):</strong> ${d.authors}</p>
@@ -346,7 +346,7 @@ function drawChart(publications, chartId) {
         .attr("href", function(award) {
             // d3 selecciona 'this' como <image>, su padre es el <g> de la publicación
             const parentData = d3.select(this.parentNode).datum();
-            return emojiToDataURL(parentData.type === 'book' ? iconMap['other award'] : RUNNER_UP_AWARD_NAMES.some(name => award.toLowerCase().includes(name)) ? iconMap['runner-up'] : iconMap['best paper award']);
+            return emojiToDataURL(parentData.type === 'book' ? (RUNNER_UP_AWARD_NAMES.some(name => award.toLowerCase().includes(name)) ? iconMap['runner-up'] : iconMap['other award']) : (RUNNER_UP_AWARD_NAMES.some(name => award.toLowerCase().includes(name)) ? iconMap['runner-up'] : iconMap['best paper award']));
     });
 
     // Superior izquierda: Iconos (colaboraciones, etc.)
@@ -574,8 +574,15 @@ function drawChart(publications, chartId) {
                         }
                     }
                 }
-            } else if (d.type === 'book' && key === 'other award') {  // book or phdthesis
-                count += d.awards.length;
+            } else if (d.type === 'book') {
+                for (const award of d.awards) {
+                    const isRunnerUp = RUNNER_UP_AWARD_NAMES.some(name => award.toLowerCase().includes(name));
+                    if (key === 'runner-up' && isRunnerUp) {
+                        count += 1;
+                    } else if (key === 'other award' && !isRunnerUp) {
+                        count += 1;
+                    }
+                }
             }
         });
         acc[key] = count;
