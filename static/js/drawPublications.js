@@ -219,6 +219,7 @@ function drawChart(publications, chartId) {
                 ${d.journal ? `<p><strong>Journal:</strong> ${d.journal}</p>` : ''} 
                 ${d.booktitle ? `<p><strong>Conference:</strong> ${d.booktitle}</p>` : ''}
                 ${d.volume ? `<p><strong>Volume:</strong> ${d.volume}</p>` : ''}
+                ${d.specialissue ? `<p><strong>Special Issue:</strong> ${d.specialissue}</p>` : ''}
                 <p><strong>Year:</strong> ${d.month ? d.month : ''} ${d.year}</p>
                 ${d.address ? `<p><strong>Address:</strong> ${d.address}</p>` : ''}
                 ${d.jcr ? `<p><strong>JCR:</strong> ${d.jcr}</p>` : ''}

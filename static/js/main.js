@@ -133,6 +133,7 @@ function processBibtexFile(bibtexContent, researcherName) {
         volume: pub.entryTags?.volume || '',
         calification: pub.entryTags?.calification || '',
         pages: pub.entryTags?.pages || '',
+        specialissue: pub.entryTags?.specialissue || '',
         bibtexContent: generateBibtex(pub),
       };
     });
