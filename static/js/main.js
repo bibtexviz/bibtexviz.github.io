@@ -79,6 +79,64 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
     });
+
+    // --- NUEVO BLOQUE: permitir carga automática por parámetros URL ---
+    const params = new URLSearchParams(window.location.search);
+    const researcherNameParam = params.get("researcher");
+    const sourceParam = params.get("source"); // puede ser una URL o un DOI o un identificador
+
+    if (researcherNameParam) {
+        console.log(`Detected researcher from URL: ${researcherNameParam}`);
+        
+        // Si hay source (por ejemplo una URL o un nombre de archivo), intenta cargarlo
+        if (sourceParam) {
+            // Cargar desde un archivo .bib remoto (si es una URL válida)
+            if (sourceParam.endsWith(".bib") || sourceParam.startsWith("http")) {
+                fetch(sourceParam)
+                    .then(response => {
+                        if (!response.ok) throw new Error("Error loading .bib file");
+                        return response.text();
+                    })
+                    .then(bibContent => {
+                        bibtexContent = bibContent;
+                        const processedPublications = processBibtexFile(bibtexContent, researcherNameParam);
+                        if (processedPublications.length > 0) {
+                            drawChart(processedPublications, "#chart");
+                        } else {
+                            alert("The provided BibTeX file has no valid entries.");
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        alert("Error loading the BibTeX file from URL.");
+                    });
+            }
+            //  else {
+            //     // Si no es un .bib ni URL, asumimos que es un nombre o identificador para DBLP
+            //     getAuthorBibtex(sourceParam).then(bib => {
+            //         bibtexContent = bib;
+            //         const processedPublications = processBibtexFile(bibtexContent, researcherNameParam);
+            //         if (processedPublications.length > 0) {
+            //             drawChart(processedPublications, "#chart");
+            //         } else {
+            //             alert(`Researcher "${researcherNameParam}" not found in DBLP.`);
+            //         }
+            //     });
+            // }
+        } else {
+            // Si no hay "source", intenta cargar automáticamente desde DBLP por nombre
+            getAuthorBibtex(researcherNameParam).then(bib => {
+                bibtexContent = bib;
+                const processedPublications = processBibtexFile(bibtexContent, researcherNameParam);
+                if (processedPublications.length > 0) {
+                    drawChart(processedPublications, "#chart");
+                } else {
+                    alert(`Researcher "${researcherNameParam}" not found in DBLP.`);
+                }
+            });
+        }
+    }
+
 });
 
 
@@ -133,6 +191,7 @@ function processBibtexFile(bibtexContent, researcherName) {
         volume: pub.entryTags?.volume || '',
         calification: pub.entryTags?.calification || '',
         pages: pub.entryTags?.pages || '',
+        specialissue: pub.entryTags?.specialissue || '',
         bibtexContent: generateBibtex(pub),
       };
     });

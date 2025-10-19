@@ -221,7 +221,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Awards</h5>
-                                    <p class="card-text">Awards are extracted from the <code>awards</code> field, where you can list any number of awards separated by commas. In the visualization, two types of awards are distinguished:</p>
+                                    <p class="card-text">Awards are extracted from the <code>awards</code> field, where you can list any number of awards separated by commas. In the visualization, three types of awards are distinguished:</p>
                                     <ul class="card-text">
                                         <li>
                                             <strong>🏆 Best paper awards:</strong> For conference publications.
@@ -229,8 +229,21 @@
                                         <li>
                                             <strong>🏅 Other awards:</strong> For books and PhD theses.
                                         </li>
+                                        <li>
+                                            <strong>🥈 Runner-up awards:</strong> For all types of publications.
+                                        </li>
                                     </ul>
                                     Example: <code>awards={Best Paper Award, Best Presentation Award}</code>. In this case, two 🏆 icons will appear in the visualization.
+                                    <br>
+                                    Runner-ups are identified by looking for keywords such as "runner-up", "runner up", "second best paper", "second award", "second prize", "third prize", "third best paper", or "honorable mention", in the award names.
+                                </div>
+                        </div>
+
+                         <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Special issues</h5>
+                                    <p class="card-text">Information about special issue of journals can be added using the <code>specialissue</code> field.</p>
+                                    Example: <code>specialissue={Special Issue on Data Visualization for Research}</code>.
                             </div>
                         </div>
 
