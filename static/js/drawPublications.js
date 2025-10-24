@@ -404,6 +404,37 @@ function drawChart(publications, chartId) {
     const legendX = xStart + groupedByYear.length * columnGap + 50;
     const legendY = 50;
 
+    // -------------------------------------------------------------------
+    // NUEVO CÓDIGO AÑADIDO: Eje Y en la Derecha (antes de la leyenda)
+    // -------------------------------------------------------------------
+
+    // 1. Calcular la posición del eje Y derecho (un poco a la izquierda de la leyenda)
+    const yAxisRightX = legendX - 50; // legendX es el inicio de la leyenda
+
+    // 2. Etiquetas de eje Y derecho (número de publicaciones)
+    svg.selectAll("text.y-axis-label-right")
+        .data(yScaleLabels)
+        .enter()
+        .append("text")
+        .attr("class", "y-axis-label-right")
+        .attr("x", yAxisRightX + 10) // Mueve 10px a la derecha de la línea
+        .attr("y", (d, i) => (i * rowGap) + padding)
+        .attr("dy", "14px")
+        .attr("text-anchor", "start") // Alineación a la izquierda para que el texto se extienda hacia la derecha
+        .style("font-family", "Helvetica, Arial, sans-serif")
+        .text(d => d);
+
+    // 3. Línea vertical del eje Y derecho
+    svg.append("line")
+        .attr("x1", yAxisRightX)
+        .attr("y1", 0)
+        .attr("x2", yAxisRightX)
+        .attr("y2", yBase)
+        .attr("stroke", "black")
+        .attr("stroke-width", 1);
+        
+    // -------------------------------------------------------------------
+
     const legend = svg.append("g")
         .attr("class", "legend")
         .attr("transform", `translate(${legendX}, ${legendY})`);
