@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (sourceParam) {
             // Cargar desde un archivo .bib remoto (si es una URL válida)
             if (sourceParam.endsWith(".bib") || sourceParam.startsWith("http")) {
-                fetch(sourceParam)
+                fetch(sourceParam + "?t=" + Date.now(), { cache: "no-store" })
                     .then(response => {
                         if (!response.ok) throw new Error("Error loading .bib file");
                         return response.text();
