@@ -67,12 +67,12 @@
                     </div>
 
                     <!-- Contenido de About / Help -->
-                    <div class="tab-pane fade" id="about" role="tabpanel">
+                    <div class="tab-pane fade" id="about" role="tabpanel" style="text-align: justify;">
                         <div class="card">
                             <div class="card-body">
                             
-                               <div class="d-flex align-items-start">
-                                    <img class="img-fluid me-3" src="static/images/bibtexviz_logo_recortado.png" alt="BibTexViz logo" width="200px">
+                               <div class="d-flex flex-column align-items-center">
+                                    <img class="img-fluid mb-3" src="static/images/bibtexviz_logo_recortado.png" alt="BibTexViz logo" width="200px">
                                     <p class="card-text">
                                         <strong>BibTexViz</strong> is a tool that transforms <code>.bib</code> files into interactive visualizations for exploring and analyzing research productivity. It offers an intuitive overview of the research publication landscape over the years, allowing users to quickly identify the most significant publications and understand their context.
                                         This web application runs entirely on the client side, requiring no server, and leverages HTML, CSS, JavaScript, and the D3.js library to render the visualizations.
@@ -314,10 +314,9 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="card-body" style="overflow-x: auto;">
-                        <div style="min-width: 1200px;"></div>
-                            <svg id="chart"></svg>
-                        </div> 
+                    <div class="card-body chart-container">
+                        <svg id="chart"></svg>
+                        <svg id="legend"></svg>
                     </div>
                 </div>
             </div>

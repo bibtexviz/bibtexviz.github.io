@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', async() => {
     }
 
     const form = document.getElementById('dataForm');
-    const chart = document.getElementById('chart');
 
     // Dibuja el gráfico inicial con los datos de ejemplo
     //drawChart(examplePublications, "#chart");
@@ -72,8 +71,9 @@ document.addEventListener('DOMContentLoaded', async() => {
     // Lógica para descargar el SVG
     document.getElementById('downloadSvg').addEventListener('click', (e) => {
         e.preventDefault();
-        const svgContent = new XMLSerializer().serializeToString(chart);
-        const blob = new Blob([svgContent], { type: 'image/svg+xml' });
+        const svgElement = buildExportSvg('#chart');
+        const blob = serializeToSVG(svgElement);
+        svgElement.parentNode.remove();
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
@@ -171,6 +171,16 @@ function processBibtexFile(bibtexContent, researcherName) {
   try {
     // Use bibtexParse to convert the content to a JSON array
     const publicationsJSON = bibtexParse.toJSON(bibtexContent);
+
+    // BibTeX field names are case-insensitive (e.g., HAL exports use TITLE, AUTHOR, ...),
+    // so normalize them to lowercase before accessing them
+    publicationsJSON.forEach(pub => {
+      if (pub.entryTags) {
+        pub.entryTags = Object.fromEntries(
+          Object.entries(pub.entryTags).map(([key, value]) => [key.toLowerCase(), value])
+        );
+      }
+    });
     
     // Convert to a D3.js compatible format (this logic can be adjusted as needed)
     console.log("Parsed publication data:", publicationsJSON);

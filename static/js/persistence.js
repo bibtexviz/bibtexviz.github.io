@@ -1,10 +1,7 @@
 const setupSaveButton = (buttonId, chartSelector, serializeFunction, extension) => {
     d3.select(buttonId).on('click', async function(event) {
         event.preventDefault();
-        let chart = d3.select(chartSelector);
-        chart.selectAll("#collapseIcon").attr("visibility", "hidden");
-        const svgElement = chart.node();
-        const originalHeight = adjustSVGSize(svgElement);
+        const svgElement = buildExportSvg(chartSelector);
 
         const name = 'publications';
         try {
@@ -13,6 +10,7 @@ const setupSaveButton = (buttonId, chartSelector, serializeFunction, extension) 
         } catch (error) {
             console.error(`An error occurred while saving the ${extension.toUpperCase()}:`, error);
         } finally {
+            svgElement.parentNode.remove();
             //restoreSVGSize(svgElement, originalHeight);
             //newData = filterData(ALL_DATA);
             //redrawLabel(newData);
@@ -28,13 +26,11 @@ setupSaveButton('#downloadPng', '#chart', rasterize, '.png');
 const setupPDFSaveButton = (buttonId, chartSelector) => {
     d3.select(buttonId).on('click', async function(event) {
         event.preventDefault();
-        let chart = d3.select(chartSelector);
-        const svgElement = chart.node();
+        const svgElement = buildExportSvg(chartSelector);
 
         try {
-            const bbox = svgElement.getBBox(); // Obtén el tamaño del SVG
-            const svgWidth = bbox.width;
-            const svgHeight = bbox.height;
+            const svgWidth = +svgElement.getAttribute("width");
+            const svgHeight = +svgElement.getAttribute("height");
 
             const blob = await serializeToSVG(svgElement);
             const imgData = await readBlobAsDataURL(blob);
@@ -82,6 +78,7 @@ const setupPDFSaveButton = (buttonId, chartSelector) => {
         } catch (error) {
             console.error("An error occurred while saving the PDF:", error);
         } finally {
+            svgElement.parentNode.remove();
             //restoreSVGSize(svgElement, originalHeight);
             //newData = filterData(ALL_DATA);
             //redrawLabel(newData);
@@ -146,6 +143,48 @@ function downloadUsingAnchorElement() {
  * - FileSaver (for saving files on the client-side): https://github.com/eligrey/FileSaver.js/
  */
 
+/**
+ * Builds a single SVG with the chart and, centered below it, its legend (separate SVGs on screen),
+ * at their real size. The SVG is attached to the document (inside a hidden wrapper) so it
+ * can be measured and rendered; the caller must remove it when done.
+ */
+function buildExportSvg(chartSelector = '#chart', legendSelector = '#legend') {
+    const chart = document.querySelector(chartSelector);
+    const legend = document.querySelector(legendSelector);
+    const gap = 20;
+
+    const chartWidth = +chart.getAttribute("width") || 0;
+    const chartHeight = +chart.getAttribute("height") || 0;
+    const legendWidth = legend ? +legend.getAttribute("width") || 0 : 0;
+    const legendHeight = legend ? +legend.getAttribute("height") || 0 : 0;
+    const width = Math.max(chartWidth, legendWidth);
+    const height = chartHeight + (legendHeight ? gap + legendHeight : 0);
+
+    const svg = document.createElementNS(svgns, "svg");
+    svg.setAttribute("width", width);
+    svg.setAttribute("height", height);
+    svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+
+    const chartGroup = document.createElementNS(svgns, "g");
+    chart.childNodes.forEach(node => chartGroup.appendChild(node.cloneNode(true)));
+    svg.appendChild(chartGroup);
+
+    if (legend) {
+        const legendGroup = document.createElementNS(svgns, "g");
+        legendGroup.setAttribute("transform", `translate(${(width - legendWidth) / 2}, ${chartHeight + gap})`);
+        legend.childNodes.forEach(node => legendGroup.appendChild(node.cloneNode(true)));
+        svg.appendChild(legendGroup);
+    }
+
+    // Hide the wrapper, not the SVG, so no extra style ends up in the exported file
+    const wrapper = document.createElement("div");
+    wrapper.style.position = "absolute";
+    wrapper.style.left = "-100000px";
+    wrapper.appendChild(svg);
+    document.body.appendChild(wrapper);
+    return svg;
+}
+
 const xmlns = "http://www.w3.org/2000/xmlns/";
 const xlinkns = "http://www.w3.org/1999/xlink";
 const svgns = "http://www.w3.org/2000/svg";
@@ -177,9 +216,11 @@ function rasterize(svg) {
         reject(e);
     };
     image.onload = () => {
-        const rect = svg.getBoundingClientRect();
-        const context = context2d(rect.width, rect.height);
-        context.drawImage(image, 0, 0, rect.width, rect.height);
+        // Use the real SVG size, not the scaled on-screen size
+        const width = +svg.getAttribute("width") || svg.getBoundingClientRect().width;
+        const height = +svg.getAttribute("height") || svg.getBoundingClientRect().height;
+        const context = context2d(width, height);
+        context.drawImage(image, 0, 0, width, height);
         context.canvas.toBlob((blob) => {
             resolve(blob);
         }, 'image/png');

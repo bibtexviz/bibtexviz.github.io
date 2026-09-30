@@ -318,9 +318,19 @@ function getAuthors(authorsString) {
     if (!authorsString) {
         return '';
     }
-    // Use a regular expression to handle the delimiters " and ", ",", ";"
-    const delimiters = /\s+and\s+|;|,/g;
-    return authorsString.split(delimiters).map(name => normalizeAccents(name)).join(', ');
+    // BibTeX separates authors with " and " (";" also accepted)
+    const names = authorsString.split(/\s+and\s+|;/i).map(name => name.trim()).filter(Boolean);
+    // Fallback for non-standard lists that separate authors only with commas
+    if (names.length === 1 && (names[0].match(/,/g) || []).length > 1) {
+        return names[0].split(',').map(name => normalizeAccents(name.trim())).join(', ');
+    }
+    // Convert "Last, First" (and "Last, Jr, First") into "First Last"
+    return names.map(name => {
+        const parts = name.split(',').map(part => part.trim());
+        if (parts.length === 2) name = `${parts[1]} ${parts[0]}`;
+        else if (parts.length === 3) name = `${parts[2]} ${parts[0]} ${parts[1]}`;
+        return normalizeAccents(name);
+    }).join(', ');
 }
 
 /**

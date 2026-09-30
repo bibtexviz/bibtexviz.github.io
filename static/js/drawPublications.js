@@ -1,8 +1,9 @@
 // Definición de la función para dibujar el gráfico
-function drawChart(publications, chartId) {
+function drawChart(publications, chartId, legendId = "#legend") {
     // Si no hay publicaciones, limpiamos el SVG y salimos
     if (!publications || publications.length === 0) {
         d3.select(chartId).html(''); // Limpia el SVG
+        d3.select(legendId).html('');
         console.warn("No hay publicaciones para mostrar.");
         return;
     }
@@ -141,8 +142,12 @@ function drawChart(publications, chartId) {
     // Layout
     const svg = d3.select(chartId);
     
+    // The legend is drawn in its own SVG, below the chart, so it is not scaled down with it
+    const legendSvg = d3.select(legendId);
+
     // Limpiar el contenido anterior del SVG
     svg.html('');
+    legendSvg.html('');
 
     // Dibujar los cuadrados
     const squareSize = 120;
@@ -402,7 +407,6 @@ function drawChart(publications, chartId) {
 
     // Posición inicial de la leyenda (a la derecha del gráfico)
     const legendX = xStart + groupedByYear.length * columnGap + 50;
-    const legendY = 50;
 
     // -------------------------------------------------------------------
     // NUEVO CÓDIGO AÑADIDO: Eje Y en la Derecha (antes de la leyenda)
@@ -435,9 +439,12 @@ function drawChart(publications, chartId) {
         
     // -------------------------------------------------------------------
 
-    const legend = svg.append("g")
+    const legendRoot = legendSvg.append("g")
         .attr("class", "legend")
-        .attr("transform", `translate(${legendX}, ${legendY})`);
+        .attr("transform", `translate(${padding}, ${padding})`);
+
+    // One group per legend section; they are laid out as columns below the chart
+    let legend = legendRoot.append("g");
 
     legend.selectAll("rect")
         .data(legendColor)
@@ -481,6 +488,7 @@ function drawChart(publications, chartId) {
         .text(`(${publications.length})`);
 
     // Add quartiles and i-cores to the legend
+    legend = legendRoot.append("g");
      // Contar publicaciones por cuartil
     const quartileCounts = {
         'Q1': publications.filter(d => d.quartile === 'Q1').length,
@@ -529,6 +537,7 @@ function drawChart(publications, chartId) {
         .text(d => `${d[0]} (${d[1]})`);
 
     // ---- Título I-CORE ----
+    legend = legendRoot.append("g");
     // Contar publicaciones por ICORE
     const icoreCounts = {
         'A*': publications.filter(d => d.icore === 'A*').length,
@@ -630,6 +639,7 @@ function drawChart(publications, chartId) {
         count: iconCounts[key]
     }));
 
+    legend = legendRoot.append("g");
     const iconTitleY = icoreStart + Object.keys(icoreFiltered).length * legendSpacing + 30;
     legend.append("text")
         .attr("x", 0)
@@ -675,13 +685,35 @@ function drawChart(publications, chartId) {
         .attr('transform-origin', 'center')
         .attr('style', 'transition: transform 0.2s;');
 
-    // Calcular el ancho total
-    const numColumns = groupedByYear.length;
-    const legendWidth = 500; // Ancho fijo para la leyenda
-    const svgWidth = xStart + (numColumns - 1) * columnGap + squareSize + padding + legendWidth;
+    // Compute the total size from the drawn content
+    const bbox = svg.node().getBBox();
+    const svgWidth = Math.ceil(bbox.x + bbox.width + padding);
+    const svgHeight = Math.ceil(Math.max(yBase + 80, bbox.y + bbox.height + padding));
 
-    d3.select("#chart")
-        .attr("width", svgWidth)
+    // width/height keep the real size (used when exporting); the viewBox lets
+    // CSS scale the chart to fit the container width
+    svg.attr("width", svgWidth)
+        .attr("height", svgHeight)
+        .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`)
+        .style("max-width", `${svgWidth}px`);
+
+    // Lay out the legend sections side by side, aligned at the top
+    const legendColumnGap = 50;
+    let columnX = 0;
+    legendRoot.selectAll(":scope > g").each(function () {
+        const box = this.getBBox();
+        d3.select(this).attr("transform", `translate(${columnX - box.x}, ${-box.y})`);
+        columnX += box.width + legendColumnGap;
+    });
+
+    // The legend is only scaled down when it does not fit in the container
+    const legendBbox = legendSvg.node().getBBox();
+    const legendWidth = Math.ceil(legendBbox.x + legendBbox.width + 2 * padding);
+    const legendHeight = Math.ceil(legendBbox.y + legendBbox.height + 2 * padding);
+    legendSvg.attr("width", legendWidth)
+        .attr("height", legendHeight)
+        .attr("viewBox", `0 0 ${legendWidth} ${legendHeight}`)
+        .style("max-width", `${legendWidth}px`);
 
 }
 
